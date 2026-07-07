@@ -53,9 +53,57 @@ Not feature work — upkeep.
 Off the main flow entirely.
 
 - **`/grill-me`** — the same relentless interview as `/grill-with-docs`, but for when you have **no codebase**. Stateless: it saves nothing locally, builds no `CONTEXT.md`. Reach for it to sharpen any plan or design that doesn't live in a repo.
-- **`/teach`** — learn a concept over multiple sessions, using the current directory as a stateful workspace.
+- **`/teach`** — learn a concept over multiple sessions, using the current directory as a stateful workspace. When a vault is configured, learning records and resources bridge to the vault for long-term use and cross-linking.
 - **`/writing-great-skills`** — reference for writing and editing skills well.
+
+## Agent loops
+
+When you want the agent to **iterate autonomously** until an objective says done — without prompting every step.
+
+- **`/setup-agent-loops`** — run once per repo to configure verification commands, stop rules, and scope. Do this after `/setup-matt-pocock-skills` (or standalone if you only need loops).
+- **`/until-done`** — goal-based loop: you hand off the stop condition ("fix this test", "implement issue #42"). Cursor's equivalent of `/goal`.
+- **Cursor `/loop`** — time-based recurrence (`/loop 5m …`, `/loop 1h /triage`). Combine with recipes in the `setup-agent-loops` skill folder.
+- **`/implement`** — uses agent-loop stop rules when `docs/agents/loops.md` exists; iterate until verifiers pass within the iteration cap.
+
+**When to use which:**
+
+| Situation | Reach for |
+| --------- | --------- |
+| One-shot fix with clear done signal | `/until-done` |
+| Implementing an issue from `/to-issues` | Fresh session + `/implement` (or `/until-done` with issue ref) |
+| Recurring maintenance while you work | `/loop 30m …` |
+| Incoming issues piling up | `/loop 1h /triage` |
+| PR failing CI | Cursor `babysit` skill |
+
+**Design a custom recurring workflow** (life/process, not code) — see `loop-me` in in-progress; different purpose from agent loops.
+
+## Knowledge, Research & Learning
+
+When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources.
+
+- **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
+- **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Also wires external research (davidondrej research-and-web) into the vault.
+- **`research-from-vault`** (model-invoked) — reusable discipline for research and synthesis from the vault. Rich triggers: "research X using my vault", "consult the knowledge vault", "synthesize from PDFs and notes". Reads the config and emits wikilinked notes + learning records.
+- External research ingestion: install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
+- Maintenance loops: Cursor `/loop` + recipes in `setup-knowledge-vault/recipes/` (ingest sources, research a topic, maintain indexes, ingest-external-then-synthesize).
+
+**When to use which:**
+
+| Situation | Reach for |
+| --------- | --------- |
+| Want to deeply learn a topic over time | `/teach` (vault bridge happens automatically when configured) |
+| First time setting up personal knowledge | `/setup-knowledge-vault` |
+| Need synthesis from existing PDFs/notes in vault | `research-from-vault` (or `/until-done Research X from vault`) |
+| Need fresh external info + durable capture | Use davidondrej research skills → save to vault → `research-from-vault` or `/teach` |
+| Recurring processing of new vault material | `/loop 1d ...` with a recipe from setup-knowledge-vault |
+| Knowledge gap during engineering/loop | Agent reaches `research-from-vault` (or you say "use the vault") |
+
+See also the brain architecture in `docs/agents/brain.md`.
 
 ## Precondition
 
 **`/setup-matt-pocock-skills`** — run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
+
+**`/setup-agent-loops`** — run before `/until-done` or unattended iteration. Optional but recommended for any repo where the agent should loop until tests pass.
+
+**`/setup-knowledge-vault`** — run before relying on vault-backed learning, research, or loops that consult personal knowledge sources.

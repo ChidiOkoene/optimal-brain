@@ -44,3 +44,17 @@ Write one when any of these is true:
 ## Supersession
 
 When a later record contradicts an earlier one (the user's understanding deepened or corrected), mark the old record `Status: superseded by LR-NNNN` rather than deleting it. The history of how understanding evolved is itself useful signal.
+
+## Vault Learning Records
+
+When `docs/agents/knowledge-vault.md` exists (see `/setup-knowledge-vault`), bridge local learning records into the vault for durable, cross-linked storage.
+
+- Create a Title Case note in the vault (e.g. `Vector Search Tradeoffs.md` or keep a `0001-` prefix if sequencing matters for you).
+- Include:
+  - The core insight (1-3 sentences).
+  - Wikilinks at the bottom to related vault notes, source companions (PDFs or articles), and any Index.
+  - Optional cross-link back to the teach workspace `MISSION.md` or local record.
+- Companion sources: if the learning came from a vault PDF, link the companion note (e.g. `[[RAG Paper Note]]`).
+- Update or create the relevant Index note (e.g. `Learning Records Index.md` or topic Index) so the new record is discoverable.
+
+The vault version is the long-term home. The local `./learning-records/` remains useful for the active teach workspace. When in doubt, emit both and link them.

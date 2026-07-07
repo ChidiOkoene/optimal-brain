@@ -5,3 +5,5 @@ disable-model-invocation: true
 ---
 
 Run a `/grilling` session, using the `/domain-modeling` skill.
+
+When a knowledge vault is configured (see `docs/agents/knowledge-vault.md`), domain-modeling and the grilling session may consult vault sources via `research-from-vault` (or directly) to ground concepts and terminology with your personal notes and captured research.

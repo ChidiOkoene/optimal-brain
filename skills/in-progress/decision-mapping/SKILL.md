@@ -37,7 +37,7 @@ Each ticket must be sized to one 100K token agent session.
 
 There are three types of tickets:
 
-- **Research**: Reading documentation, third-party API's, or local resources like knowledge bases. Creates a markdown summary as an asset. Use this when knowledge outside the current working directory is required.
+- **Research**: Reading documentation, third-party API's, or local resources like knowledge bases. Creates a markdown summary as an asset. Use this when knowledge outside the current working directory is required. When a knowledge vault is configured (`docs/agents/knowledge-vault.md`), prefer vault sources (PDFs, notes, prior learning records) first; use external research tools only for gaps not covered in the vault.
 - **Prototype**: Writing UI or logic code to test a hypothesis, or to explore a design space. Uses the /prototype skill. Creates a prototype as an asset. Use this when "how should it look" or "how should it behave" is the key question.
 - **Grilling**: Conversation with the agent. Uses the /grilling and /domain-modeling skills. Asks one question at a time. The default case.
 

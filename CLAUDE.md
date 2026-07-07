@@ -14,3 +14,11 @@ Each skill entry in the top-level `README.md` must link the skill name to its `S
 Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reachable only by the human) or model-invoked (model- or user-reachable). For the full definitions, description conventions, and why a user-invoked skill can invoke model-invoked skills but never another user-invoked one, see [docs/invocation.md](./docs/invocation.md).
+
+## Agent loops
+
+Verification commands, stop rules, and scope for autonomous iteration. See `docs/agents/loops.md`.
+
+## Knowledge & Research
+
+Personal knowledge vault configuration, learning record placement, PDF/source handling, and research-from-vault flows. See `docs/agents/knowledge-vault.md`. External research ingestion uses davidondrej research-and-web skills feeding the vault.
