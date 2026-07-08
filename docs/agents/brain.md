@@ -44,9 +44,9 @@ flowchart LR
 
 ## Quickstart (combined stack)
 
-1. Install this skills collection:
+1. Install this skills collection (the extended optimal brain):
    ```bash
-   npx skills@latest add mattpocock/skills
+   npx skills@latest add chidi/optimal-brain
    ```
    Select the skills you want (at minimum include `/setup-matt-pocock-skills`, `/setup-agent-loops`, `/ask-matt`, `/teach`).
 
@@ -69,7 +69,7 @@ After adding or updating skills in the source:
 
 ```powershell
 # Reinstall just the new vault skills (or all)
-npx skills add mattpocock/skills -g -a cursor -y -s setup-knowledge-vault -s research-from-vault
+npx skills add chidi/optimal-brain -g -a cursor -y -s setup-knowledge-vault -s research-from-vault
 
 # For external research reach (davidondrej)
 npx skills add davidondrej/skills -g -a cursor
@@ -105,7 +105,7 @@ All expected `SKILL.md` should be listed with no errors. Frontmatter on new skil
 
 ## Installation Order Recommendation
 
-1. mattpocock/skills (engineering base + loops + teach)
+1. chidi/optimal-brain (engineering base + loops + teach + vault)
 2. `/setup-matt-pocock-skills` + `/setup-agent-loops`
 3. `/setup-knowledge-vault`
 4. davidondrej/skills (selective: research-and-web first)

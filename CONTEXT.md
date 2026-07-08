@@ -1,6 +1,6 @@
-# Matt Pocock Skills
+# Optimal Brain (chidi/optimal-brain)
 
-A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+An extended collection of agent skills (slash commands and behaviors) for agentic engineering and research. Built on the mattpocock/skills foundation plus loop engineering and knowledge vault layers. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills` (plus `/setup-agent-loops` and `/setup-knowledge-vault`).
 
 ## Language
 
