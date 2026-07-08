@@ -1,47 +1,70 @@
-<p>
-  <a href="https://www.aihero.dev/s/skills-newsletter">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://res.cloudinary.com/total-typescript/image/upload/v1777382277/skills-repo-dark_2x.png">
-      <source media="(prefers-color-scheme: light)" srcset="https://res.cloudinary.com/total-typescript/image/upload/v1777382277/skill-repo-light_2x.png">
-      <img alt="Skills" src="https://res.cloudinary.com/total-typescript/image/upload/v1777382277/skill-repo-light_2x.png" width="369">
-    </picture>
-  </a>
-</p>
+# Optimal Brain for Agentic Engineering & Research
 
-# Skills For Real Engineers
+```mermaid
+flowchart LR
+  subgraph External[External Research Layer]
+    D["davidondrej research-and-web\n(browser, YT, APIs, web)"]
+  end
+  subgraph Memory[Personal Memory / Vault]
+    V["Obsidian Vault\n(PDFs, notes, sources)"]
+    LRV["Vault Learning Records\n(wikilinked)"]
+    KV["docs/agents/knowledge-vault.md"]
+  end
+  subgraph Synthesis["Synthesis & Capture"]
+    RV["research-from-vault (model)"]
+    T["/teach (user)"]
+  end
+  subgraph Execution["Engineering Execution + Loops"]
+    AL["agent-loop + /until-done"]
+    ENG["grill-with-docs, domain-modeling,\ntdd, implement, ..."]
+    ASK["/ask-matt (router)"]
+  end
+  D -->|"pull fresh\nmaterial"| V
+  V --> RV
+  RV --> LRV
+  T --> LRV
+  AL -->|"knowledge gap"| RV
+  ENG -->|"ground terms/decisions"| RV
+  ASK --> T
+  ASK --> RV
+  ASK -->|"install + use davidondrej\nthen synthesize"| D
+```
 
-[![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
+*Layered architecture of the optimal brain (see `docs/OPTIMAL-BRAIN.md` for details).*
 
-My agent skills that I use every day to do real engineering - not vibe coding.
-
-Developing real applications is hard. Approaches like GSD, BMAD, and Spec-Kit try to help by owning the process. But while doing so, they take away your control and make bugs in the process hard to resolve.
+This is a composite "optimal brain" for agentic engineering and research. It layers the strong engineering fundamentals from `mattpocock/skills` with disciplined autonomous iteration via loop engineering and durable personal memory via a knowledge vault. External research capabilities (from `davidondrej/skills`) feed the vault, and synthesis tools turn fresh and stored knowledge into lasting learning records. See `docs/OPTIMAL-BRAIN.md` for the full architecture and comparison.
 
 These skills are designed to be small, easy to adapt, and composable. They work with any model. They're based on decades of engineering experience. Hack around with them. Make them your own. Enjoy.
 
-If you want to keep up with changes to these skills, and any new ones I create, you can join ~60,000 other devs on my newsletter:
-
-[Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
-
 ## Quickstart (30-second setup)
 
-1. Run the skills.sh installer:
+1. Install the core collection:
 
-```bash
-npx skills@latest add mattpocock/skills
-```
+   ```bash
+   npx skills@latest add chidi/optimal-brain
+   ```
 
-2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select `/setup-matt-pocock-skills`**.
+   For external research reach (browser, web, YouTube, APIs — feeds the vault):
 
-3. Run `/setup-matt-pocock-skills` in your agent. It will:
-   - Ask you which issue tracker you want to use (GitHub, Linear, or local files)
-   - Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
-   - Ask you where you want to save any docs we create
+   ```bash
+   npx skills@latest add davidondrej/skills
+   ```
 
-4. Bam - you're ready to go.
+2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select at minimum `/setup-matt-pocock-skills`, `/setup-agent-loops`, and `/setup-knowledge-vault`**.
+
+3. Run the setup skills in your agent (in a repo/workspace):
+
+   - `/setup-matt-pocock-skills` — configure issue tracker, triage labels, and domain doc layout.
+   - `/setup-agent-loops` — configure verification commands, stop rules, and scope for agent loops.
+   - `/setup-knowledge-vault` — configure your Obsidian vault location, learning record bridging, PDF handling, and vault integration.
+
+4. (Optional but powerful for research) From davidondrej/skills, select the `research-and-web` category to pull fresh material that can be synthesized into the vault.
+
+5. Restart Cursor (or start a fresh Agent chat) and use `/ask-matt` to discover flows. Bam — you're ready to go.
 
 ## Why These Skills Exist
 
-I built these skills as a way to fix common failure modes I see with Claude Code, Codex, and other coding agents.
+The skills in this collection (founded on mattpocock/skills) were built to fix common failure modes seen with Claude Code, Codex, and other coding agents.
 
 ### #1: The Agent Didn't Do What I Want
 
@@ -58,7 +81,7 @@ This is just the same in the AI age. There is a communication gap between you an
 - [`/grill-me`](./skills/productivity/grill-me/SKILL.md) - for non-code uses
 - [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) - same as [`/grill-me`](./skills/productivity/grill-me/SKILL.md), but adds more goodies (see below)
 
-These are my most popular skills. They help you align with the agent before you get started, and think deeply about the change you're making. Use them _every_ time you want to make a change.
+The grilling skills are among the most popular in the collection. They help you align with the agent before you get started, and think deeply about the change you're making. Use them _every_ time you want to make a change.
 
 ### #2: The Agent Is Way Too Verbose
 
@@ -68,7 +91,7 @@ These are my most popular skills. They help you align with the agent before you 
 
 **The Problem**: At the start of a project, devs and the people they're building the software for (the domain experts) are usually speaking different languages.
 
-I felt the same tension with my agents. Agents are usually dropped into a project and asked to figure out the jargon as they go. So they use 20 words where 1 will do.
+The same tension appears with agents: they are usually dropped into a project and asked to figure out the jargon as they go. So they use 20 words where 1 will do.
 
 **The Fix** for this is a shared language. It's a document that helps agents decode the jargon used in the project.
 
@@ -77,7 +100,7 @@ I felt the same tension with my agents. Agents are usually dropped into a projec
 Example
 </summary>
 
-Here's an example [`CONTEXT.md`](https://github.com/mattpocock/course-video-manager/blob/076a5a7a182db0fe1e62971dd7a68bcadf010f1c/CONTEXT.md), from my `course-video-manager` repo. Which one is easier to read?
+Here's an example [`CONTEXT.md`](https://github.com/mattpocock/course-video-manager/blob/076a5a7a182db0fe1e62971dd7a68bcadf010f1c/CONTEXT.md) from a project using these patterns. Which one is easier to read?
 
 - **BEFORE**: "There's a problem when a lesson inside a section of a course is made 'real' (i.e. given a spot in the file system)"
 - **AFTER**: "There's a problem with the materialization cascade"
@@ -111,9 +134,9 @@ It's time to look at your feedback loops. Without feedback on how the code it pr
 
 For automated tests, a red-green-refactor loop is critical. This is where the agent writes a failing test first, then fixes the test. This helps give the agent a consistent level of feedback that results in far better code.
 
-I've built a **[`/tdd`](./skills/engineering/tdd/SKILL.md) skill** you can slot into any project. It encourages red-green-refactor and gives the agent plenty of guidance on what makes good and bad tests.
+The collection includes a **[`/tdd`](./skills/engineering/tdd/SKILL.md) skill** you can slot into any project. It encourages red-green-refactor and gives the agent plenty of guidance on what makes good and bad tests.
 
-For debugging, I've also built a **[`/diagnosing-bugs`](./skills/engineering/diagnosing-bugs/SKILL.md)** skill that wraps best debugging practices into a simple loop.
+For debugging, it also includes a **[`/diagnosing-bugs`](./skills/engineering/diagnosing-bugs/SKILL.md)** skill that wraps best debugging practices into a simple loop.
 
 ### #4: We Built A Ball Of Mud
 
@@ -133,21 +156,37 @@ This is built in to every layer of these skills:
 
 - [`/to-prd`](./skills/engineering/to-prd/SKILL.md) quizzes you about which modules you're touching before creating a PRD
 
-And crucially, [`/improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) helps you rescue a codebase that has become a ball of mud. I recommend running it on your codebase once every few days.
+And crucially, [`/improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/SKILL.md) helps you rescue a codebase that has become a ball of mud. It is recommended to run it on your codebase once every few days.
 
 ### Summary
 
-Software engineering fundamentals matter more than ever. These skills are my best effort at condensing these fundamentals into repeatable practices, to help you ship the best apps of your career. Enjoy.
+Software engineering fundamentals matter more than ever. These skills represent a best effort at condensing fundamentals into repeatable practices, to help you ship the best apps of your career. Enjoy.
+
+## Origins & Credits
+
+This stack is a fork and extension. Honest attribution for the composite:
+
+- **mattpocock/skills** (Matt Pocock): The foundational engineering skills — grilling sessions, domain modeling, TDD, `ask-matt` router, `teach`, `setup-matt-pocock-skills`, `to-issues`/`to-prd`, vertical slicing, codebase architecture improvement, and the overall skill taxonomy, invocation model, and philosophy. The core "hands" for day-to-day engineering come from here.
+
+- **Chidi** (this fork, chidi/optimal-brain): The loop engineering layer (`setup-agent-loops`, `agent-loop`, `until-done` + recipes + `docs/agents/loops.md`), the knowledge vault layer (`setup-knowledge-vault`, `research-from-vault`, bridging updates to `teach` + `LEARNING-RECORD-FORMAT.md`/`RESOURCES-FORMAT.md`, reach points across skills), plus the integrated documentation (`docs/OPTIMAL-BRAIN.md`, `docs/agents/brain.md`).
+
+- **davidondrej/skills** (David Ondrej): Research-and-web capabilities (browser, YouTube, web search, research APIs) that provide external ingestion — fresh material that can be landed in the vault and synthesized.
+
+- **Conceptual influences**: The broader loop-engineering mindset (design the loop, not just the prompt) discussed by Addy Osmani and others; the narrow autoresearch/Karpathy pattern (`karpathy/autoresearch` — see explicit distinction and when to use each in `docs/OPTIMAL-BRAIN.md`); emphasis on "design the loop" from Peter Steinberger, Boris Cherny, and related practitioners.
+
+The original skills give you excellent engineering fundamentals. This fork completes the system with long-term memory (the vault), external sensing, synthesis, and disciplined autonomous iteration — while preserving the base.
+
+See `docs/OPTIMAL-BRAIN.md` for the full layered architecture, detailed comparison, Karpathy distinction, research/PhD strengths, and core flows.
 
 ## Reference
 
 These split on one axis — who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
 
-This collection is extended with loop engineering and knowledge vault skills (see `docs/OPTIMAL-BRAIN.md`).
+This collection is extended with loop engineering and knowledge vault skills (see `docs/OPTIMAL-BRAIN.md` for architecture, credits, and research guidance).
 
 ### Engineering
 
-Skills I use daily for code work.
+Skills used daily for code work.
 
 **User-invoked**
 

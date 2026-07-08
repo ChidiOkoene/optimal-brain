@@ -140,7 +140,7 @@ This stack is particularly well-suited for PhD-style and research-heavy work:
 
 1. Install the collections:
    ```bash
-   npx skills@latest add mattpocock/skills
+   npx skills@latest add chidi/optimal-brain
    npx skills@latest add davidondrej/skills   # prefer research-and-web
    ```
 
@@ -155,7 +155,7 @@ Restart Cursor / start a fresh Agent chat. Use `/ask-matt` to discover flows.
 
 Reinstall after source changes (example):
 ```powershell
-npx skills add mattpocock/skills -g -a cursor -y -s setup-knowledge-vault -s research-from-vault
+npx skills add chidi/optimal-brain -g -a cursor -y -s setup-knowledge-vault -s research-from-vault
 npx skills add davidondrej/skills -g -a cursor
 ```
 

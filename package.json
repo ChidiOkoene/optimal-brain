@@ -1,11 +1,11 @@
 {
-  "name": "mattpocock-skills",
+  "name": "chidi-optimal-brain",
   "version": "1.0.1",
   "private": true,
-  "description": "Matt Pocock's agent skills for real engineering",
+  "description": "Optimal brain for agentic engineering and research — mattpocock/skills extended with loop engineering, knowledge vault, and external research ingestion",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattpocock/skills"
+    "url": "https://github.com/chidi/optimal-brain"
   },
   "license": "MIT",
   "scripts": {
