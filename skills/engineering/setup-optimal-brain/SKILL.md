@@ -1,16 +1,18 @@
 ---
-name: setup-matt-pocock-skills
+name: setup-optimal-brain
 description: Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.
 disable-model-invocation: true
 ---
 
-# Setup Matt Pocock's Skills
+# Setup Optimal Brain
 
 Scaffold the per-repo configuration that the engineering skills assume:
 
 - **Issue tracker** — where issues live (GitHub by default; local markdown is also supported out of the box)
 - **Triage labels** — the strings used for the five canonical triage roles
 - **Domain docs** — where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
+
+**Lineage:** Evolved from `setup-matt-pocock-skills` in [mattpocock/skills](https://github.com/mattpocock/skills). Same engineering scaffold; renamed for the Optimal Brain fork.
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
 

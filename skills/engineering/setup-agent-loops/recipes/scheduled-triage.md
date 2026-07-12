@@ -2,7 +2,7 @@
 
 **Use when:** incoming issues or external PRs pile up and you want periodic triage without manual prompting.
 
-**Requires:** `/setup-matt-pocock-skills` completed (issue tracker + triage labels configured).
+**Requires:** `/setup-optimal-brain` completed (issue tracker + triage labels configured).
 
 ## Fixed interval
 

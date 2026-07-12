@@ -13,6 +13,7 @@ Simulated flow:
    - `Agent Second Brains Synthesis.md` (wikilinked to sources and Indexes)
    - `Agent Second Brains Learning Record.md` (bridged insight)
    - Updated `Learning Records Index.md`
+   - Decision trace + Context Index update (see [example-decision-trace.md](./example-decision-trace.md) and [example-context-index.md](./example-context-index.md))
 
 This pattern is captured in the recipe `ingest-external-research-to-vault.md` and the example learning record in this folder.
 

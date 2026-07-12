@@ -18,6 +18,7 @@ Examples:
 - "Fix the failing test in `user_service_test.ts`"
 - "Implement issue #42 per the PRD"
 - "Reduce bundle size below 500kb"
+- "Research agent memory from vault until synthesis note, learning record, Context Index update, and decision trace exist"
 
 ## Confirm verifier
 

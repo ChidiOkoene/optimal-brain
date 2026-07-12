@@ -1,12 +1,14 @@
 ---
-name: ask-matt
+name: ask-brain
 description: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
 disable-model-invocation: true
 ---
 
-# Ask Matt
+# Ask Brain
 
 You don't remember every skill, so ask.
+
+**Lineage:** Evolved from Matt Pocock's `ask-matt` in [mattpocock/skills](https://github.com/mattpocock/skills). Engineering flows unchanged; this fork adds Knowledge, Research & Learning routing.
 
 A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone.
 
@@ -60,7 +62,7 @@ Off the main flow entirely.
 
 When you want the agent to **iterate autonomously** until an objective says done — without prompting every step.
 
-- **`/setup-agent-loops`** — run once per repo to configure verification commands, stop rules, and scope. Do this after `/setup-matt-pocock-skills` (or standalone if you only need loops).
+- **`/setup-agent-loops`** — run once per repo to configure verification commands, stop rules, and scope. Do this after `/setup-optimal-brain` (or standalone if you only need loops).
 - **`/until-done`** — goal-based loop: you hand off the stop condition ("fix this test", "implement issue #42"). Cursor's equivalent of `/goal`.
 - **Cursor `/loop`** — time-based recurrence (`/loop 5m …`, `/loop 1h /triage`). Combine with recipes in the `setup-agent-loops` skill folder.
 - **`/implement`** — uses agent-loop stop rules when `docs/agents/loops.md` exists; iterate until verifiers pass within the iteration cap.
@@ -79,13 +81,13 @@ When you want the agent to **iterate autonomously** until an objective says done
 
 ## Knowledge, Research & Learning
 
-When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources.
+When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources. The **context graph** adds governance: global validity in vault Context Index, project filter in `docs/agents/project-context.md`.
 
 - **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
 - **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Also wires external research (davidondrej research-and-web) into the vault.
 - **`research-from-vault`** (model-invoked) — reusable discipline for research and synthesis from the vault. Rich triggers: "research X using my vault", "consult the knowledge vault", "synthesize from PDFs and notes". Reads the config and emits wikilinked notes + learning records.
 - External research ingestion: install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
-- Maintenance loops: Cursor `/loop` + recipes in `setup-knowledge-vault/recipes/` (ingest sources, research a topic, maintain indexes, ingest-external-then-synthesize).
+- Maintenance loops: Cursor `/loop` + recipes in `setup-knowledge-vault/recipes/` (ingest sources, research a topic, maintain indexes, maintain context graph, ingest-external-then-synthesize).
 
 **When to use which:**
 
@@ -97,12 +99,13 @@ When you want to build or consult durable personal knowledge, learn over session
 | Need fresh external info + durable capture | Use davidondrej research skills → save to vault → `research-from-vault` or `/teach` |
 | Recurring processing of new vault material | `/loop 1d ...` with a recipe from setup-knowledge-vault |
 | Knowledge gap during engineering/loop | Agent reaches `research-from-vault` (or you say "use the vault") |
+| Need governed context / what's still valid? | Read vault Context Index + `docs/agents/project-context.md`; recipe `maintain-context-graph.md` |
 
 See also the brain architecture in `docs/agents/brain.md`.
 
 ## Precondition
 
-**`/setup-matt-pocock-skills`** — run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
+**`/setup-optimal-brain`** — run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
 
 **`/setup-agent-loops`** — run before `/until-done` or unattended iteration. Optional but recommended for any repo where the agent should loop until tests pass.
 

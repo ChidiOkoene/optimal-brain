@@ -46,4 +46,4 @@ Or with until-done:
 - Be explicit in the goal: "save sources to vault then synthesize" — prevents the agent from keeping everything only in chat.
 - Prefer saving structured notes/PDFs over raw dumps; add minimal annotation at ingest time.
 - After external gather, always hand off to `research-from-vault` or a `/teach` bridge for durable capture.
-- If the external skill names differ after install, the agent will discover them via `/ask-matt` or listing; the recipe intent is what matters.
+- If the external skill names differ after install, the agent will discover them via `/ask-brain` or listing; the recipe intent is what matters.
