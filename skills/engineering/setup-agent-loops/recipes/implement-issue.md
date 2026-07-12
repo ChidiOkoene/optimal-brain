@@ -2,7 +2,7 @@
 
 **Use when:** you have agent-ready issues from `/to-issues` or `/triage` and want one implemented with verification.
 
-**Requires:** `/setup-matt-pocock-skills` and `/setup-agent-loops` completed in this repo.
+**Requires:** `/setup-optimal-brain` and `/setup-agent-loops` completed in this repo.
 
 ## Flow
 

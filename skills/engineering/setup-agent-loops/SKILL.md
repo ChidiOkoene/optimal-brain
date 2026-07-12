@@ -23,7 +23,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Makefile` — what verification commands exist?
 - `AGENTS.md` and `CLAUDE.md` at the repo root — is there already an `## Agent loops` section?
 - `docs/agents/loops.md` — does this skill's prior output already exist?
-- `docs/agents/` — other agent config from `/setup-matt-pocock-skills`
+- `docs/agents/` — other agent config from `/setup-optimal-brain`
 - Test runner config (`vitest.config.*`, `jest.config.*`, `pytest.ini`, etc.)
 
 ### 2. Present findings and ask
@@ -118,4 +118,4 @@ Tell the user setup is complete. Mention:
 - `/implement` reads `docs/agents/loops.md` automatically
 - They can edit `docs/agents/loops.md` directly; re-run this skill only to restart from scratch
 
-If `/setup-matt-pocock-skills` has not been run yet, recommend it for issue tracker and domain doc setup.
+If `/setup-optimal-brain` has not been run yet, recommend it for issue tracker and domain doc setup.

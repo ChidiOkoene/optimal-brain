@@ -56,5 +56,8 @@ When `docs/agents/knowledge-vault.md` exists (see `/setup-knowledge-vault`), bri
   - Optional cross-link back to the teach workspace `MISSION.md` or local record.
 - Companion sources: if the learning came from a vault PDF, link the companion note (e.g. `[[RAG Paper Note]]`).
 - Update or create the relevant Index note (e.g. `Learning Records Index.md` or topic Index) so the new record is discoverable.
+- Update vault `Context Index.md` when present; add optional provenance frontmatter (see `setup-knowledge-vault/templates/note-provenance-format.md`):
+  - `confidence`, `sources`, `supersedes` / `superseded_by` when replacing prior understanding
+  - Align with local `Status: superseded by LR-NNNN` when both exist
 
 The vault version is the long-term home. The local `./learning-records/` remains useful for the active teach workspace. When in doubt, emit both and link them.

@@ -17,7 +17,7 @@ flowchart LR
   subgraph Execution["Engineering Execution + Loops"]
     AL["agent-loop + /until-done"]
     ENG["grill-with-docs, domain-modeling,\ntdd, implement, ..."]
-    ASK["/ask-matt (router)"]
+    ASK["/ask-brain (router)"]
   end
   D -->|"pull fresh\nmaterial"| V
   V --> RV
@@ -32,7 +32,7 @@ flowchart LR
 
 *Layered architecture of the optimal brain (see `docs/OPTIMAL-BRAIN.md` for details).*
 
-This is a composite "optimal brain" for agentic engineering and research. It layers the strong engineering fundamentals from `mattpocock/skills` with disciplined autonomous iteration via loop engineering and durable personal memory via a knowledge vault. External research capabilities (from `davidondrej/skills`) feed the vault, and synthesis tools turn fresh and stored knowledge into lasting learning records. See `docs/OPTIMAL-BRAIN.md` for the full architecture and comparison.
+This is a composite "optimal brain" for agentic engineering and research. It layers the strong engineering fundamentals from `mattpocock/skills` with disciplined autonomous iteration via loop engineering and durable personal memory via a knowledge vault. External research capabilities (from `davidondrej/skills`) feed the vault, and synthesis tools turn fresh and stored knowledge into lasting learning records. See `docs/OPTIMAL-BRAIN.md` for the full architecture and comparison. **New to the stack?** Follow [docs/PLAYBOOK.md](./docs/PLAYBOOK.md) for a step-by-step research + engineering walkthrough.
 
 These skills are designed to be small, easy to adapt, and composable. They work with any model. They're based on decades of engineering experience. Hack around with them. Make them your own. Enjoy.
 
@@ -41,7 +41,7 @@ These skills are designed to be small, easy to adapt, and composable. They work 
 1. Install the core collection:
 
    ```bash
-   npx skills@latest add chidi/optimal-brain
+   npx skills@latest add chidiokoene/optimal-brain
    ```
 
    For external research reach (browser, web, YouTube, APIs — feeds the vault):
@@ -50,17 +50,27 @@ These skills are designed to be small, easy to adapt, and composable. They work 
    npx skills@latest add davidondrej/skills
    ```
 
-2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select at minimum `/setup-matt-pocock-skills`, `/setup-agent-loops`, and `/setup-knowledge-vault`**.
+2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select at minimum `/setup-optimal-brain`, `/setup-agent-loops`, and `/setup-knowledge-vault`**.
 
 3. Run the setup skills in your agent (in a repo/workspace):
 
-   - `/setup-matt-pocock-skills` — configure issue tracker, triage labels, and domain doc layout.
+   - `/setup-optimal-brain` — configure issue tracker, triage labels, and domain doc layout.
    - `/setup-agent-loops` — configure verification commands, stop rules, and scope for agent loops.
    - `/setup-knowledge-vault` — configure your Obsidian vault location, learning record bridging, PDF handling, and vault integration.
 
 4. (Optional but powerful for research) From davidondrej/skills, select the `research-and-web` category to pull fresh material that can be synthesized into the vault.
 
-5. Restart Cursor (or start a fresh Agent chat) and use `/ask-matt` to discover flows. Bam — you're ready to go.
+5. Restart Cursor (or start a fresh Agent chat) and use `/ask-brain` to discover flows. Bam — you're ready to go.
+
+### Migration
+
+If you installed before the rebrand (when skills were named `ask-matt` and `setup-matt-pocock-skills`), reinstall:
+
+```bash
+npx skills@latest add chidiokoene/optimal-brain -y
+```
+
+Or manually rename `.agents/skills/ask-matt` → `ask-brain` and `.agents/skills/setup-matt-pocock-skills` → `setup-optimal-brain` in your project.
 
 ## Why These Skills Exist
 
@@ -166,9 +176,9 @@ Software engineering fundamentals matter more than ever. These skills represent 
 
 This stack is a fork and extension. Honest attribution for the composite:
 
-- **mattpocock/skills** (Matt Pocock): The foundational engineering skills — grilling sessions, domain modeling, TDD, `ask-matt` router, `teach`, `setup-matt-pocock-skills`, `to-issues`/`to-prd`, vertical slicing, codebase architecture improvement, and the overall skill taxonomy, invocation model, and philosophy. The core "hands" for day-to-day engineering come from here.
+- **mattpocock/skills** (Matt Pocock): The foundational engineering skills — grilling sessions, domain modeling, TDD, `ask-matt` router, `teach`, `setup-matt-pocock-skills`, `to-issues`/`to-prd`, vertical slicing, codebase architecture improvement, and the overall skill taxonomy, invocation model, and philosophy. The core "hands" for day-to-day engineering come from here (unchanged in this fork; renamed entry points below).
 
-- **Chidi** (this fork, chidi/optimal-brain): The loop engineering layer (`setup-agent-loops`, `agent-loop`, `until-done` + recipes + `docs/agents/loops.md`), the knowledge vault layer (`setup-knowledge-vault`, `research-from-vault`, bridging updates to `teach` + `LEARNING-RECORD-FORMAT.md`/`RESOURCES-FORMAT.md`, reach points across skills), plus the integrated documentation (`docs/OPTIMAL-BRAIN.md`, `docs/agents/brain.md`).
+- **Chidi** (this fork, [chidiokoene/optimal-brain](https://github.com/chidiokoene/optimal-brain)): Fork entry points `ask-brain` and `setup-optimal-brain`; the loop engineering layer (`setup-agent-loops`, `agent-loop`, `until-done` + recipes + `docs/agents/loops.md`); the knowledge vault layer (`setup-knowledge-vault`, `research-from-vault`, bridging updates to `teach` + `LEARNING-RECORD-FORMAT.md`/`RESOURCES-FORMAT.md`, reach points across skills); minimal context graph; plus integrated documentation (`docs/OPTIMAL-BRAIN.md`, `docs/agents/brain.md`).
 
 - **davidondrej/skills** (David Ondrej): Research-and-web capabilities (browser, YouTube, web search, research APIs) that provide external ingestion — fresh material that can be landed in the vault and synthesized.
 
@@ -176,13 +186,13 @@ This stack is a fork and extension. Honest attribution for the composite:
 
 The original skills give you excellent engineering fundamentals. This fork completes the system with long-term memory (the vault), external sensing, synthesis, and disciplined autonomous iteration — while preserving the base.
 
-See `docs/OPTIMAL-BRAIN.md` for the full layered architecture, detailed comparison, Karpathy distinction, research/PhD strengths, and core flows.
+See `docs/OPTIMAL-BRAIN.md` for the full layered architecture, detailed comparison, Karpathy distinction, research/PhD strengths, and core flows. For a practical **research + engineering walkthrough**, see [docs/PLAYBOOK.md](./docs/PLAYBOOK.md).
 
 ## Reference
 
 These split on one axis — who can invoke them. **User-invoked** skills are reachable only when you type them (e.g. `/grill-me`); their job is to orchestrate. **Model-invoked** skills can be invoked by you _or_ reached for automatically by the agent when the task fits; they hold the reusable discipline. A user-invoked skill may invoke model-invoked skills, but never another user-invoked one.
 
-This collection is extended with loop engineering and knowledge vault skills (see `docs/OPTIMAL-BRAIN.md` for architecture, credits, and research guidance).
+This collection is extended with loop engineering, knowledge vault, and minimal context graph skills (see `docs/OPTIMAL-BRAIN.md` for architecture, credits, context graph, and research guidance).
 
 ### Engineering
 
@@ -190,11 +200,11 @@ Skills used daily for code work.
 
 **User-invoked**
 
-- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)** — Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[ask-brain](./skills/engineering/ask-brain/SKILL.md)** — Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)** — Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
+- **[setup-optimal-brain](./skills/engineering/setup-optimal-brain/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
 - **[setup-agent-loops](./skills/engineering/setup-agent-loops/SKILL.md)** — Configure verification commands, stop rules, and scope for agent loops. Run once per repo before `/until-done` or autonomous iteration.
 - **[to-issues](./skills/engineering/to-issues/SKILL.md)** — Break any plan, spec, or PRD into independently-grabbable issues using vertical slices.
 - **[to-prd](./skills/engineering/to-prd/SKILL.md)** — Turn the current conversation into a PRD and publish it to the issue tracker. No interview — just synthesizes what you've already discussed.
@@ -218,7 +228,7 @@ General workflow tools, not code-specific.
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)** — Get relentlessly interviewed about a plan or design until every branch of the decision tree is resolved.
 - **[handoff](./skills/productivity/handoff/SKILL.md)** — Compact the current conversation into a handoff document so another agent can continue the work.
 - **[teach](./skills/productivity/teach/SKILL.md)** — Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
-- **[setup-knowledge-vault](./skills/productivity/setup-knowledge-vault/SKILL.md)** — Configure personal knowledge vault (location, learning records, PDFs, vault integration for research & teach).
+- **[setup-knowledge-vault](./skills/productivity/setup-knowledge-vault/SKILL.md)** — Configure personal knowledge vault (location, learning records, PDFs, context graph, project overlay, vault integration for research & teach).
 - **[writing-great-skills](./skills/productivity/writing-great-skills/SKILL.md)** — Reference for writing and editing skills well: the vocabulary and principles that make a skill predictable.
 
 **Model-invoked**

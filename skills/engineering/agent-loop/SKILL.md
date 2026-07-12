@@ -19,6 +19,7 @@ Before the first change:
 
 - State the **goal** and **done signal** (what verifier output means success).
 - Read `docs/agents/loops.md` for verification commands, stop rules, and editable scope.
+- Read `docs/agents/project-context.md` when present — project filter over global vault knowledge.
 - If building features test-first, reach for the `/tdd` skill.
 - Track **iteration count** from 1.
 
@@ -54,3 +55,7 @@ If continuing: increment iteration count, return to **Act** with a changed strat
 ## Completion criterion
 
 The loop is done when verification passes and a success brief is presented, **or** any stop rule fires with an explicit brief to the user.
+
+For **significant** research or engineering goals (multi-step synthesis, architecture changes, non-obvious fixes), emit a decision trace when configured:
+- Research: vault `Decision Traces/` (see `setup-knowledge-vault/templates/decision-trace-template.md`)
+- Engineering: repo `docs/agents/decision-traces/` when that folder exists

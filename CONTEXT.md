@@ -1,6 +1,6 @@
-# Optimal Brain (chidi/optimal-brain)
+# Optimal Brain (chidiokoene/optimal-brain)
 
-An extended collection of agent skills (slash commands and behaviors) for agentic engineering and research. Built on the mattpocock/skills foundation plus loop engineering and knowledge vault layers. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills` (plus `/setup-agent-loops` and `/setup-knowledge-vault`).
+An extended collection of agent skills (slash commands and behaviors) for agentic engineering and research. Built on the mattpocock/skills foundation plus loop engineering and knowledge vault layers. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-optimal-brain` (plus `/setup-agent-loops` and `/setup-knowledge-vault`).
 
 ## Language
 

@@ -1,6 +1,6 @@
 ---
 name: setup-knowledge-vault
-description: Configure a personal knowledge vault for research and learning (vault location, learning records, PDFs/sources, integration). Run once before using vault-backed teach, research-from-vault, or loops that consult personal knowledge.
+description: Configure a personal knowledge vault for research and learning (vault location, learning records, PDFs/sources, context graph, project overlay, integration). Run once before using vault-backed teach, research-from-vault, or loops that consult personal knowledge.
 disable-model-invocation: true
 ---
 
@@ -80,11 +80,30 @@ Confirm / explain:
 
 Also note any maintenance loops the user wants (e.g. daily inbox processing).
 
+**Section E — Context graph (global + project overlay).**
+
+> Explainer: The vault holds your global knowledge graph (wikilinks). A minimal **context graph** adds governance: what's still valid, why you believe it, and what agents did. Global context lives in the vault; project-specific overlay lives in this repo.
+
+Confirm:
+- **Project name/slug** for `docs/agents/project-context.md` (e.g. repo name or research project title).
+- **Vault context files** — offer to seed (with user confirmation):
+  - `Indexes/Context Index.md` (or `Context Index.md` at vault root if flat layout)
+  - `Decision Traces/` folder (empty, for research/agent run audits)
+- **Engineering decision traces** — optional `docs/agents/decision-traces/` in this repo for significant engineering loop runs.
+- **Provenance frontmatter** — optional YAML on synthesis/learning records (see [templates/note-provenance-format.md](./templates/note-provenance-format.md)).
+
+Explain the split:
+- **Global (vault):** Context Index, decision traces for research, validity/supersession on notes.
+- **Project (repo):** `project-context.md`, `CONTEXT.md`, ADRs, `loops.md` — what applies to *this* codebase.
+
+Agent read order: `knowledge-vault.md` → `loops.md` → `project-context.md` → vault Context Index → wikilinks.
+
 ### 3. Confirm and edit
 
 Show the user a draft of:
 - The `## Knowledge & Research` (or subsection) block to add to `CLAUDE.md` / `AGENTS.md`.
 - The filled contents of `docs/agents/knowledge-vault.md`.
+- The filled contents of `docs/agents/project-context.md` (from [templates/project-context-template.md](./templates/project-context-template.md)).
 
 Let them edit before writing.
 
@@ -110,12 +129,21 @@ Personal knowledge vault configuration, learning record placement, PDF/source ha
 
 Write `docs/agents/knowledge-vault.md` using [knowledge-vault-template.md](./knowledge-vault-template.md) as the starting point, substituting the answers from the sections.
 
+Write `docs/agents/project-context.md` using [templates/project-context-template.md](./templates/project-context-template.md), substituting project name and vault path.
+
+If the user agreed to seed vault context files, write under the confirmed vault path:
+- `Indexes/Context Index.md` (or `Context Index.md` at root) from [templates/context-index-template.md](./templates/context-index-template.md)
+- Create `Decision Traces/` directory (empty is fine)
+
+If the user agreed to engineering decision traces, create `docs/agents/decision-traces/` (empty `.gitkeep` or README stub is fine).
+
 Point the user at the starter recipes in this skill folder:
 
 - [recipes/ingest-sources-to-learning-records.md](./recipes/ingest-sources-to-learning-records.md)
 - [recipes/research-topic-in-vault.md](./recipes/research-topic-in-vault.md)
 - [recipes/maintain-vault-indexes-and-links.md](./recipes/maintain-vault-indexes-and-links.md)
 - [recipes/ingest-external-research-to-vault.md](./recipes/ingest-external-research-to-vault.md)
+- [recipes/maintain-context-graph.md](./recipes/maintain-context-graph.md)
 
 ### 5. Done
 
@@ -124,8 +152,9 @@ Tell the user the setup is complete. Mention:
 - `/teach` will now bridge learning records into the vault (when configured).
 - Use `research-from-vault` (reached by prose or loops) for synthesis from PDFs/notes.
 - For fresh external info: install davidondrej/skills (focus on research-and-web), fetch, save results to vault, then synthesize.
-- Maintenance: use Cursor `/loop` + recipes (e.g. nightly inbox processing).
-- They can edit `docs/agents/knowledge-vault.md` directly; re-run this skill only to restart configuration.
+- **Context graph:** global validity in vault Context Index; project filter in `docs/agents/project-context.md`.
+- Maintenance: use Cursor `/loop` + recipes (indexes, context graph, nightly inbox processing).
+- They can edit `docs/agents/knowledge-vault.md` and `docs/agents/project-context.md` directly; re-run this skill only to restart configuration.
 
 Recommend running `/setup-agent-loops` (if not done) for engineering execution loops, and that the two compose well.
 

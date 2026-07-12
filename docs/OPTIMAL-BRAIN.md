@@ -2,6 +2,8 @@
 
 **Personal framing:** I extended the excellent `mattpocock/skills` collection because I needed stronger support for long-term research work, persistent personal knowledge across years, and autonomous iteration that doesn't require constant prompting. The original skills provide outstanding engineering fundamentals; this fork completes them with memory and research capabilities.
 
+**Getting started:** See [PLAYBOOK.md](./PLAYBOOK.md) for a practical walkthrough — setup, research flows, design, build, and copy-paste prompts.
+
 This stack is a layered "optimal brain" built on top of `mattpocock/skills` by adding disciplined **loop engineering** and a **personal knowledge vault** (with synthesis and external ingestion flows). It also wires in external research tools (primarily from `davidondrej/skills`) so fresh information reliably becomes durable vault knowledge.
 
 ## Layered Architecture
@@ -23,7 +25,7 @@ flowchart LR
   subgraph Execution["Engineering Execution + Loops"]
     AL["agent-loop + /until-done"]
     ENG["grill-with-docs, domain-modeling,\ntdd, implement, ..."]
-    ASK["/ask-matt (router)"]
+    ASK["/ask-brain (router)"]
   end
   D -->|"pull fresh\nmaterial"| V
   V --> RV
@@ -40,7 +42,7 @@ flowchart LR
 - **External sensing**: `davidondrej/skills` research-and-web (browser, YouTube, web, research APIs).
 - **Synthesis & capture**: `research-from-vault` + `/teach` (with vault bridging).
 - **Execution & loops**: mattpocock engineering skills + `agent-loop` / `/until-done` + verification discipline.
-- **Routing**: `/ask-matt`.
+- **Routing**: `/ask-brain`.
 
 ## What This Fork Adds
 
@@ -56,7 +58,7 @@ Includes `docs/agents/loops.md` (per-repo verification, stop rules, and scope).
 - `skills/productivity/research-from-vault/` — 1 file (SKILL.md)
 
 ### Cross-Cutting Integration
-- New "## Knowledge, Research & Learning" section + routing table + preconditions in `skills/engineering/ask-matt/SKILL.md`.
+- New "## Knowledge, Research & Learning" section + routing table + preconditions in `skills/engineering/ask-brain/SKILL.md`.
 - Reach-for-vault prose added in: `agent-loop`, `until-done`, `domain-modeling`, `grill-with-docs`, `in-progress/decision-mapping`.
 - Teach updates for vault bridging: `skills/productivity/teach/SKILL.md`, `LEARNING-RECORD-FORMAT.md`, `RESOURCES-FORMAT.md` (support for local/PDF/vault sources and external material).
 - `skills/personal/obsidian-vault/SKILL.md` annotated as the low-level base implementation.
@@ -84,7 +86,7 @@ What this fork adds on top:
 | **Autonomous iteration** | Limited (basic loops via Cursor or manual)           | `setup-agent-loops` + `agent-loop` (Plan → Act → Observe → Verify → Stop) + `/until-done` + recipes + per-repo verification/stop rules in `docs/agents/loops.md` | Very high for goal-based or recurring work |
 | **Synthesis engine**   | Teach (local)                                        | `research-from-vault` (model-invoked, vault-aware, reachable from loops/engineering) | High |
 | **Teach integration**  | Local learning records                               | Automatic bridging to vault + vault sources in RESOURCES                              | Medium-High |
-| **Routing & awareness**| Good for engineering                                 | Expanded `ask-matt` with full Knowledge/Research section + cross-skill reach points   | Medium |
+| **Routing & awareness**| Good for engineering                                 | Expanded `ask-brain` (from Matt's `ask-matt`) with full Knowledge/Research section + cross-skill reach points   | Medium |
 | **Architecture view**  | Implicit                                             | Explicit `docs/agents/brain.md` with layered diagram                                  | High for understanding the whole system |
 
 The core engineering skills (grilling, domain modeling, TDD, etc.) are untouched. This fork *completes* the original by solving "where does knowledge live long-term?" and "how does the agent keep going autonomously and bring in new information?"
@@ -126,7 +128,7 @@ This stack is particularly well-suited for PhD-style and research-heavy work:
 - **Autonomous research loops**: Goals such as `/until-done Research X in the vault until a synthesis note and learning record exist` or maintenance recipes (`/loop 1d ...`) let the agent work while you focus elsewhere.
 - **Multi-session deep learning**: `/teach` with vault integration supports building real storage strength over time instead of just fluency.
 - **Grounded engineering**: `domain-modeling`, `grill-with-docs`, and decision-mapping Research tickets can consult vault sources first via `research-from-vault` reach points.
-- **Clear mental model**: `docs/agents/brain.md` + the expanded `ask-matt` Knowledge section make the whole system easy to navigate and extend.
+- **Clear mental model**: `docs/agents/brain.md` + the expanded `ask-brain` Knowledge section make the whole system easy to navigate and extend.
 
 ## Core Flows
 
@@ -134,28 +136,38 @@ This stack is particularly well-suited for PhD-style and research-heavy work:
 - **Research in vault**: "research X using my vault" or `/until-done Research X from the vault until synthesis note and learning record exist`.
 - **Fresh world info → durable memory**: Use davidondrej research tools to fetch → save sources into vault (with companion notes) → `research-from-vault` or `/teach` to synthesize → vault learning record.
 - **Engineering with memory**: `/grill-with-docs` or `domain-modeling` will ground in vault sources when present. Loops reach `research-from-vault` on knowledge gaps.
-- **Maintenance**: `/loop 1d` + recipes from `setup-knowledge-vault/recipes/` (ingest, research, maintain indexes, external-to-vault).
+- **Maintenance**: `/loop 1d` + recipes from `setup-knowledge-vault/recipes/` (ingest, research, maintain indexes, maintain context graph, external-to-vault).
+- **Context governance**: significant research runs update vault Context Index + decision trace; project overlay in `docs/agents/project-context.md`.
+
+## Context graph (minimal)
+
+No Neo4j required. The vault's wikilinks are the **knowledge graph**; a thin **context graph** adds validity, provenance, and decision traces:
+
+- **Global (vault):** `Indexes/Context Index.md`, `Decision Traces/`, optional provenance frontmatter on notes
+- **Project (repo):** `docs/agents/project-context.md`, `CONTEXT.md`, ADRs, `docs/agents/loops.md`
+
+Configured by `/setup-knowledge-vault` Section E. See `docs/agents/brain.md` and example files under `docs/agents/example-*.md`.
 
 ## Quickstart + Setup Order
 
 1. Install the collections:
    ```bash
-   npx skills@latest add chidi/optimal-brain
+   npx skills@latest add chidiokoene/optimal-brain
    npx skills@latest add davidondrej/skills   # prefer research-and-web
    ```
 
 2. In your main research workspace/repo, run:
-   - `/setup-matt-pocock-skills`
+   - `/setup-optimal-brain`
    - `/setup-agent-loops` (verification + stop rules)
    - `/setup-knowledge-vault` (the key step for research memory)
 
 3. (Optional but powerful) Install and select davidondrej research-and-web skills for external ingestion.
 
-Restart Cursor / start a fresh Agent chat. Use `/ask-matt` to discover flows.
+Restart Cursor / start a fresh Agent chat. Use `/ask-brain` to discover flows.
 
 Reinstall after source changes (example):
 ```powershell
-npx skills add chidi/optimal-brain -g -a cursor -y -s setup-knowledge-vault -s research-from-vault
+npx skills add chidiokoene/optimal-brain -g -a cursor -y -s setup-knowledge-vault -s research-from-vault
 npx skills add davidondrej/skills -g -a cursor
 ```
 
@@ -163,10 +175,12 @@ npx skills add davidondrej/skills -g -a cursor
 
 ## Key Files & References
 
+- `docs/PLAYBOOK.md` — step-by-step usage: research → design → build, prompts, habits
 - `docs/agents/brain.md` — high-level architecture and quickstart
 - `docs/agents/loops.md` — verification, stop rules, scope for agent loops
-- `docs/agents/knowledge-vault.md` — vault location, conventions, PDF handling, integration rules
-- `skills/engineering/ask-matt/SKILL.md` — detailed routing, especially the Knowledge, Research & Learning section
+- `docs/agents/knowledge-vault.md` — vault location, conventions, PDF handling, context graph validity rules
+- `docs/agents/project-context.md` — per-repo overlay (from `/setup-knowledge-vault`)
+- `skills/engineering/ask-brain/SKILL.md` — detailed routing, especially the Knowledge, Research & Learning section
 - `skills/productivity/setup-knowledge-vault/` — setup skill + recipes (including external ingestion)
 - `skills/productivity/research-from-vault/SKILL.md` — reusable synthesis discipline
 - `skills/productivity/teach/` (plus `LEARNING-RECORD-FORMAT.md` and `RESOURCES-FORMAT.md`) — multi-session learning with vault bridging

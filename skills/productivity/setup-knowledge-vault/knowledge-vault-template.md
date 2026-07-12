@@ -41,6 +41,39 @@ pdftotext "/path/to/Paper.pdf" - | head -200
 - Always end synthesis notes with a "Sources" or "See also" section of `[[wikilinks]]`.
 - When research-from-vault or loops produce new understanding, emit a learning-record-style entry in the vault.
 
+## Context graph (global)
+
+Minimal governance layer on top of the vault knowledge graph. Global holistic view lives in the vault; project-specific overlay lives in repo `docs/agents/project-context.md`.
+
+Suggested vault layout (adjust to taste):
+
+- `Indexes/Context Index.md` — active knowledge, superseded notes, recent decision traces
+- `Decision Traces/` — audit notes for significant research/agent runs
+
+Optional provenance frontmatter on synthesis and learning records — see `skills/productivity/setup-knowledge-vault/templates/note-provenance-format.md`.
+
+### Context validity rules
+
+- Prefer notes with `confidence: high` (in frontmatter) and no `superseded_by`
+- If two notes conflict, prefer the newer one unless `superseded_by` says otherwise
+- For engineering grounding: consult repo `CONTEXT.md` and ADRs before treating vault synthesis as implementation truth
+- Notes marked `confidence: exploratory` require human review before code decisions
+- Agents read vault `Context Index.md` (under `Indexes/` or vault root) before synthesizing when present
+
+### Agent read order
+
+1. `docs/agents/knowledge-vault.md` (this file)
+2. `docs/agents/loops.md`
+3. `docs/agents/project-context.md`
+4. Vault `Context Index.md`
+5. Traverse relevant `[[wikilinks]]`
+
+## Project overlay
+
+Per-repo filter: `docs/agents/project-context.md` lists which global vault notes apply to this project, active ADRs, and agent rules. Written by `/setup-knowledge-vault`.
+
+Optional engineering decision traces: `docs/agents/decision-traces/` for significant loop runs in this repo.
+
 ## Indexing and Linking Rules
 
 - Use Obsidian `[[wikilinks]]` (Title Case target).
@@ -73,6 +106,7 @@ Copy-paste prompts are in the `setup-knowledge-vault` skill folder under `recipe
 - `research-topic-in-vault.md`
 - `maintain-vault-indexes-and-links.md`
 - `ingest-external-research-to-vault.md`
+- `maintain-context-graph.md`
 
 Use with Cursor `/loop` (time-based) or `/until-done` (goal-based).
 
