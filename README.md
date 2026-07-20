@@ -1,5 +1,7 @@
 # Optimal Brain for Agentic Engineering & Research
 
+![Optimal Brain](./docs/assets/KN09g.png)
+
 ```mermaid
 flowchart LR
   subgraph External[External Research Layer]
