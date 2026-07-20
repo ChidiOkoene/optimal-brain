@@ -1,6 +1,6 @@
 # Optimal Brain for Agentic Engineering & Research
 
-![Optimal Brain](./docs/assets/KN09g.png)
+![Optimal Brain](./docs/assets/KN09g.jpg)
 
 ```mermaid
 flowchart LR
