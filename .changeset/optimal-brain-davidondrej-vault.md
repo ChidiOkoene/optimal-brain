@@ -1,5 +1,5 @@
 ---
-"mattpocock-skills": minor
+"chidi-optimal-brain": minor
 ---
 
 Add Knowledge Vault layer and davidondrej integration for a complete "optimal brain":
