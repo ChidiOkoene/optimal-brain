@@ -47,7 +47,7 @@ When a later record contradicts an earlier one (the user's understanding deepene
 
 ## Vault Learning Records
 
-When `docs/agents/knowledge-vault.md` exists (see `/setup-knowledge-vault`), bridge local learning records into the vault for durable, cross-linked storage.
+When `.agent/context/knowledge-vault.md` exists (fallback: `docs/agents/knowledge-vault.md`), bridge local learning records into the vault for durable, cross-linked storage.
 
 - Create a Title Case note in the vault (e.g. `Vector Search Tradeoffs.md` or keep a `0001-` prefix if sequencing matters for you).
 - Include:

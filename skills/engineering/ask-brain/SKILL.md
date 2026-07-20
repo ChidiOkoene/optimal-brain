@@ -65,7 +65,7 @@ When you want the agent to **iterate autonomously** until an objective says done
 - **`/setup-agent-loops`** — run once per repo to configure verification commands, stop rules, and scope. Do this after `/setup-optimal-brain` (or standalone if you only need loops).
 - **`/until-done`** — goal-based loop: you hand off the stop condition ("fix this test", "implement issue #42"). Cursor's equivalent of `/goal`.
 - **Cursor `/loop`** — time-based recurrence (`/loop 5m …`, `/loop 1h /triage`). Combine with recipes in the `setup-agent-loops` skill folder.
-- **`/implement`** — uses agent-loop stop rules when `docs/agents/loops.md` exists; iterate until verifiers pass within the iteration cap.
+- **`/implement`** — uses agent-loop stop rules when `.agent/context/loops.md` exists (fallback: `docs/agents/loops.md`); iterate until verifiers pass within the iteration cap.
 
 **When to use which:**
 
@@ -79,11 +79,31 @@ When you want the agent to **iterate autonomously** until an objective says done
 
 **Design a custom recurring workflow** (life/process, not code) — see `loop-me` in in-progress; different purpose from agent loops.
 
+## Solution & system architecture
+
+When system design is non-trivial — multiple views (domain, data, security, NFR), as-is vs target, or migration sequencing — use the orchestrator rather than only grilling or only code deepening.
+
+- **`/system-architect`** — user-invoked orchestrator. Engagements: `discovery`, `as_is_review`, `target_design`, `migration`. Selects ≤6 competence **role briefs** (not separate slash skills), writes `.agent/context/architecture-sessions/`, proposes ADRs, hands off to `/to-prd`. Parallel subagents when available; sequential fallback elsewhere.
+- **`/improve-codebase-architecture`** — deepen shallow modules in an existing codebase (HTML report). Use alone for code health; use inside `as_is_review` when system-architect runs.
+- **`/decision-mapping`** — fog of war / multi-session investigation tickets. System-architect bootstraps this when open questions need their own map.
+
+**When to use which:**
+
+| Situation | Reach for |
+| --------- | --------- |
+| Greenfield problem framing | `/system-architect` discovery |
+| Understand current system risks/seams | `/system-architect` as_is_review |
+| Propose target + ADRs | `/system-architect` target_design |
+| Phased cutover from as-is to target | `/system-architect` migration |
+| Only deepen one shallow module | `/improve-codebase-architecture` |
+| Many investigation tickets over sessions | `/decision-mapping` |
+| Architecture hub ready to build | `/to-prd` (see system-architect recipe `architecture-to-prd`) |
+
 ## Knowledge, Research & Learning
 
-When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources. The **context graph** adds governance: global validity in vault Context Index, project filter in `docs/agents/project-context.md`.
+When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources. The **context graph** adds governance: global validity in vault Context Index, project filter in `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`).
 
-- **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
+- **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`.agent/context/knowledge-vault.md`, fallback: `docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
 - **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Also wires external research (davidondrej research-and-web) into the vault.
 - **`research-from-vault`** (model-invoked) — reusable discipline for research and synthesis from the vault. Rich triggers: "research X using my vault", "consult the knowledge vault", "synthesize from PDFs and notes". Reads the config and emits wikilinked notes + learning records.
 - External research ingestion: install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
@@ -99,9 +119,12 @@ When you want to build or consult durable personal knowledge, learn over session
 | Need fresh external info + durable capture | Use davidondrej research skills → save to vault → `research-from-vault` or `/teach` |
 | Recurring processing of new vault material | `/loop 1d ...` with a recipe from setup-knowledge-vault |
 | Knowledge gap during engineering/loop | Agent reaches `research-from-vault` (or you say "use the vault") |
-| Need governed context / what's still valid? | Read vault Context Index + `docs/agents/project-context.md`; recipe `maintain-context-graph.md` |
+| Need governed context / what's still valid? | Read vault Context Index + `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`); recipe `maintain-context-graph.md` |
+| Loose idea needing multi-session investigation | `/decision-mapping` — sequenced tickets under `.agent/context/decision-maps/` |
+| Personal reflection during/after research | `/project-notes` — notes in vault `{ProjectFolder}/Personal Notes/` |
+| Visual context graph in Obsidian | `/vault-context-canvas` — JSON Canvas at `{ProjectFolder}/Context Graph.canvas` |
 
-See also the brain architecture in `docs/agents/brain.md`.
+See also the brain architecture in `docs/agents/brain.md` (package repo examples; consumer repos use `.agent/context/` for per-repo config).
 
 ## Precondition
 

@@ -15,7 +15,7 @@ babysit
 Or explicitly:
 
 ```
-Keep this PR merge-ready: resolve conflicts, address valid review comments, fix CI failures in this PR's scope. Respect stop rules in docs/agents/loops.md. Do not change CI workflows to make failures pass.
+Keep this PR merge-ready: resolve conflicts, address valid review comments, fix CI failures in this PR's scope. Respect stop rules in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`). Do not change CI workflows to make failures pass.
 ```
 
 ## Time-based watch
@@ -23,7 +23,7 @@ Keep this PR merge-ready: resolve conflicts, address valid review comments, fix 
 While the PR is open:
 
 ```
-/loop 30m Check PR CI and unresolved comments. Fix scoped issues per docs/agents/loops.md stop rules. Stop when mergeable and green or a stop rule fires.
+/loop 30m Check PR CI and unresolved comments. Fix scoped issues per `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) stop rules. Stop when mergeable and green or a stop rule fires.
 ```
 
 ## Tips

@@ -7,13 +7,13 @@
 ## Fixed interval (watch while you work)
 
 ```
-/loop 5m Run the after-each-change verifiers in docs/agents/loops.md. Fix any failures in scope of the current branch. Stop when all verifiers pass or a stop rule in docs/agents/loops.md fires.
+/loop 5m Run the after-each-change verifiers in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`). Fix any failures in scope of the current branch. Stop when all verifiers pass or a stop rule in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) fires.
 ```
 
 ## Goal-based (one session, explicit stop)
 
 ```
-/until-done Fix all failing tests on this branch. Use verifiers from docs/agents/loops.md.
+/until-done Fix all failing tests on this branch. Use verifiers from `.agent/context/loops.md` (fallback: `docs/agents/loops.md`).
 ```
 
 ## Tips

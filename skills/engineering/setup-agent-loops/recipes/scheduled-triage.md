@@ -10,7 +10,7 @@
 /loop 1h /triage
 ```
 
-Process issues that need triage per `docs/agents/triage-labels.md`. Stop when the triage queue is empty or a stop rule fires.
+Process issues that need triage per `.agent/context/triage-labels.md` (fallback: `docs/agents/triage-labels.md`). Stop when the triage queue is empty or a stop rule fires.
 
 ## Dynamic interval
 

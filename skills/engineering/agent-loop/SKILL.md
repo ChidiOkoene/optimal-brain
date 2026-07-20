@@ -7,7 +7,7 @@ description: Agentic loop discipline. Use when the user wants to loop until done
 
 **Plan → Act → Observe → Verify → Stop**
 
-A stateful control cycle for autonomous engineering work. Read `docs/agents/loops.md` if it exists; if missing, use conservative defaults (iteration cap 5, no push/deploy/CI changes) and suggest `/setup-agent-loops`.
+A stateful control cycle for autonomous engineering work. Read `.agent/context/loops.md` first (fallback: `docs/agents/loops.md`); if missing, use conservative defaults (iteration cap 5, no push/deploy/CI changes) and suggest `/setup-agent-loops`.
 
 When exploring the codebase, read `CONTEXT.md` (if it exists) so changes use the project's domain vocabulary.
 
@@ -18,8 +18,8 @@ When you encounter a knowledge gap (unknown terminology, missing concepts, need 
 Before the first change:
 
 - State the **goal** and **done signal** (what verifier output means success).
-- Read `docs/agents/loops.md` for verification commands, stop rules, and editable scope.
-- Read `docs/agents/project-context.md` when present — project filter over global vault knowledge.
+- Read `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) for verification commands, stop rules, and editable scope.
+- Read `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`) when present — project filter over global vault knowledge.
 - If building features test-first, reach for the `/tdd` skill.
 - Track **iteration count** from 1.
 
@@ -27,12 +27,12 @@ Before the first change:
 
 One **bounded change** per iteration — a vertical slice, not a bulk rewrite.
 
-- Stay within editable paths from `docs/agents/loops.md`.
+- Stay within editable paths from `.agent/context/loops.md` (fallback: `docs/agents/loops.md`).
 - Prefer the smallest change that could move verification toward green.
 
 ## 3. Observe
 
-Run the **after-each-change** verifier(s) from `docs/agents/loops.md`.
+Run the **after-each-change** verifier(s) from `.agent/context/loops.md` (fallback: `docs/agents/loops.md`).
 
 Paste or summarize the relevant output — pass/fail must be unambiguous from exit code and output.
 
@@ -58,4 +58,4 @@ The loop is done when verification passes and a success brief is presented, **or
 
 For **significant** research or engineering goals (multi-step synthesis, architecture changes, non-obvious fixes), emit a decision trace when configured:
 - Research: vault `Decision Traces/` (see `setup-knowledge-vault/templates/decision-trace-template.md`)
-- Engineering: repo `docs/agents/decision-traces/` when that folder exists
+- Engineering: repo `.agent/context/decision-traces/` (fallback: `docs/agents/decision-traces/`) when that folder exists

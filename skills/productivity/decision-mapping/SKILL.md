@@ -6,9 +6,13 @@ disable-model-invocation: true
 
 This skill is invoked when a loose idea requires more than one agent session to turn into a plan. It creates a stateful decision map in a markdown file, and drives the user through a sequence of tickets to resolve the open questions - which may require either prototyping, research or discussion.
 
+## Location
+
+Decision maps live at **`.agent/context/decision-maps/<slug>.md`** — git-tracked agent config, not repo root. Create `.agent/context/decision-maps/` if missing (see `/setup-knowledge-vault` or `/setup-optimal-brain` context setup).
+
 ## The Decision Map
 
-The decision map is a single compact Markdown file, one per planning effort, git-tracked alongside the project. It is the canonical artifact — the **whole map is loaded as context into every session**, so it must stay compact.
+The decision map is a single compact Markdown file, one per planning effort. It is the canonical artifact — the **whole map is loaded as context into every session**, so it must stay compact.
 
 Assets created during tickets should be linked to from the map, not duplicated within it.
 
@@ -37,7 +41,7 @@ Each ticket must be sized to one 100K token agent session.
 
 There are three types of tickets:
 
-- **Research**: Reading documentation, third-party API's, or local resources like knowledge bases. Creates a markdown summary as an asset. Use this when knowledge outside the current working directory is required. When a knowledge vault is configured (`docs/agents/knowledge-vault.md`), prefer vault sources (PDFs, notes, prior learning records) first; use external research tools only for gaps not covered in the vault.
+- **Research**: Reading documentation, third-party API's, or local resources like knowledge bases. Creates vault-captured research assets (session hub + finding notes + synthesis per RESEARCH-CAPTURE-FORMAT). Use this when knowledge outside the current working directory is required. When a knowledge vault is configured (`.agent/context/knowledge-vault.md`, fallback: `docs/agents/knowledge-vault.md`), prefer vault sources (PDFs, notes, prior learning records) first; use external research tools only for gaps not covered in the vault. Invoke `research-from-vault` for synthesis — never leave findings only in chat.
 - **Prototype**: Writing UI or logic code to test a hypothesis, or to explore a design space. Uses the /prototype skill. Creates a prototype as an asset. Use this when "how should it look" or "how should it behave" is the key question.
 - **Grilling**: Conversation with the agent. Uses the /grilling and /domain-modeling skills. Asks one question at a time. The default case.
 
@@ -56,16 +60,16 @@ There are two ways this skill can be invoked: **bootstrap** and **resume**.
 User invokes with a loose idea.
 
 1. Run a /grilling + /domain-modeling session to surface the open decisions. Ask one question at a time.
-2. Write a new decision map — mostly fog, frontier identified, trivially-decidable entries resolved inline.
+2. Write a new decision map at `.agent/context/decision-maps/<slug>.md` — mostly fog, frontier identified, trivially-decidable entries resolved inline.
 3. Stop. Map-building is one session's work; do not also resolve tickets.
 
 ### Resume
 
-User invokes with a path to an existing map and a ticket number.
+User invokes with a path to an existing map (or slug under `.agent/context/decision-maps/`) and a ticket number.
 
 1. Load the **whole map** as context.
 2. Run a session to resolve the ticket, invoking skills as needed. If in doubt, use `/grilling` and `/domain-modeling`.
-3. Record what the session resolved in the ticket's body.
+3. Record what the session resolved in the ticket's body. Link assets (vault session hubs, synthesis notes, prototypes).
 4. Add newly-discovered tickets (with correct `blocked_by` edges).
 5. Stop.
 

@@ -18,6 +18,8 @@ Every comment or issue posted to the issue tracker during triage **must** start 
 
 ## Reference docs
 
+Read `.agent/context/issue-tracker.md` and `.agent/context/triage-labels.md` first (fallback: `docs/agents/issue-tracker.md`, `docs/agents/triage-labels.md`). Run `/setup-optimal-brain` if both paths are missing.
+
 - [AGENT-BRIEF.md](AGENT-BRIEF.md) — how to write durable agent briefs
 - [OUT-OF-SCOPE.md](OUT-OF-SCOPE.md) — how the `.out-of-scope/` knowledge base works
 

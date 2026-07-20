@@ -32,7 +32,7 @@ Audit trail of significant agent/research runs:
 
 - Prefer `confidence: high` notes with no `superseded_by`
 - Exploratory notes require human review before engineering decisions
-- For project-specific relevance, see repo `docs/agents/project-context.md`
+- For project-specific relevance, see repo `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`)
 
 ## Maintenance
 

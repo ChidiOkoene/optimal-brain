@@ -22,9 +22,9 @@ Examples:
 
 ## Confirm verifier
 
-Read `docs/agents/loops.md` if it exists. Confirm which verifier commands apply, or accept an override the user stated in the prompt.
+Read `.agent/context/loops.md` first (fallback: `docs/agents/loops.md`). Confirm which verifier commands apply, or accept an override the user stated in the prompt.
 
-If `docs/agents/loops.md` is missing, propose conservative defaults and suggest `/setup-agent-loops`.
+If both paths are missing, propose conservative defaults and suggest `/setup-agent-loops`.
 
 ## Run the loop
 

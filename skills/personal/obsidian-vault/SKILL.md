@@ -3,7 +3,7 @@ name: obsidian-vault
 description: Search, create, and manage notes in the Obsidian vault with wikilinks and index notes. Use when user wants to find, create, or organize notes in Obsidian.
 ---
 
-> **Note**: This is the low-level personal implementation. For research, engineering, teach bridging, and vault configuration, use the shareable skills in `productivity/`: `/setup-knowledge-vault` and `research-from-vault` (see `docs/agents/knowledge-vault.md`).
+> **Note**: This is the low-level personal implementation. For research, engineering, teach bridging, and vault configuration, use the shareable skills in `productivity/`: `/setup-knowledge-vault` and `research-from-vault` (see `.agent/context/knowledge-vault.md` in consumer repos; fallback: `docs/agents/knowledge-vault.md`).
 
 # Obsidian Vault
 

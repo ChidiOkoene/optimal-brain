@@ -15,14 +15,14 @@
 ## Goal-based (full pipeline)
 
 ```
-/until-done Research "latest best practices for agent memory systems 2026" using external research tools. Use davidondrej research-and-web skills (or equivalent) to fetch recent papers, posts, and videos. Save raw or summarized sources into the vault with companion notes. Then synthesize: produce a main synthesis note with wikilinks to sources and a vault learning record capturing the key takeaway and implications. Stop when the synthesis note and learning record exist in the vault following docs/agents/knowledge-vault.md conventions.
+/until-done Research "latest best practices for agent memory systems 2026" using external research tools. Use davidondrej research-and-web skills (or equivalent) to fetch recent papers, posts, and videos. Save raw or summarized sources into the vault with companion notes. Then synthesize: produce a main synthesis note with wikilinks to sources and a vault learning record capturing the key takeaway and implications. Capture every substantive finding per RESEARCH-CAPTURE-FORMAT.md (session hub + finding notes). Stop when the synthesis note, learning record, session hub, and finding notes exist in the vault following `.agent/context/knowledge-vault.md` (fallback: `docs/agents/knowledge-vault.md`) conventions.
 ```
 
 ## Staged (gather, then synthesize)
 
 Gather phase (in a session with external skills):
 ```
-Use installed research-and-web skills to find and summarize the top 5 recent sources on agent memory systems. Write them as notes or PDF companions under the vault path from docs/agents/knowledge-vault.md. Include one-line annotations.
+Use installed research-and-web skills to find and summarize the top 5 recent sources on agent memory systems. Write them as notes or PDF companions under the vault path from `.agent/context/knowledge-vault.md` (fallback: `docs/agents/knowledge-vault.md`). Include one-line annotations.
 ```
 
 Synthesize phase:

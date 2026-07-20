@@ -7,9 +7,9 @@ See also `docs/OPTIMAL-BRAIN.md` for a fuller comparison to the original mattpoc
 - **Long-term memory**: Your Obsidian vault (PDFs, notes, transcripts, learning records).
 - **External sensing**: davidondrej/skills research-and-web (browser, YouTube, web, research APIs).
 - **Synthesis & capture**: `research-from-vault` + `/teach` (with vault bridging).
-- **Execution & loops**: mattpocock engineering skills + `agent-loop` / `/until-done` + verification discipline.
+- **Execution & loops**: mattpocock engineering skills + `agent-loop` / `/until-done` + verification discipline + `/system-architect` for multi-view solution design.
 - **Routing**: `/ask-brain`.
-- **Context graph**: vault Context Index + decision traces (global); `project-context.md` + ADRs (per project).
+- **Context graph**: vault Context Index + decision traces + Research Sessions/Findings (global); `.agent/context/project-context.md` + ADRs (per project).
 
 ## Layers
 
@@ -21,7 +21,7 @@ flowchart LR
   subgraph Memory[Personal Memory / Vault]
     V["Obsidian Vault\n(PDFs, notes, sources)"]
     LRV["Vault Learning Records\n(wikilinked)"]
-    KV["docs/agents/knowledge-vault.md"]
+    KV[".agent/context/knowledge-vault.md\n(consumer repos)"]
   end
   subgraph Synthesis["Synthesis & Capture"]
     RV["research-from-vault (model)"]
@@ -29,7 +29,7 @@ flowchart LR
   end
   subgraph Execution["Engineering Execution + Loops"]
     AL["agent-loop + /until-done"]
-    ENG["grill-with-docs, domain-modeling,\ntdd, implement, ..."]
+    ENG["grill-with-docs, domain-modeling,\ntdd, implement, system-architect, ..."]
     ASK["/ask-brain (router)"]
   end
   D -->|"pull fresh\nmaterial"| V
@@ -97,13 +97,27 @@ All expected `SKILL.md` should be listed with no errors. Frontmatter on new skil
 - **Fresh world info → durable memory**: Use davidondrej research tools to fetch → save sources into vault (with companion notes) → `research-from-vault` or `/teach` to synthesize → vault learning record.
 - **Engineering with memory**: `/grill-with-docs` or `domain-modeling` will ground in vault sources when present. Loops reach `research-from-vault` on knowledge gaps.
 - **Maintenance**: `/loop 1d` + recipes from `setup-knowledge-vault/recipes/` (ingest, research, maintain indexes, maintain context graph, external-to-vault).
-- **Context governance**: after significant research — update vault Context Index, emit decision trace, reconcile `project-context.md`.
+- **Context governance**: after significant research — update vault Context Index + Research Index, capture findings per RESEARCH-CAPTURE-FORMAT, emit decision trace, reconcile `.agent/context/project-context.md`.
+- **Ideation**: `/decision-mapping` for multi-session investigation → maps under `.agent/context/decision-maps/`.
+- **System architecture**: `/system-architect` for multi-view solution design → hubs under `.agent/context/architecture-sessions/` (role briefs, not separate slash skills).
 
 ## Key Config Files
 
-- `docs/agents/loops.md` — verification, stop rules, scope for `agent-loop` / `/until-done` / `/implement`.
-- `docs/agents/knowledge-vault.md` — vault path, learning record rules in vault, PDF handling, context graph validity rules (written by `/setup-knowledge-vault`). See also `docs/agents/example-vault-learning-record.md`, `example-external-to-vault-synthesis.md`, `example-context-index.md`, `example-decision-trace.md`, and `example-project-context.md`.
-- `docs/agents/project-context.md` — per-repo overlay (written by `/setup-knowledge-vault`).
+**Consumer repos** (where skills are installed) use **`.agent/context/`** for per-repo agent config. Skills read `.agent/context/<file>` first, then fall back to legacy `docs/agents/<file>`. See `skills/productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md`.
+
+| File | Purpose |
+| ---- | ------- |
+| `.agent/context/loops.md` | Verification, stop rules, scope for `agent-loop` / `/until-done` / `/implement` |
+| `.agent/context/knowledge-vault.md` | Vault path, learning records, PDF handling, research capture layout (written by `/setup-knowledge-vault`) |
+| `.agent/context/project-context.md` | Per-repo overlay — which vault notes apply here |
+| `.agent/context/decision-maps/` | Decision-mapping ideation artifacts |
+| `.agent/context/architecture-sessions/` | System-architect engagement hubs |
+| `.agent/context/decision-traces/` | Optional engineering loop audits |
+
+**Vault project folder** (per project in Obsidian): `Personal Notes/` (`/project-notes`), `Context Graph.canvas` (`/vault-context-canvas` — Obsidian JSON Canvas, not Cursor IDE canvas).
+
+**This package repo** keeps authoring examples under `docs/agents/` (e.g. `example-vault-learning-record.md`, `example-external-to-vault-synthesis.md`, `example-context-index.md`, `example-decision-trace.md`, `example-project-context.md`, `example-research-session.md`, `example-context-canvas.canvas`, `example-architecture-session.md`). Do not migrate these to `.agent/context/` — they document the format for consumers.
+
 - `docs/agents/brain.md` (this file) — the big picture.
 
 ## Installation Order Recommendation
@@ -123,10 +137,11 @@ The vault wikilinks form a **knowledge graph** (what relates to what). A lightwe
 
 | Layer | Location | Holds |
 | ----- | -------- | ----- |
-| Global | Vault `Context Index.md`, `Decision Traces/` | Valid knowledge, supersession, research audit trail |
-| Project | Repo `docs/agents/project-context.md`, ADRs, `loops.md` | What applies to *this* codebase, agent rules |
+| Global | Vault `Context Index.md`, `Research Index.md`, `Research Sessions/`, `Findings/`, `Decision Traces/` | Valid knowledge, research capture, supersession, audit trail |
+| Project (vault) | `{ProjectFolder}/Personal Notes/`, `{ProjectFolder}/Context Graph.canvas` | Your reflections; Obsidian JSON Canvas visual graph |
+| Project (repo) | `.agent/context/project-context.md`, ADRs, `.agent/context/loops.md` | What applies to *this* codebase, agent rules |
 
-Agent read order: `knowledge-vault.md` → `loops.md` → `project-context.md` → vault Context Index → wikilinks.
+Agent read order: `.agent/context/knowledge-vault.md` → `.agent/context/loops.md` → `.agent/context/project-context.md` → vault Context Index → wikilinks. Legacy fallback: `docs/agents/` equivalents.
 
 Setup via `/setup-knowledge-vault` (Section E). Maintenance recipe: `maintain-context-graph.md`. Examples in `docs/agents/example-*.md`.
 

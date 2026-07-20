@@ -2,12 +2,12 @@
 
 **Use when:** you want to refresh global validity (Context Index), reconcile project overlay links, mark superseded notes, or audit decision traces after research or engineering runs.
 
-**Requires:** `/setup-knowledge-vault` completed (`docs/agents/knowledge-vault.md` and ideally `docs/agents/project-context.md`).
+**Requires:** `/setup-knowledge-vault` completed (`.agent/context/knowledge-vault.md` and ideally `.agent/context/project-context.md`; fallback: `docs/agents/` equivalents).
 
 ## Goal-based (full refresh)
 
 ```
-/until-done Maintain the context graph: refresh vault Context Index with current active and superseded knowledge, ensure recent decision traces are linked, update docs/agents/project-context.md if new vault synthesis is project-relevant, and mark any superseded notes per docs/agents/knowledge-vault.md validity rules. Stop when Context Index is current and project-context reflects active global notes, or a stop rule fires.
+/until-done Maintain the context graph: refresh vault Context Index with current active and superseded knowledge, ensure recent decision traces are linked, update `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`) if new vault synthesis is project-relevant, and mark any superseded notes per `.agent/context/knowledge-vault.md` (fallback: `docs/agents/knowledge-vault.md`) validity rules. Stop when Context Index is current and project-context reflects active global notes, or a stop rule fires.
 ```
 
 ## Goal-based (after a research run)
@@ -24,13 +24,17 @@
 
 ## When to emit decision traces
 
-Emit a decision trace (vault `Decision Traces/` for research; repo `docs/agents/decision-traces/` for engineering when configured) when:
+Emit a decision trace (vault `Decision Traces/` for research; repo `.agent/context/decision-traces/` (fallback: `docs/agents/decision-traces/`) for engineering when configured) when:
 
 - A `/until-done` or `research-from-vault` run produced synthesis + learning records
 - An agent loop completed a multi-step research goal
 - A significant engineering loop run changed architecture or made a non-obvious fix (optional)
 
 Use template: `skills/productivity/setup-knowledge-vault/templates/decision-trace-template.md`
+
+## Optional: refresh context canvas
+
+After Context Index and project-context are current, run **`/vault-context-canvas`** to refresh `{ProjectFolder}/Context Graph.canvas` in the Obsidian vault (JSON Canvas — not Cursor IDE canvas).
 
 ## Tips
 

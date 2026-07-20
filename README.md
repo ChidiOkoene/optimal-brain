@@ -178,7 +178,7 @@ This stack is a fork and extension. Honest attribution for the composite:
 
 - **mattpocock/skills** (Matt Pocock): The foundational engineering skills — grilling sessions, domain modeling, TDD, `ask-matt` router, `teach`, `setup-matt-pocock-skills`, `to-issues`/`to-prd`, vertical slicing, codebase architecture improvement, and the overall skill taxonomy, invocation model, and philosophy. The core "hands" for day-to-day engineering come from here (unchanged in this fork; renamed entry points below).
 
-- **Chidi** (this fork, [chidiokoene/optimal-brain](https://github.com/chidiokoene/optimal-brain)): Fork entry points `ask-brain` and `setup-optimal-brain`; the loop engineering layer (`setup-agent-loops`, `agent-loop`, `until-done` + recipes + `docs/agents/loops.md`); the knowledge vault layer (`setup-knowledge-vault`, `research-from-vault`, bridging updates to `teach` + `LEARNING-RECORD-FORMAT.md`/`RESOURCES-FORMAT.md`, reach points across skills); minimal context graph; plus integrated documentation (`docs/OPTIMAL-BRAIN.md`, `docs/agents/brain.md`).
+- **Chidi** (this fork, [chidiokoene/optimal-brain](https://github.com/chidiokoene/optimal-brain)): Fork entry points `ask-brain` and `setup-optimal-brain`; the loop engineering layer (`setup-agent-loops`, `agent-loop`, `until-done`, `implement` + recipes + `.agent/context/loops.md`); the knowledge vault layer (`setup-knowledge-vault`, `research-from-vault`, research capture, `decision-mapping`, bridging updates to `teach` + formats, reach points across skills); minimal context graph; plus integrated documentation (`docs/OPTIMAL-BRAIN.md`, `docs/agents/brain.md`, `docs/PLAYBOOK.md`).
 
 - **davidondrej/skills** (David Ondrej): Research-and-web capabilities (browser, YouTube, web search, research APIs) that provide external ingestion — fresh material that can be landed in the vault and synthesized.
 
@@ -204,10 +204,12 @@ Skills used daily for code work.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)** — Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+- **[system-architect](./skills/engineering/system-architect/SKILL.md)** — Orchestrate solution/system architecture across competence roles into a session hub, ADRs, and delivery handoff.
 - **[setup-optimal-brain](./skills/engineering/setup-optimal-brain/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
 - **[setup-agent-loops](./skills/engineering/setup-agent-loops/SKILL.md)** — Configure verification commands, stop rules, and scope for agent loops. Run once per repo before `/until-done` or autonomous iteration.
 - **[to-issues](./skills/engineering/to-issues/SKILL.md)** — Break any plan, spec, or PRD into independently-grabbable issues using vertical slices.
 - **[to-prd](./skills/engineering/to-prd/SKILL.md)** — Turn the current conversation into a PRD and publish it to the issue tracker. No interview — just synthesizes what you've already discussed.
+- **[implement](./skills/engineering/implement/SKILL.md)** — Implement a PRD or issue using agent-loop discipline until verifiers pass.
 - **[prototype](./skills/engineering/prototype/SKILL.md)** — Build a throwaway prototype to flesh out a design — either a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route.
 - **[until-done](./skills/engineering/until-done/SKILL.md)** — Run a goal-based agent loop until verification passes or a stop rule fires — hand off the stop condition to the agent.
 
@@ -228,7 +230,10 @@ General workflow tools, not code-specific.
 - **[grill-me](./skills/productivity/grill-me/SKILL.md)** — Get relentlessly interviewed about a plan or design until every branch of the decision tree is resolved.
 - **[handoff](./skills/productivity/handoff/SKILL.md)** — Compact the current conversation into a handoff document so another agent can continue the work.
 - **[teach](./skills/productivity/teach/SKILL.md)** — Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
+- **[decision-mapping](./skills/productivity/decision-mapping/SKILL.md)** — Turn a loose idea into a sequenced map of investigation tickets under `.agent/context/decision-maps/`, then drive them to resolution one at a time.
+- **[project-notes](./skills/productivity/project-notes/SKILL.md)** — Capture personal notes during or after research in the vault under `{ProjectFolder}/Personal Notes/`.
 - **[setup-knowledge-vault](./skills/productivity/setup-knowledge-vault/SKILL.md)** — Configure personal knowledge vault (location, learning records, PDFs, context graph, project overlay, vault integration for research & teach).
+- **[vault-context-canvas](./skills/productivity/vault-context-canvas/SKILL.md)** — Create or refresh an Obsidian JSON Canvas context graph in the vault (not Cursor IDE canvas).
 - **[writing-great-skills](./skills/productivity/writing-great-skills/SKILL.md)** — Reference for writing and editing skills well: the vocabulary and principles that make a skill predictable.
 
 **Model-invoked**
