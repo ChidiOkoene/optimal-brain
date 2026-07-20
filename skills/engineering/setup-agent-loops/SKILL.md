@@ -22,8 +22,9 @@ Look at the current repo to understand its starting state. Read whatever exists;
 
 - `package.json`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `Makefile` — what verification commands exist?
 - `AGENTS.md` and `CLAUDE.md` at the repo root — is there already an `## Agent loops` section?
-- `docs/agents/loops.md` — does this skill's prior output already exist?
-- `docs/agents/` — other agent config from `/setup-optimal-brain`
+- `.agent/context/loops.md` — does this skill's prior output already exist?
+- `.agent/context/` — other agent config from `/setup-optimal-brain`
+- `docs/agents/` — legacy fallback only
 - Test runner config (`vitest.config.*`, `jest.config.*`, `pytest.ini`, etc.)
 
 ### 2. Present findings and ask
@@ -68,7 +69,7 @@ Confirm:
 Show the user a draft of:
 
 - The `## Agent loops` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited
-- The contents of `docs/agents/loops.md`
+- The contents of `.agent/context/loops.md`
 
 Let them edit before writing.
 
@@ -89,7 +90,7 @@ The block:
 ```markdown
 ## Agent loops
 
-[one-line summary of verifier + iteration cap]. See `docs/agents/loops.md`.
+[one-line summary of verifier + iteration cap]. See `.agent/context/loops.md`.
 ```
 
 Or, if nested under `## Agent skills`:
@@ -97,10 +98,12 @@ Or, if nested under `## Agent skills`:
 ```markdown
 ### Agent loops
 
-[one-line summary]. See `docs/agents/loops.md`.
+[one-line summary]. See `.agent/context/loops.md`.
 ```
 
-Write `docs/agents/loops.md` using [loops-template.md](./loops-template.md) as the starting point.
+Ensure `.agent/context/` exists (create with README from [context-readme-template.md](../productivity/setup-knowledge-vault/templates/context-readme-template.md) if missing).
+
+Write `.agent/context/loops.md` using [loops-template.md](./loops-template.md) as the starting point.
 
 Point the user at starter recipes in this skill folder:
 
@@ -115,7 +118,7 @@ Tell the user setup is complete. Mention:
 
 - `/until-done` for goal-based loops (Cursor's equivalent of `/goal`)
 - Cursor's built-in `/loop` for time-based recurrence — combine with recipes above
-- `/implement` reads `docs/agents/loops.md` automatically
-- They can edit `docs/agents/loops.md` directly; re-run this skill only to restart from scratch
+- `/implement` reads `.agent/context/loops.md` automatically (fallback: `docs/agents/loops.md`)
+- They can edit `.agent/context/loops.md` directly; re-run this skill only to restart from scratch
 
 If `/setup-optimal-brain` has not been run yet, recommend it for issue tracker and domain doc setup.

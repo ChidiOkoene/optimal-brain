@@ -22,8 +22,8 @@ confidence: medium
 ## Evidence used
 
 - [[Source companion or PDF note]]
-- `docs/agents/knowledge-vault.md`
-- `docs/agents/project-context.md` (if present)
+- `.agent/context/knowledge-vault.md` (fallback: `docs/agents/knowledge-vault.md`)
+- `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`) (if present)
 
 ## Outputs
 
@@ -37,4 +37,4 @@ confidence: medium
 ## See also
 
 - [[Context Index]]
-- Repo: `docs/agents/decision-traces/` (for engineering-side traces, if used)
+- Repo: `.agent/context/decision-traces/` (fallback: `docs/agents/decision-traces/`) (for engineering-side traces, if used)

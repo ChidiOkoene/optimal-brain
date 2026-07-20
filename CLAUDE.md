@@ -17,8 +17,10 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true`, reach
 
 ## Agent loops
 
-Verification commands, stop rules, and scope for autonomous iteration. See `docs/agents/loops.md`.
+Verification commands, stop rules, and scope for autonomous iteration. See `.agent/context/loops.md` in consumer repos (this package repo keeps examples in `docs/agents/loops.md`).
 
 ## Knowledge & Research
 
-Personal knowledge vault configuration, learning record placement, PDF/source handling, and research-from-vault flows. See `docs/agents/knowledge-vault.md`. External research ingestion uses davidondrej research-and-web skills feeding the vault.
+Personal knowledge vault configuration, learning record placement, PDF/source handling, and research-from-vault flows. See `.agent/context/knowledge-vault.md` in consumer repos (examples in `docs/agents/knowledge-vault.md`). External research ingestion uses davidondrej research-and-web skills feeding the vault.
+
+Path resolution for all skills: read `.agent/context/<file>` first, fall back to `docs/agents/<file>`. See `skills/productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md`.

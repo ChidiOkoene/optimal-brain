@@ -16,13 +16,13 @@
 Issue: #42
 PRD: [link or paste]
 
-Iterate until verifiers in docs/agents/loops.md pass. Respect stop rules.
+Iterate until verifiers in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) pass. Respect stop rules.
 ```
 
 Or use the goal-based entry point:
 
 ```
-/until-done Implement issue #42 per the PRD. Use TDD at pre-agreed seams. Stop when verifiers in docs/agents/loops.md pass.
+/until-done Implement issue #42 per the PRD. Use TDD at pre-agreed seams. Stop when verifiers in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) pass.
 ```
 
 ## Tips

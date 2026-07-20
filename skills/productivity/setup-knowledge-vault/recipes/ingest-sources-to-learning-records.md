@@ -2,7 +2,7 @@
 
 **Use when:** you have dropped PDFs, articles, transcripts, or notes into the vault and want them turned into synthesized, wikilinked learning records.
 
-**Requires:** `/setup-knowledge-vault` completed (so `docs/agents/knowledge-vault.md` exists).
+**Requires:** `/setup-knowledge-vault` completed (so `.agent/context/knowledge-vault.md` exists; fallback: `docs/agents/knowledge-vault.md`).
 
 ## Goal-based (recommended)
 
@@ -13,7 +13,7 @@
 ## Time-based (watch while you work)
 
 ```
-/loop 15m Scan for unprocessed sources (PDFs, .md, transcripts) added since last run. Create companion notes and extract key points. Produce learning-record-style entries in the vault for durable insights. Respect vault conventions in docs/agents/knowledge-vault.md.
+/loop 15m Scan for unprocessed sources (PDFs, .md, transcripts) added since last run. Create companion notes and extract key points. Produce learning-record-style entries in the vault for durable insights. Respect vault conventions in `.agent/context/knowledge-vault.md` (fallback: `docs/agents/knowledge-vault.md`).
 ```
 
 ## Tips

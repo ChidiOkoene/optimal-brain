@@ -33,7 +33,7 @@
 
 ## Local / Vault Sources
 
-When a knowledge vault is configured (`docs/agents/knowledge-vault.md`), you may reference local files and PDFs that live in the vault.
+When a knowledge vault is configured (`.agent/context/knowledge-vault.md`, fallback: `docs/agents/knowledge-vault.md`), you may reference local files and PDFs that live in the vault.
 
 - Use vault-relative or absolute paths that the agent can resolve from the configured vault root.
 - Prefer companion notes: for `Paper.pdf` create or link `Paper Note.md` and cite the companion.

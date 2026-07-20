@@ -1,0 +1,80 @@
+{
+  "nodes": [
+    {
+      "id": "node-legend",
+      "type": "text",
+      "text": "# Context Graph\nProject: Example Project\nUpdated: 2026-07-16",
+      "x": -480,
+      "y": -240,
+      "width": 360,
+      "height": 100
+    },
+    {
+      "id": "group-active",
+      "type": "group",
+      "label": "Active knowledge",
+      "x": 0,
+      "y": 0,
+      "width": 900,
+      "height": 360,
+      "color": "4"
+    },
+    {
+      "id": "node-context-index",
+      "type": "file",
+      "file": "Indexes/Context Index.md",
+      "x": 40,
+      "y": 40,
+      "width": 400,
+      "height": 280
+    },
+    {
+      "id": "node-synthesis",
+      "type": "file",
+      "file": "Findings/Example Synthesis Note.md",
+      "x": 480,
+      "y": 40,
+      "width": 400,
+      "height": 280
+    },
+    {
+      "id": "group-project",
+      "type": "group",
+      "label": "Project overlay",
+      "x": 0,
+      "y": 400,
+      "width": 900,
+      "height": 360,
+      "color": "5"
+    },
+    {
+      "id": "node-personal-notes",
+      "type": "file",
+      "file": "Example Project/Personal Notes/2026-07-16 Session Reflection.md",
+      "x": 40,
+      "y": 440,
+      "width": 400,
+      "height": 280
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-ctx-to-synth",
+      "fromNode": "node-context-index",
+      "fromSide": "right",
+      "toNode": "node-synthesis",
+      "toSide": "left",
+      "toEnd": "arrow",
+      "label": "lists"
+    },
+    {
+      "id": "edge-synth-to-personal",
+      "fromNode": "node-synthesis",
+      "fromSide": "bottom",
+      "toNode": "node-personal-notes",
+      "toSide": "top",
+      "toEnd": "arrow",
+      "label": "informed"
+    }
+  ]
+}

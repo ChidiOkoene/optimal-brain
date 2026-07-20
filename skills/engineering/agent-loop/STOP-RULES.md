@@ -2,9 +2,11 @@
 
 Reference for when the agent-loop must **stop iterating** and present a brief to the user.
 
+All rules reference `.agent/context/loops.md` (fallback: `docs/agents/loops.md`).
+
 ## Stop when verification passes
 
-The primary success stop. All "after each change" verifiers from `docs/agents/loops.md` pass, and any "before stopping" gate has been run if the task touched multiple files.
+The primary success stop. All "after each change" verifiers from `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) pass, and any "before stopping" gate has been run if the task touched multiple files.
 
 ## Stop when iteration cap is hit
 
@@ -22,13 +24,13 @@ Present: the repeated failure, hypothesis for why fixes aren't landing, ask huma
 
 ## Stop when forbidden action is required
 
-The next step would require an action listed under "Forbidden without human approval" in `docs/agents/loops.md` (push, deploy, delete data, CI config change, `.env` edit).
+The next step would require an action listed under "Forbidden without human approval" in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) (push, deploy, delete data, CI config change, `.env` edit).
 
 Present: what was accomplished, what needs human approval to continue.
 
 ## Stop when scope is exceeded
 
-The fix requires editing paths outside the editable scope in `docs/agents/loops.md`.
+The fix requires editing paths outside the editable scope in `.agent/context/loops.md` (fallback: `docs/agents/loops.md`).
 
 Present: why the scope boundary blocks progress, suggest expanding scope or human intervention.
 

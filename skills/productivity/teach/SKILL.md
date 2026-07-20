@@ -141,7 +141,7 @@ The user will sometimes express preferences of how they want to be taught, or th
 
 ## Vault Integration
 
-When `docs/agents/knowledge-vault.md` exists (produced by `/setup-knowledge-vault`), treat the configured Obsidian (or equivalent) vault as the long-term home for learning.
+When `.agent/context/knowledge-vault.md` exists (fallback: `docs/agents/knowledge-vault.md`) (produced by `/setup-knowledge-vault`), treat the configured Obsidian (or equivalent) vault as the long-term home for learning.
 
 - After creating local learning records in `./learning-records/`, offer to emit (or automatically emit) vault-ready bridged versions:
   - Title Case filename (or numbered Title Case if the user prefers sequence).

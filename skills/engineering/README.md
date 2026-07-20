@@ -10,10 +10,12 @@ Reachable only when you type them (`disable-model-invocation: true`).
 - **[grill-with-docs](./grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./triage/SKILL.md)** — Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+- **[system-architect](./system-architect/SKILL.md)** — Orchestrate solution/system architecture across competence roles into a session hub, ADRs, and delivery handoff.
 - **[setup-optimal-brain](./setup-optimal-brain/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo.
 - **[setup-agent-loops](./setup-agent-loops/SKILL.md)** — Configure verification commands, stop rules, and scope for agent loops. Run once per repo before `/until-done` or autonomous iteration.
 - **[to-issues](./to-issues/SKILL.md)** — Break any plan, spec, or PRD into independently-grabbable issues using vertical slices.
 - **[to-prd](./to-prd/SKILL.md)** — Turn the current conversation into a PRD and publish it to the issue tracker.
+- **[implement](./implement/SKILL.md)** — Implement a PRD or issue using agent-loop discipline until verifiers pass.
 - **[prototype](./prototype/SKILL.md)** — Build a throwaway prototype — a runnable terminal app for state/logic questions, or several toggleable UI variations.
 - **[until-done](./until-done/SKILL.md)** — Run a goal-based agent loop until verification passes or a stop rule fires.
 

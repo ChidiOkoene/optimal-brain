@@ -57,4 +57,4 @@ Copy-paste prompts live in the `setup-agent-loops` skill folder under `recipes/`
 - **Scheduled triage** — `/loop 1h /triage` (requires `/setup-optimal-brain`)
 - **PR until mergeable** — Cursor `babysit` skill + loop stop rules
 
-Significant engineering loop runs may emit decision traces under `docs/agents/decision-traces/` when that folder exists (see `/setup-knowledge-vault` context graph setup).
+Significant engineering loop runs may emit decision traces under `.agent/context/decision-traces/` when that folder exists (see `/setup-knowledge-vault` context graph setup).
