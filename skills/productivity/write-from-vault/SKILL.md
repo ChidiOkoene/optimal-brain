@@ -1,6 +1,6 @@
 ---
 name: write-from-vault
-description: Turn vault research notes into a sourced article, one stage at a time (mine fragments, shape a pyramid, write beat by beat), with every claim traced to a note and saved back into the vault.
+description: Turn vault research notes into a sourced article, one stage at a time (mine fragments, shape a pyramid, write beat by beat), with every claim traced to a note, saved back into the vault, and exported to publish-ready Markdown.
 disable-model-invocation: true
 argument-hint: "A topic or question, a session hub, or an existing Drafts/ folder to resume"
 ---
@@ -32,6 +32,7 @@ Create the draft workspace (see [DRAFT-WORKSPACE.md](DRAFT-WORKSPACE.md)):
   Claim Ledger.md every claim → evidence (the spine of the whole skill)
   Outline.md      stage 2 output
   <Article Title>.md   stage 3 output
+  export/         stage 5 output (publishable copy + report)
 ```
 
 Resuming? Read `Brief.md` `status` and continue from the next stage. Re-read files from disk before every write; the user may have edited them.
@@ -92,9 +93,17 @@ Fix and re-run until all pass. On failure in a loop (`/until-done`), treat this 
 
 - Link the draft from the session hub(s) it drew on and add it to vault `Indexes/Context Index.md` under drafts (or the index the vault config names).
 - New knowledge created while writing (a gap you researched, a new synthesis) goes into `Findings/` per `research-from-vault`'s capture format, not only into the article.
-- Ask whether to export a clean copy (wikilinks → links/footnotes, ledger stripped) outside the vault. Publishing is the user's call; never post anywhere.
-
 Set `status: verified` when the gate passes.
+
+## Stage 5: Export (when the user wants to publish)
+
+Detail: [EXPORT.md](EXPORT.md). Ask the destination, pick the style (`footnotes` for GitHub/dev.to/blogs, `links` for Substack/Medium/email, `pandoc` for PDF/academic), then run:
+
+```bash
+python3 scripts/export.py "<vault root>" "Drafts/<Article Title>" --style <style>
+```
+
+It writes `Drafts/<Article Title>/export/<slug>.md` (wikilinks → citations, embeds resolved, vault metadata stripped) and `EXPORT-REPORT.md` (unresolved links, superseded/exploratory/expired sources, ledger rows to re-check, notes without public URLs). Clear every flag with the user; superseded or missing evidence sends you back to Stage 4. Set `status: exported`. Publishing is the user's call; never post anywhere.
 
 ## Shortcuts
 
