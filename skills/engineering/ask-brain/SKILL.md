@@ -24,7 +24,7 @@ The route most work travels. You have an idea and want it built.
 3. **Branch — is this a multi-session build?**
    - **Yes** → **`/to-prd`** (turn the thread into a PRD) → **`/to-issues`** (split the PRD into independently-grabbable issues). Because the issues are independent, **clear context between each one**: start a fresh session per issue and kick off **`/implement`** by passing it the PRD and the single issue to work on.
    - **No** → **`/implement`** right here, in the same context window.
-4. **`/review`** — `/implement` runs it as its final gate. Run it yourself on any branch or PR ("review since main"): Standards and Spec axes kept separate, findings ranked `blocker` → `nit`, one verdict.
+4. **`/two-axis-review`** — `/implement` runs it as its final gate. Run it yourself on any branch or PR ("review since main"): Standards and Spec axes kept separate, findings ranked `blocker` → `nit`, one verdict.
 
 ### Context hygiene
 
@@ -78,7 +78,7 @@ When you want the agent to **iterate autonomously** until an objective says done
 | Recurring maintenance while you work | `/loop 30m …` |
 | Incoming issues piling up | `/loop 1h /triage` |
 | PR failing CI | Cursor `babysit` skill |
-| Need a quality gate before the loop stops | `/review` in gate mode (FAIL counts as a failing verifier) |
+| Need a quality gate before the loop stops | `/two-axis-review` in gate mode (FAIL counts as a failing verifier) |
 | Want to delegate a recurring job but it's fuzzy | `/setup-agent-loops` → design a custom workflow path |
 
 ## Solution & system architecture

@@ -1,5 +1,7 @@
 # optimal-brain
 
+[![checks](https://github.com/ChidiOkoene/optimal-brain/actions/workflows/checks.yml/badge.svg)](https://github.com/ChidiOkoene/optimal-brain/actions/workflows/checks.yml)
+
 **Give your coding agent a long-term memory: every research session becomes linked, sourced Obsidian notes it reads back next time.**
 
 ![Optimal Brain](./docs/assets/KN09g.jpg)
@@ -56,7 +58,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 | Synthesis | `teach` (local workspace) | `teach` bridges learning records into the vault and can use vault sources |
 | Architecture | Implicit | `system-architect` with 10 role briefs, engagement types, and recipes |
 | Routing | `ask-matt` | `/ask-brain` with a Knowledge, Research & Learning section |
-| Review & writing | Unfinished drafts | `review` (two axes, severities, loop gate) and `write-from-vault` (vault → sourced article with a claim ledger) |
+| Review & writing | Unfinished drafts | `two-axis-review` (two axes, severities, loop gate) and `write-from-vault` (vault → sourced article with a claim ledger) |
 
 ## Quick start (Lite: vault memory only)
 
@@ -78,6 +80,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 - **Architect**: install `system-architect`, then `/system-architect` for discovery, as-is review, target design, or migration.
 - **Engineering base**: run `/setup-optimal-brain` once per repo before `to-prd`, `to-issues`, `triage`.
 - **External research**: `npx skills@latest add davidondrej/skills` and pick `research-and-web` to feed fresh material into the vault.
+- Also using [gstack](https://github.com/garrytan/gstack)? See [docs/WITH-GSTACK.md](./docs/WITH-GSTACK.md).
 - Not sure where to start? Use `/ask-brain`. For a full walkthrough see [docs/PLAYBOOK.md](./docs/PLAYBOOK.md).
 
 ## Skill index
@@ -97,8 +100,8 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 - **[setup-agent-loops](./skills/engineering/setup-agent-loops/SKILL.md)** (user): verification commands, stop rules, scope, starter recipes. Run once per repo. Also has a [design-a-custom-workflow](./skills/engineering/setup-agent-loops/recipes/design-custom-workflow.md) path for specifying your own recurring workflows.
 - **[agent-loop](./skills/engineering/agent-loop/SKILL.md)** (model): Plan → Act → Observe → Verify → Stop discipline.
 - **[until-done](./skills/engineering/until-done/SKILL.md)** (user): run a goal-based loop until verification passes or a stop rule fires.
-- **[implement](./skills/engineering/implement/SKILL.md)** (user): implement a PRD or issue using agent-loop discipline, gated by `/review`.
-- **[review](./skills/engineering/review/SKILL.md)** (model): two-axis review (Standards vs Spec) plus correctness, security, and tests; conventional-comments findings with severities and a PASS/FAIL verdict that loops use as a gate.
+- **[implement](./skills/engineering/implement/SKILL.md)** (user): implement a PRD or issue using agent-loop discipline, gated by `/two-axis-review`.
+- **[two-axis-review](./skills/engineering/two-axis-review/SKILL.md)** (model): two-axis review (Standards vs Spec) plus correctness, security, and tests; conventional-comments findings with severities and a PASS/FAIL verdict that loops use as a gate.
 
 ### Architect layer
 

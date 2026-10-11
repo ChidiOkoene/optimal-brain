@@ -10,6 +10,6 @@ Read `.agent/context/loops.md` first (fallback: `docs/agents/loops.md`) — use 
 
 Use /tdd where possible, at pre-agreed seams.
 
-Once verifiers pass, run `/review` in gate mode against the branch's starting point, with the PRD/issue as the spec. A `FAIL` verdict counts as a failing verifier: fix the blocker/major findings and re-review (each re-review is a loop iteration). List remaining minor/nit findings in your final brief.
+Once verifiers pass, run `/two-axis-review` in gate mode against the branch's starting point, with the PRD/issue as the spec. A `FAIL` verdict counts as a failing verifier: fix the blocker/major findings and re-review (each re-review is a loop iteration). List remaining minor/nit findings in your final brief.
 
 Commit your work to the current branch.

@@ -46,7 +46,7 @@ Propose commands detected from the repo. Typical defaults:
 
 - **After each change** (fast feedback): single-file test, typecheck, or lint
 - **Before stopping** (full gate): full test suite
-- **Review gate** (optional): `/review` in gate mode — a `FAIL` verdict counts as a failing verifier
+- **Review gate** (optional): `/two-axis-review` in gate mode — a `FAIL` verdict counts as a failing verifier
 
 Ask the user to confirm or override each command. If the repo has no tests, propose typecheck or build as the verifier and note the gap.
 

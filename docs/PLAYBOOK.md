@@ -56,7 +56,7 @@ npx skills@latest add chidiokoene/optimal-brain
 npx skills@latest add davidondrej/skills   # optional: external research (research-and-web)
 ```
 
-Select at minimum: `setup-optimal-brain`, `setup-agent-loops`, `setup-knowledge-vault`, `ask-brain`, `agent-loop`, `until-done`, `implement`, `review`, `research-from-vault`, `write-from-vault`, `decision-mapping`, `system-architect`, `project-notes`, `vault-context-canvas`.
+Select at minimum: `setup-optimal-brain`, `setup-agent-loops`, `setup-knowledge-vault`, `ask-brain`, `agent-loop`, `until-done`, `implement`, `two-axis-review`, `research-from-vault`, `write-from-vault`, `decision-mapping`, `system-architect`, `project-notes`, `vault-context-canvas`.
 
 ### 2. Load them in your agent
 
@@ -64,21 +64,21 @@ Install with **project scope** in your repo, then start a **fresh agent session*
 
 - **Cursor**: used during development. Skills appear as `/` commands in Agent chat; the `/loop` prompts here use Cursor's built-in `/loop`.
 - **Claude Code**: supported via `.claude-plugin/plugin.json` (and `scripts/link-skills.sh` → `~/.claude/skills`), not separately tested. Skills appear as `/` commands; Claude Code also has a bundled `/loop`.
-- **Codex, Copilot, other Agent-Skills harnesses**: untested. Skills are plain `SKILL.md` folders; if your agent has no `/` menu, ask for the skill by name ("use the review skill").
+- **Codex, Copilot, other Agent-Skills harnesses**: untested. Skills are plain `SKILL.md` folders; if your agent has no `/` menu, ask for the skill by name ("use the two-axis-review skill").
 
 ### 3. Run the setup skills (once per repo)
 
 In order:
 
 1. **`/setup-optimal-brain`** — issue tracker, triage labels, `CONTEXT.md` / ADR layout → `.agent/context/` (optionally create `architecture-sessions/`)
-2. **`/setup-agent-loops`** — test/lint commands, stop rules, edit scope → `.agent/context/loops.md`. Optionally add `/review` as a loop gate.
+2. **`/setup-agent-loops`** — test/lint commands, stop rules, edit scope → `.agent/context/loops.md`. Optionally add `/two-axis-review` as a loop gate.
 3. **`/setup-knowledge-vault`** — vault path, learning records, context graph, research capture folders → `.agent/context/knowledge-vault.md` + `.agent/context/project-context.md`
 
 Have your Obsidian vault path ready for step 3.
 
 ### 4. Verify
 
-- Your agent lists `/ask-brain`, `/setup-optimal-brain`, `/review`, etc. (type `/`, or ask "which optimal-brain skills are installed?")
+- Your agent lists `/ask-brain`, `/setup-optimal-brain`, `/two-axis-review`, etc. (type `/`, or ask "which optimal-brain skills are installed?")
 - Run `/ask-brain` and ask: "I'm starting a research + coding project — what flow should I use?"
 
 ## End-to-end workflow
@@ -99,7 +99,7 @@ flowchart LR
     B1["/implement or /until-done"] --> B2[Verifiers green]
   end
   subgraph review [5 Review]
-    V1["/review gate"] --> V2{Verdict}
+    V1["/two-axis-review gate"] --> V2{Verdict}
   end
   subgraph publish [6 Publish — Vault]
     P1["/write-from-vault"] --> P2[Claim ledger + citation gate] --> P3[export.py]
@@ -194,12 +194,12 @@ For each issue:
 2. **`/implement`** with issue + PRD, or:
 
 ```
-/until-done Implement issue #N per the PRD. Stop when tests pass per `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) and /review returns PASS or PASS WITH NOTES.
+/until-done Implement issue #N per the PRD. Stop when tests pass per `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) and /two-axis-review returns PASS or PASS WITH NOTES.
 ```
 
 The agent reads: `.agent/context/loops.md` → `.agent/context/project-context.md` → `CONTEXT.md` → vault Context Index.
 
-**`/implement` ends with `/review` before it commits** (Phase 5). A FAIL sends it back into the loop; you get the remaining minor/nit findings in the final brief.
+**`/implement` ends with `/two-axis-review` before it commits** (Phase 5). A FAIL sends it back into the loop; you get the remaining minor/nit findings in the final brief.
 
 **Knowledge gap mid-build:**
 
@@ -211,16 +211,16 @@ Research X using my vault before implementing. Ground the approach in vault sour
 
 ### Phase 5 — Review
 
-**Goal:** a second, structured look before anything is committed or merged. Skill: [review](../skills/engineering/review/SKILL.md).
+**Goal:** a second, structured look before anything is committed or merged. Skill: [two-axis-review](../skills/engineering/two-axis-review/SKILL.md).
 
 - **Two axes, kept separate:** *Standards* (does the diff follow the repo's written rules?) and *Spec* (does it do what the issue/PRD asked?). They run in parallel subagents where the agent supports them, sequentially otherwise.
-- **Cross-cutting checks:** correctness, security, tests, design ([CHECKS.md](../skills/engineering/review/CHECKS.md)).
-- **Findings** are conventional comments ranked `blocker` > `major` > `minor` > `nit`, each with `file:line` and evidence ([FINDINGS-FORMAT.md](../skills/engineering/review/FINDINGS-FORMAT.md)).
+- **Cross-cutting checks:** correctness, security, tests, design ([CHECKS.md](../skills/engineering/two-axis-review/CHECKS.md)).
+- **Findings** are conventional comments ranked `blocker` > `major` > `minor` > `nit`, each with `file:line` and evidence ([FINDINGS-FORMAT.md](../skills/engineering/two-axis-review/FINDINGS-FORMAT.md)).
 - **Verdict:** **FAIL** (any blocker, or a major on Spec/Security) · **PASS WITH NOTES** (majors elsewhere, minors, nits) · **PASS** (nits at most).
 - **As a loop gate** (`/implement`, `agent-loop`, `/until-done`): FAIL counts as a failing verifier; blocker/major findings become the next fix list; each re-review is an iteration; the same blocker surviving 2 fixes stops the loop. It never pushes, merges, or posts comments.
 - **Vault:** review decisions (a tradeoff accepted, a spec ambiguity resolved) can be logged as decision traces.
 
-Run it yourself on any branch: "review since main". Worked example: [review/examples/](../skills/engineering/review/examples/).
+Run it yourself on any branch: "review since main". Worked example: [two-axis-review/examples/](../skills/engineering/two-axis-review/examples/).
 
 ### Phase 6 — Publish
 
@@ -277,13 +277,13 @@ Update `.agent/context/project-context.md` to include [[My Synthesis Note]] as e
 **Review a branch:**
 
 ```
-/review since main. Spec: issue #42. Report Standards and Spec separately, rank findings blocker → nit, end with the verdict and the one change that would flip a FAIL.
+/two-axis-review since main. Spec: issue #42. Report Standards and Spec separately, rank findings blocker → nit, end with the verdict and the one change that would flip a FAIL.
 ```
 
 **Loop with a review gate:**
 
 ```
-/until-done Implement issue #42 per the PRD. After verifiers in `.agent/context/loops.md` pass, run /review in gate mode against main with the issue as spec. Treat FAIL as a failing verifier and fix blocker/major findings. Stop on PASS / PASS WITH NOTES or a stop rule; list remaining minor/nit findings. Do not push.
+/until-done Implement issue #42 per the PRD. After verifiers in `.agent/context/loops.md` pass, run /two-axis-review in gate mode against main with the issue as spec. Treat FAIL as a failing verifier and fix blocker/major findings. Stop on PASS / PASS WITH NOTES or a stop rule; list remaining minor/nit findings. Do not push.
 ```
 
 **Write an article from the vault:**
@@ -335,8 +335,8 @@ Recipe: [design-custom-workflow.md](../skills/engineering/setup-agent-loops/reci
 | 9 | PRD + issues | `/to-prd` → `/to-issues` |
 | 10 | Implement first slice | `/implement` or `/until-done` |
 | 11 | Agent unsure about approach | "research X from vault" |
-| 12 | Review gate before commit | `/review` (inside `/implement`) → PASS / PASS WITH NOTES |
-| 13 | Implement remaining slices | Fresh session per issue, each gated by `/review` |
+| 12 | Review gate before commit | `/two-axis-review` (inside `/implement`) → PASS / PASS WITH NOTES |
+| 13 | Implement remaining slices | Fresh session per issue, each gated by `/two-axis-review` |
 | 14 | Write up what you learned | `/write-from-vault` → claim ledger → citation gate |
 | 15 | Export and publish | `export.py --style footnotes` (dev.to) / `links` (Substack); clear EXPORT-REPORT flags |
 | 16 | Vault hygiene | Weekly maintain-context-graph (`/loop 7d` or scheduled) |
@@ -352,7 +352,7 @@ Recipe: [design-custom-workflow.md](../skills/engineering/setup-agent-loops/reci
 | **Before a big feature** | `/grill-with-docs` |
 | **During / after research** | `/project-notes`; optionally `/vault-context-canvas` |
 | **During build** | `/until-done` with explicit done signal |
-| **Before commit / merge** | `/review` (automatic inside `/implement`) |
+| **Before commit / merge** | `/two-axis-review` (automatic inside `/implement`) |
 | **When a topic has enough notes** | `/write-from-vault`, then export |
 | **A chore keeps recurring** | `/setup-agent-loops` → design a custom workflow |
 | **Weekly** | maintain-context-graph recipe (`/loop 7d` or your scheduler); re-run export on published drafts whose sources changed |
@@ -376,7 +376,7 @@ When research and code intersect:
 4. **One issue, one fresh session** — after `/to-issues`, implement slices separately.
 5. **Grill before you build** — `/grill-with-docs` prevents misalignment; use `/system-architect` when multi-view design is needed.
 6. **Loops need real verifiers** — `/setup-agent-loops` must match your actual test/lint commands.
-7. **Review before you commit** — `/review` keeps Standards and Spec apart; a FAIL is a failing verifier, not a suggestion.
+7. **Review before you commit** — `/two-axis-review` keeps Standards and Spec apart; a FAIL is a failing verifier, not a suggestion.
 8. **No claim without a source note** — every claim in an article maps to a claim-ledger row; superseded evidence is never cited, exploratory evidence is always hedged.
 9. **Export, don't hand-edit** — fix the vault draft and re-run `export.py`; never edit `export/` by hand.
 
@@ -385,7 +385,7 @@ When research and code intersect:
 1. **Lite path**: install → `/setup-knowledge-vault` → "research X using my vault"
 2. When you want to build: run `/setup-optimal-brain` and `/setup-agent-loops` (see Full setup)
 3. `/grill-with-docs` (or `/system-architect` if the design is non-trivial) → `/to-issues`
-4. `/implement` the first slice; it ends with `/review`
+4. `/implement` the first slice; it ends with `/two-axis-review`
 5. When the vault has enough on a topic: `/write-from-vault`, then export
 
 ## Related
@@ -399,5 +399,6 @@ When research and code intersect:
 - [skills/productivity/vault-context-canvas/SKILL.md](../skills/productivity/vault-context-canvas/SKILL.md) — Obsidian JSON Canvas context graph
 - [setup-knowledge-vault/recipes/](../skills/productivity/setup-knowledge-vault/recipes/) — ingest, research, maintain
 - [setup-agent-loops/recipes/](../skills/engineering/setup-agent-loops/recipes/) — implement-issue, build-test-fix, design-custom-workflow
-- [skills/engineering/review/SKILL.md](../skills/engineering/review/SKILL.md) — two-axis review, severities, loop gate
+- [skills/engineering/two-axis-review/SKILL.md](../skills/engineering/two-axis-review/SKILL.md) — two-axis review, severities, loop gate
+- [WITH-GSTACK.md](./WITH-GSTACK.md) — using this pack alongside gstack (name collisions, which skill to prefer)
 - [skills/productivity/write-from-vault/SKILL.md](../skills/productivity/write-from-vault/SKILL.md) — vault → sourced article, claim ledger, [export](../skills/productivity/write-from-vault/EXPORT.md)
