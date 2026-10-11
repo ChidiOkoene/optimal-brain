@@ -1,4 +1,18 @@
-# mattpocock-skills
+# optimal-brain
+
+## 2.0.0
+
+### Major Changes
+
+- First release under the optimal-brain name (fork of [mattpocock/skills](https://github.com/mattpocock/skills)). Entries below 2.0.0 are inherited from mattpocock/skills.
+- **Vault memory layer**: `setup-knowledge-vault` (with ingestion and context-graph recipes), `research-from-vault` + `RESEARCH-CAPTURE-FORMAT.md`, `project-notes`, `vault-context-canvas`, `decision-mapping`; `teach` bridges learning records into the vault.
+- **Loops layer**: `setup-agent-loops` (with recipes), `agent-loop` + `STOP-RULES.md`, `/until-done`; `implement` uses agent-loop discipline.
+- **Architect layer**: `system-architect` with 10 competence role briefs, engagement types, and recipes.
+- **Routing**: `ask-matt` → `/ask-brain`, `setup-matt-pocock-skills` → `setup-optimal-brain`.
+- **External research**: guidance for ingesting `davidondrej/skills` research into the vault.
+- **Cleanup**: README rewritten around the three layers; removed `skills/deprecated/`, `skills/in-progress/`, and the TypeScript-specific `migrate-to-shoehorn` and `scaffold-exercises` misc skills; `package.json` repository now points at ChidiOkoene/optimal-brain.
+
+  **Breaking:** the removed skills are no longer available from this repo. Install them from mattpocock/skills if you need them.
 
 ## 1.0.1
 
