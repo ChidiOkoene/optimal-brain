@@ -10,6 +10,6 @@ Read `.agent/context/loops.md` first (fallback: `docs/agents/loops.md`) — use 
 
 Use /tdd where possible, at pre-agreed seams.
 
-Once done, use /review to review the work.
+Once done, review the work (e.g. with a code-review skill, if you have one installed).
 
 Commit your work to the current branch.

@@ -59,7 +59,7 @@ Includes `docs/agents/loops.md` (per-repo verification, stop rules, and scope).
 
 ### Cross-Cutting Integration
 - New "## Knowledge, Research & Learning" section + routing table + preconditions in `skills/engineering/ask-brain/SKILL.md`.
-- Reach-for-vault prose added in: `agent-loop`, `until-done`, `domain-modeling`, `grill-with-docs`, `in-progress/decision-mapping`.
+- Reach-for-vault prose added in: `agent-loop`, `until-done`, `domain-modeling`, `grill-with-docs`, `decision-mapping`.
 - Teach updates for vault bridging: `skills/productivity/teach/SKILL.md`, `LEARNING-RECORD-FORMAT.md`, `RESOURCES-FORMAT.md` (support for local/PDF/vault sources and external material).
 - `skills/personal/obsidian-vault/SKILL.md` annotated as the low-level base implementation.
 - `CLAUDE.md`, top-level `README.md`, `skills/productivity/README.md`, and `.claude-plugin/plugin.json` updated to register the new skills.

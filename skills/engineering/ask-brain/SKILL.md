@@ -77,8 +77,6 @@ When you want the agent to **iterate autonomously** until an objective says done
 | Incoming issues piling up | `/loop 1h /triage` |
 | PR failing CI | Cursor `babysit` skill |
 
-**Design a custom recurring workflow** (life/process, not code) — see `loop-me` in in-progress; different purpose from agent loops.
-
 ## Solution & system architecture
 
 When system design is non-trivial — multiple views (domain, data, security, NFR), as-is vs target, or migration sequencing — use the orchestrator rather than only grilling or only code deepening.
