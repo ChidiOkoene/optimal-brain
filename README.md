@@ -56,6 +56,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 | Synthesis | `teach` (local workspace) | `teach` bridges learning records into the vault and can use vault sources |
 | Architecture | Implicit | `system-architect` with 10 role briefs, engagement types, and recipes |
 | Routing | `ask-matt` | `/ask-brain` with a Knowledge, Research & Learning section |
+| Review & writing | Unfinished drafts | `review` (two axes, severities, loop gate) and `write-from-vault` (vault → sourced article with a claim ledger) |
 
 ## Quick start (Lite: vault memory only)
 
@@ -89,13 +90,15 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 - **[vault-context-canvas](./skills/productivity/vault-context-canvas/SKILL.md)** (user): create or refresh an Obsidian JSON Canvas context graph.
 - **[decision-mapping](./skills/productivity/decision-mapping/SKILL.md)** (user): turn a loose idea into a sequenced map of investigation tickets and drive them to resolution.
 - **[teach](./skills/productivity/teach/SKILL.md)** (user): multi-session teaching workspace, bridged to the vault.
+- **[write-from-vault](./skills/productivity/write-from-vault/SKILL.md)** (user): turn vault research into a sourced article (fragments → shape → beats) with a claim ledger; every claim traced to a note, superseded notes never cited.
 
 ### Loops layer
 
-- **[setup-agent-loops](./skills/engineering/setup-agent-loops/SKILL.md)** (user): verification commands, stop rules, scope, starter recipes. Run once per repo.
+- **[setup-agent-loops](./skills/engineering/setup-agent-loops/SKILL.md)** (user): verification commands, stop rules, scope, starter recipes. Run once per repo. Also has a [design-a-custom-workflow](./skills/engineering/setup-agent-loops/recipes/design-custom-workflow.md) path for specifying your own recurring workflows.
 - **[agent-loop](./skills/engineering/agent-loop/SKILL.md)** (model): Plan → Act → Observe → Verify → Stop discipline.
 - **[until-done](./skills/engineering/until-done/SKILL.md)** (user): run a goal-based loop until verification passes or a stop rule fires.
-- **[implement](./skills/engineering/implement/SKILL.md)** (user): implement a PRD or issue using agent-loop discipline.
+- **[implement](./skills/engineering/implement/SKILL.md)** (user): implement a PRD or issue using agent-loop discipline, gated by `/review`.
+- **[review](./skills/engineering/review/SKILL.md)** (model): two-axis review (Standards vs Spec) plus correctness, security, and tests; conventional-comments findings with severities and a PASS/FAIL verdict that loops use as a gate.
 
 ### Architect layer
 

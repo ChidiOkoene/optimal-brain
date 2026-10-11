@@ -24,6 +24,7 @@ The route most work travels. You have an idea and want it built.
 3. **Branch — is this a multi-session build?**
    - **Yes** → **`/to-prd`** (turn the thread into a PRD) → **`/to-issues`** (split the PRD into independently-grabbable issues). Because the issues are independent, **clear context between each one**: start a fresh session per issue and kick off **`/implement`** by passing it the PRD and the single issue to work on.
    - **No** → **`/implement`** right here, in the same context window.
+4. **`/review`** — `/implement` runs it as its final gate. Run it yourself on any branch or PR ("review since main"): Standards and Spec axes kept separate, findings ranked `blocker` → `nit`, one verdict.
 
 ### Context hygiene
 
@@ -56,6 +57,7 @@ Off the main flow entirely.
 
 - **`/grill-me`** — the same relentless interview as `/grill-with-docs`, but for when you have **no codebase**. Stateless: it saves nothing locally, builds no `CONTEXT.md`. Reach for it to sharpen any plan or design that doesn't live in a repo.
 - **`/teach`** — learn a concept over multiple sessions, using the current directory as a stateful workspace. When a vault is configured, learning records and resources bridge to the vault for long-term use and cross-linking.
+- **`/write-from-vault`** — when you want to publish what you've learned: mines the vault, builds an argument, writes beat by beat with a claim ledger. See Knowledge, Research & Learning.
 - **`/writing-great-skills`** — reference for writing and editing skills well.
 
 ## Agent loops
@@ -76,6 +78,8 @@ When you want the agent to **iterate autonomously** until an objective says done
 | Recurring maintenance while you work | `/loop 30m …` |
 | Incoming issues piling up | `/loop 1h /triage` |
 | PR failing CI | Cursor `babysit` skill |
+| Need a quality gate before the loop stops | `/review` in gate mode (FAIL counts as a failing verifier) |
+| Want to delegate a recurring job but it's fuzzy | `/setup-agent-loops` → design a custom workflow path |
 
 ## Solution & system architecture
 
@@ -119,6 +123,7 @@ When you want to build or consult durable personal knowledge, learn over session
 | Knowledge gap during engineering/loop | Agent reaches `research-from-vault` (or you say "use the vault") |
 | Need governed context / what's still valid? | Read vault Context Index + `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`); recipe `maintain-context-graph.md` |
 | Loose idea needing multi-session investigation | `/decision-mapping` — sequenced tickets under `.agent/context/decision-maps/` |
+| Turn vault research into an article/post/memo | `/write-from-vault` — fragments → shape → beats, every claim cited to a note |
 | Personal reflection during/after research | `/project-notes` — notes in vault `{ProjectFolder}/Personal Notes/` |
 | Visual context graph in Obsidian | `/vault-context-canvas` — JSON Canvas at `{ProjectFolder}/Context Graph.canvas` |
 
