@@ -30,7 +30,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/agents/` — legacy agent config (fallback if `.agent/context/` missing)
 - `.scratch/` — sign that a local-markdown issue tracker convention is already in use
 
-Agent config path rule: write to **`.agent/context/`**. See [AGENT-CONTEXT-PATH.md](../productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md). If legacy `docs/agents/` exists, offer to migrate or leave (fallback still works).
+Agent config path rule: write to **`.agent/context/`**. See [AGENT-CONTEXT-PATH.md](../../productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md). If legacy `docs/agents/` exists, offer to migrate or leave (fallback still works).
 
 ### 2. Present findings and ask
 
@@ -119,7 +119,7 @@ The block:
 [one-line summary of layout — "single-context" or "multi-context"]. See `.agent/context/domain.md`.
 ```
 
-Create `.agent/context/` if it does not exist. Write `.agent/context/README.md` from [context-readme-template.md](../productivity/setup-knowledge-vault/templates/context-readme-template.md).
+Create `.agent/context/` if it does not exist. Write `.agent/context/README.md` from [context-readme-template.md](../../productivity/setup-knowledge-vault/templates/context-readme-template.md).
 
 Then write the three config files using the seed templates in this skill folder as a starting point:
 
