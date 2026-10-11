@@ -107,7 +107,7 @@ Or, if nested under `## Agent skills`:
 [one-line summary]. See `.agent/context/loops.md`.
 ```
 
-Ensure `.agent/context/` exists (create with README from [context-readme-template.md](../productivity/setup-knowledge-vault/templates/context-readme-template.md) if missing).
+Ensure `.agent/context/` exists (create with README from [context-readme-template.md](../../productivity/setup-knowledge-vault/templates/context-readme-template.md) if missing).
 
 Write `.agent/context/loops.md` using [loops-template.md](./loops-template.md) as the starting point.
 

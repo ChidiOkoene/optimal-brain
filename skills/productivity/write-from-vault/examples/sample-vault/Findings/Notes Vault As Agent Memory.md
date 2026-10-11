@@ -2,6 +2,7 @@
 type: finding
 session: "[[2026-07-13 Agent Memory]]"
 confidence: high
+url: https://github.com/ChidiOkoene/optimal-brain
 ---
 # Notes Vault As Agent Memory
 

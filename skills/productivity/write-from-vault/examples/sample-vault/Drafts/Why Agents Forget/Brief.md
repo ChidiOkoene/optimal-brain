@@ -4,7 +4,7 @@ question: "Why do coding agents forget my project, and what fixes it?"
 reader: "Developers using a coding agent daily; know what a context window is"
 form: blog post
 length: ~300 words (example)
-status: verified
+status: exported
 sources: ["[[2026-07-13 Agent Memory]]"]
 ---
 # Brief: Why Agents Forget
