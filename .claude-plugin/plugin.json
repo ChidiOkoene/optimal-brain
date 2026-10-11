@@ -5,6 +5,7 @@
     "./skills/engineering/ask-brain",
     "./skills/engineering/diagnosing-bugs",
     "./skills/engineering/implement",
+    "./skills/engineering/review",
     "./skills/engineering/grill-with-docs",
     "./skills/engineering/triage",
     "./skills/engineering/improve-codebase-architecture",
@@ -26,6 +27,7 @@
     "./skills/productivity/decision-mapping",
     "./skills/productivity/project-notes",
     "./skills/productivity/research-from-vault",
+    "./skills/productivity/write-from-vault",
     "./skills/productivity/vault-context-canvas",
     "./skills/productivity/writing-great-skills"
   ]

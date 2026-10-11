@@ -1,6 +1,6 @@
 ---
 name: setup-agent-loops
-description: Configure this repo for agent loops — verification commands, stop rules, scope boundaries, and starter loop recipes. Run once before using /until-done or autonomous iteration.
+description: Configure this repo for agent loops (verification commands, stop rules, scope, starter recipes), or design a custom recurring workflow spec. Run once before /until-done or autonomous iteration.
 disable-model-invocation: true
 ---
 
@@ -13,6 +13,11 @@ Scaffold the per-repo configuration that loop-engineering skills assume:
 - **Scope** — which paths the agent may edit during a loop
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
+
+**Two paths.** Ask which one the user wants if it isn't obvious:
+
+- **Configure this repo** (default): the process below.
+- **Design a custom workflow**: the user wants to delegate a recurring job (a chore, a review, a weekly routine) and needs a buildable spec. Follow [recipes/design-custom-workflow.md](./recipes/design-custom-workflow.md) and write the spec with [workflow-spec-template.md](./workflow-spec-template.md). If the workflow edits this repo and Sections A-C below haven't been done, do them first. Research behind it: [REFERENCES.md](./REFERENCES.md).
 
 ## Process
 
@@ -41,6 +46,7 @@ Propose commands detected from the repo. Typical defaults:
 
 - **After each change** (fast feedback): single-file test, typecheck, or lint
 - **Before stopping** (full gate): full test suite
+- **Review gate** (optional): `/review` in gate mode — a `FAIL` verdict counts as a failing verifier
 
 Ask the user to confirm or override each command. If the repo has no tests, propose typecheck or build as the verifier and note the gap.
 
@@ -111,6 +117,7 @@ Point the user at starter recipes in this skill folder:
 - [recipes/implement-issue.md](./recipes/implement-issue.md)
 - [recipes/scheduled-triage.md](./recipes/scheduled-triage.md)
 - [recipes/pr-until-mergeable.md](./recipes/pr-until-mergeable.md)
+- [recipes/design-custom-workflow.md](./recipes/design-custom-workflow.md) — spec your own recurring workflow
 
 ### 5. Done
 

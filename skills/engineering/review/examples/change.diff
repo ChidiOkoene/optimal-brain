@@ -1,0 +1,34 @@
+diff --git a/src/search.ts b/src/search.ts
+new file mode 100644
+--- /dev/null
++++ b/src/search.ts
+@@ -0,0 +1,18 @@
++import { db } from "./db";
++
++export async function searchNotes(q: string) {
++  if (!q) {
++    console.log("usage: notes search <query>");
++    process.exit(1);
++  }
++  const rows = await db.query(
++    `SELECT * FROM notes WHERE LOWER(title) LIKE '%${q.toLowerCase()}%'`
++  );
++  return rows
++    .filter((n) => n.status !== "archived")
++    .sort((a, b) => b.updated - a.updated);
++}
++
++export async function searchBodies(q: string) {
++  return db.query(`SELECT * FROM notes WHERE body LIKE ?`, [`%${q}%`]);
++}
+diff --git a/test/search.test.ts b/test/search.test.ts
+new file mode 100644
+--- /dev/null
++++ b/test/search.test.ts
+@@ -0,0 +1,6 @@
++import { searchNotes } from "../src/search";
++
++test("finds notes by title", async () => {
++  const r = await searchNotes("vector");
++  expect(r.length).toBeGreaterThan(0);
++});
