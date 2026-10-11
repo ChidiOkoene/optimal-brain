@@ -109,13 +109,12 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 ### Engineering base (from mattpocock/skills)
 
 - User-invoked: [grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md), [triage](./skills/engineering/triage/SKILL.md), [improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md), [to-issues](./skills/engineering/to-issues/SKILL.md), [to-prd](./skills/engineering/to-prd/SKILL.md), [prototype](./skills/engineering/prototype/SKILL.md), [grill-me](./skills/productivity/grill-me/SKILL.md), [handoff](./skills/productivity/handoff/SKILL.md), [writing-great-skills](./skills/productivity/writing-great-skills/SKILL.md)
-- Model-invoked: [diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md), [tdd](./skills/engineering/tdd/SKILL.md), [domain-modeling](./skills/engineering/domain-modeling/SKILL.md), [codebase-design](./skills/engineering/codebase-design/SKILL.md), [grilling](./skills/productivity/grilling/SKILL.md)
+- Model-invoked: [diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md), [tdd](./skills/engineering/tdd/SKILL.md), [domain-modeling](./skills/engineering/domain-modeling/SKILL.md), [codebase-design](./skills/engineering/codebase-design/SKILL.md), [resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md), [grilling](./skills/productivity/grilling/SKILL.md)
 
 ### Misc (not in the plugin manifest)
 
 - [git-guardrails-claude-code](./skills/misc/git-guardrails-claude-code/SKILL.md): Claude Code hooks that block dangerous git commands.
 - [setup-pre-commit](./skills/misc/setup-pre-commit/SKILL.md): Husky + lint-staged pre-commit hooks.
-- [resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md): resolve an in-progress merge/rebase conflict.
 
 User-invoked skills run when you type them (e.g. `/until-done`); model-invoked skills can also be picked up automatically by the agent when the task fits.
 
