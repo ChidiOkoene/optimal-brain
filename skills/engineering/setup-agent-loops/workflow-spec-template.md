@@ -6,7 +6,7 @@
 When {{situation}}, I want to {{motivation}}, so I can {{outcome}}.
 
 ## Trigger
-{{event: what, where it's detected}} or {{schedule: cadence, e.g. `/loop 1w`}}
+{{event: what, where it's detected}} or {{schedule: cadence, e.g. `/loop 7d`}}
 
 ## Inputs
 - {{source}}: {{what is read, where it lives}}

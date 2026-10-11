@@ -6,7 +6,7 @@
 When a week of research has piled up in my vault, I want the loose ends tied off, so I can start Monday knowing what I learned and what's still open.
 
 ## Trigger
-Schedule: `/loop 1w` on Friday 17:00, in the vault's workspace.
+Schedule: weekly, Friday 17:00 (`/loop 7d` started then in the vault's workspace, or a scheduler).
 
 ## Inputs
 - `Research Sessions/` hubs with `status: in-progress` or `started` in the last 7 days

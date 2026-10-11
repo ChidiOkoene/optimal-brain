@@ -1,6 +1,6 @@
 # Optimal Brain Playbook
 
-**How to use this stack for research + engineering** — from first install through building and shipping code with a persistent vault.
+**How to use this stack for research + engineering** — from first install through building, reviewing, and publishing, with a persistent vault.
 
 For architecture and credits, see [OPTIMAL-BRAIN.md](./OPTIMAL-BRAIN.md). For config file details, see [agents/brain.md](./agents/brain.md). When unsure which skill to run, use `/ask-brain`.
 
@@ -32,78 +32,100 @@ Per-repo agent config lives under **`.agent/context/`** — not scattered `docs/
 
 Human-facing domain docs (`CONTEXT.md`, `docs/adr/`) stay at conventional locations. See `skills/productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md`.
 
-## One-time setup
+## Lite path (start here)
+
+The same three steps as the [README quick start](../README.md#quick-start-lite-vault-memory-only):
+
+1. Install, selecting at least `setup-knowledge-vault` and `research-from-vault`:
+
+   ```bash
+   npx skills@latest add chidiokoene/optimal-brain
+   ```
+
+2. In your agent, run **`/setup-knowledge-vault`** and point it at your Obsidian vault.
+3. Ask: "research X using my vault". **`research-from-vault`** writes linked, sourced notes back into the vault; later sessions read them back.
+
+That is the whole memory layer. Add the rest when you need it (below).
+
+## Full setup
 
 ### 1. Install skills
 
 ```bash
 npx skills@latest add chidiokoene/optimal-brain
-npx skills@latest add davidondrej/skills   # optional: external research
+npx skills@latest add davidondrej/skills   # optional: external research (research-and-web)
 ```
 
-Select at minimum: `setup-optimal-brain`, `setup-agent-loops`, `setup-knowledge-vault`, `ask-brain`, `until-done`, `research-from-vault`, `decision-mapping`, `system-architect`, `project-notes`, `vault-context-canvas`, `implement`.
+Select at minimum: `setup-optimal-brain`, `setup-agent-loops`, `setup-knowledge-vault`, `ask-brain`, `agent-loop`, `until-done`, `implement`, `review`, `research-from-vault`, `write-from-vault`, `decision-mapping`, `system-architect`, `project-notes`, `vault-context-canvas`.
 
-### 2. Open your project in Cursor
+### 2. Load them in your agent
 
-Skills install **per project** when you choose Project scope. Restart Cursor or start a fresh Agent chat after install.
+Install with **project scope** in your repo, then start a **fresh agent session** so the new skills are picked up. What the repo actually backs up (same as the [README compatibility table](../README.md#agent-compatibility)):
 
-### 3. Run setup skills (once per repo)
+- **Cursor**: used during development. Skills appear as `/` commands in Agent chat; the `/loop` prompts here use Cursor's built-in `/loop`.
+- **Claude Code**: supported via `.claude-plugin/plugin.json` (and `scripts/link-skills.sh` → `~/.claude/skills`), not separately tested. Skills appear as `/` commands; Claude Code also has a bundled `/loop`.
+- **Codex, Copilot, other Agent-Skills harnesses**: untested. Skills are plain `SKILL.md` folders; if your agent has no `/` menu, ask for the skill by name ("use the review skill").
+
+### 3. Run the setup skills (once per repo)
 
 In order:
 
 1. **`/setup-optimal-brain`** — issue tracker, triage labels, `CONTEXT.md` / ADR layout → `.agent/context/` (optionally create `architecture-sessions/`)
-2. **`/setup-agent-loops`** — test/lint commands, stop rules, edit scope → `.agent/context/loops.md`
+2. **`/setup-agent-loops`** — test/lint commands, stop rules, edit scope → `.agent/context/loops.md`. Optionally add `/review` as a loop gate.
 3. **`/setup-knowledge-vault`** — vault path, learning records, context graph, research capture folders → `.agent/context/knowledge-vault.md` + `.agent/context/project-context.md`
 
 Have your Obsidian vault path ready for step 3.
 
 ### 4. Verify
 
-- Type `/` in Agent chat — `/ask-brain`, `/setup-optimal-brain`, etc. appear
+- Your agent lists `/ask-brain`, `/setup-optimal-brain`, `/review`, etc. (type `/`, or ask "which optimal-brain skills are installed?")
 - Run `/ask-brain` and ask: "I'm starting a research + coding project — what flow should I use?"
 
 ## End-to-end workflow
 
 ```mermaid
-flowchart TB
-  subgraph research [Research — Vault]
-    R1[Ingest Sources PDFs]
-    R2[Synthesize + Findings]
-    R3[Learning record + Indexes]
+flowchart LR
+  subgraph research [1 Research — Vault]
+    R1[Ingest sources] --> R2[Findings + synthesis] --> R3[Learning record + indexes]
   end
-  subgraph ideate [Ideation / Architecture]
+  subgraph ideate [2 Ideate / Architect]
     I1["/decision-mapping"]
     I2["/system-architect"]
   end
-  subgraph design [Design — Repo]
-    D1["/grill-with-docs"]
-    D2["/to-prd"]
-    D3["/to-issues"]
+  subgraph design [3 Design — Repo]
+    D1["/grill-with-docs"] --> D2["/to-prd"] --> D3["/to-issues"]
   end
-  subgraph build [Build — Repo + Loops]
-    B1["/implement or /until-done"]
-    B2[Tests pass]
+  subgraph build [4 Build — Loops]
+    B1["/implement or /until-done"] --> B2[Verifiers green]
   end
-  R1 --> R2 --> R3
-  R3 --> I1
-  R3 --> I2
-  I1 --> D1
-  I2 --> D1
-  D1 --> D2 --> D3
-  D3 --> B1 --> B2
+  subgraph review [5 Review]
+    V1["/review gate"] --> V2{Verdict}
+  end
+  subgraph publish [6 Publish — Vault]
+    P1["/write-from-vault"] --> P2[Claim ledger + citation gate] --> P3[export.py]
+  end
+  R3 --> I1 & I2
+  I1 & I2 --> D1
+  D3 --> B1
+  B2 --> V1
+  V2 -- FAIL --> B1
+  V2 -- PASS --> C[Commit / PR]
+  R3 --> P1
 ```
 
-### Phase A — Research
+Phases run in this order for a feature, but **Publish** can start from any point where the vault holds enough research.
 
-**Goal:** Turn PDFs, notes, and web material into durable knowledge the agent reuses while coding.
+### Phase 1 — Research
+
+**Goal:** Turn PDFs, notes, and web material into durable knowledge the agent reuses while coding and writing.
 
 #### Add sources (PDFs) to the vault
 
 Agents read files under the vault path in `.agent/context/knowledge-vault.md`. Obsidian does **not** need to be running — only the folder on disk matters. Do **not** put large PDFs in the code repo unless you intend that.
 
 1. Confirm the vault root after `/setup-knowledge-vault` (absolute path in `.agent/context/knowledge-vault.md`).
-2. Create `{VAULT}/Sources/` if it does not exist (Obsidian or File Explorer).
-3. Drop PDFs into `Sources/` (drag-drop or copy).
+2. Create `{VAULT}/Sources/` if it does not exist.
+3. Drop PDFs into `Sources/`.
 4. Add a companion note next to each PDF, e.g. `Paper Note.md`, with `[[Paper.pdf]]` (or `![[Paper.pdf]]` to embed in Obsidian) plus key extracts or annotations.
 5. Ingest with the agent (companion notes + learning records):
 
@@ -111,7 +133,7 @@ Agents read files under the vault path in `.agent/context/knowledge-vault.md`. O
 /until-done Ingest new sources in the vault under Sources/. For each PDF, create or update a companion note with key extracts and insights. Emit a vault learning record for each non-trivial insight. Update relevant Index notes. Stop when all new material has a companion note and at least one learning record per major source, or a stop rule fires.
 ```
 
-Recipe: `skills/productivity/setup-knowledge-vault/recipes/ingest-sources-to-learning-records.md`
+Recipe: [ingest-sources-to-learning-records.md](../skills/productivity/setup-knowledge-vault/recipes/ingest-sources-to-learning-records.md)
 
 **Vault only** (you already have sources):
 
@@ -125,46 +147,37 @@ Recipe: `skills/productivity/setup-knowledge-vault/recipes/ingest-sources-to-lea
 /until-done Research "topic X" using external research tools. Fetch papers/posts/videos, save to vault with companion notes, capture findings (session hub + Findings/), synthesize into wikilinked note + learning record. Stop when capture format complete per RESEARCH-CAPTURE-FORMAT.md.
 ```
 
-Recipe: `skills/productivity/setup-knowledge-vault/recipes/ingest-external-research-to-vault.md`
+Recipe: [ingest-external-research-to-vault.md](../skills/productivity/setup-knowledge-vault/recipes/ingest-external-research-to-vault.md)
 
-**Deep learning over weeks:**
-
-```
-/teach "topic X"
-```
-
-Bridged learning records land in the vault when configured.
+**Deep learning over weeks:** `/teach "topic X"` — bridged learning records land in the vault when configured.
 
 **After significant research:** update `.agent/context/project-context.md` to link vault notes that apply to this project.
 
 **Personal notes and visual graph:**
 
-- **`/project-notes`** — your reflections during or after research → `{ProjectFolder}/Personal Notes/` in the vault
-- **`/vault-context-canvas`** — refresh Obsidian JSON Canvas at `{ProjectFolder}/Context Graph.canvas` (open in Obsidian; not Cursor IDE canvas)
+- **`/project-notes`** — your reflections → `{ProjectFolder}/Personal Notes/` in the vault
+- **`/vault-context-canvas`** — refresh the Obsidian JSON Canvas at `{ProjectFolder}/Context Graph.canvas` (open it in Obsidian)
 
-### Phase A½ — Ideation (multi-session investigation)
+### Phase 2 — Ideate and architect
 
-When a loose idea has **fog of war** — open questions that need research, prototypes, or grilling across sessions:
+Two optional on-ramps before design. Use one, both, or neither.
+
+**Fog of war** (open questions that need research, prototypes, or grilling across sessions):
 
 1. **`/decision-mapping`** (bootstrap) — grilling session → map at `.agent/context/decision-maps/<slug>.md`
-2. **Resume** per ticket — Research tickets use `research-from-vault` with full vault capture; Prototype → `/prototype`; Grilling → `/grilling` + `/domain-modeling`
-3. When the map is done → **`/to-prd`** or direct **`/implement`**
+2. **Resume** per ticket — Research tickets use `research-from-vault`; Prototype → `/prototype`; Grilling → `/grilling` + `/domain-modeling`
+3. When the map is done → Phase 3 (or straight to `/to-prd`)
 
-### Phase B½ — System architecture (when design is non-trivial)
-
-When you need multi-view solution design (domain, data, security, NFR) — not only grilling:
+**Non-trivial system design** (multi-view: domain, data, security, NFR):
 
 1. **`/system-architect`** — pick engagement (`discovery`, `as_is_review`, `target_design`, `migration`)
 2. Session hub → `.agent/context/architecture-sessions/`
 3. Confirm ADR drafts → write under `docs/adr/`
-4. Optional: **`/vault-context-canvas`** after vault research
-5. Hand off → **`/to-prd`** / **`/to-issues`**
+4. Hand off → **`/to-prd`** / **`/to-issues`**
 
-Recipes: `skills/engineering/system-architect/recipes/`.
+Recipes: [system-architect/recipes/](../skills/engineering/system-architect/recipes/). For code-only deepening (shallow modules), use **`/improve-codebase-architecture`** instead.
 
-For code-only deepening (shallow modules), use **`/improve-codebase-architecture`** instead.
-
-### Phase B — Design (before coding)
+### Phase 3 — Design (before coding)
 
 1. **`/grill-with-docs`** — align on what you're building; build shared language in `CONTEXT.md` and ADRs. Say "consult the vault for X" to ground in prior research.
 2. **Optional:** **`/prototype`** + **`/handoff`** — throwaway code to answer "will this work?"
@@ -173,18 +186,20 @@ For code-only deepening (shallow modules), use **`/improve-codebase-architecture
 
 Keep steps 1–4 in **one context window** when possible. After `/to-issues`, start a **fresh session per issue**.
 
-### Phase C — Build
+### Phase 4 — Build
 
 For each issue:
 
-1. Fresh Agent session
+1. Fresh agent session
 2. **`/implement`** with issue + PRD, or:
 
 ```
-/until-done Implement issue #N per the PRD. Stop when tests pass per `.agent/context/loops.md` (fallback: `docs/agents/loops.md`).
+/until-done Implement issue #N per the PRD. Stop when tests pass per `.agent/context/loops.md` (fallback: `docs/agents/loops.md`) and /review returns PASS or PASS WITH NOTES.
 ```
 
 The agent reads: `.agent/context/loops.md` → `.agent/context/project-context.md` → `CONTEXT.md` → vault Context Index.
+
+**`/implement` ends with `/review` before it commits** (Phase 5). A FAIL sends it back into the loop; you get the remaining minor/nit findings in the final brief.
 
 **Knowledge gap mid-build:**
 
@@ -192,7 +207,40 @@ The agent reads: `.agent/context/loops.md` → `.agent/context/project-context.m
 Research X using my vault before implementing. Ground the approach in vault sources listed in project-context.md.
 ```
 
-**TDD-heavy work:** agent reaches `/tdd` during loops when appropriate.
+**TDD-heavy work:** the agent reaches `/tdd` during loops when appropriate.
+
+### Phase 5 — Review
+
+**Goal:** a second, structured look before anything is committed or merged. Skill: [review](../skills/engineering/review/SKILL.md).
+
+- **Two axes, kept separate:** *Standards* (does the diff follow the repo's written rules?) and *Spec* (does it do what the issue/PRD asked?). They run in parallel subagents where the agent supports them, sequentially otherwise.
+- **Cross-cutting checks:** correctness, security, tests, design ([CHECKS.md](../skills/engineering/review/CHECKS.md)).
+- **Findings** are conventional comments ranked `blocker` > `major` > `minor` > `nit`, each with `file:line` and evidence ([FINDINGS-FORMAT.md](../skills/engineering/review/FINDINGS-FORMAT.md)).
+- **Verdict:** **FAIL** (any blocker, or a major on Spec/Security) · **PASS WITH NOTES** (majors elsewhere, minors, nits) · **PASS** (nits at most).
+- **As a loop gate** (`/implement`, `agent-loop`, `/until-done`): FAIL counts as a failing verifier; blocker/major findings become the next fix list; each re-review is an iteration; the same blocker surviving 2 fixes stops the loop. It never pushes, merges, or posts comments.
+- **Vault:** review decisions (a tradeoff accepted, a spec ambiguity resolved) can be logged as decision traces.
+
+Run it yourself on any branch: "review since main". Worked example: [review/examples/](../skills/engineering/review/examples/).
+
+### Phase 6 — Publish
+
+**Goal:** turn what the vault learned into an article, memo, or post where every claim has a receipt. Skill: [write-from-vault](../skills/productivity/write-from-vault/SKILL.md). Work lives in vault `Drafts/<Title>/`.
+
+1. **Fragments** — mine session hubs, Findings, and sources; skip superseded notes, hedge exploratory ones; interview you for your view; name the gaps ([FRAGMENTS.md](../skills/productivity/write-from-vault/FRAGMENTS.md)).
+2. **Shape** — one arguable governing thought, SCQA opening, 2–5 supporting claims ([SHAPE.md](../skills/productivity/write-from-vault/SHAPE.md)).
+3. **Beats** — written one at a time, each citing its source note ([BEATS.md](../skills/productivity/write-from-vault/BEATS.md)).
+4. **Verify** — the citation gate: every claim maps to a [claim ledger](../skills/productivity/write-from-vault/CLAIM-LEDGER.md) row with existing, non-superseded evidence, and wording never outruns strength.
+5. **Export** — `scripts/export.py` writes `Drafts/<Title>/export/<slug>.md` plus `EXPORT-REPORT.md` ([EXPORT.md](../skills/productivity/write-from-vault/EXPORT.md)):
+
+| Style | For |
+| ----- | --- |
+| `footnotes` (default) | GitHub, dev.to, Hugo/Jekyll/Astro blogs |
+| `links` | Substack (render to HTML, paste rich text), Medium, email |
+| `pandoc` | `pandoc --citeproc` → PDF/DOCX, academic venues |
+
+`EXPORT-REPORT.md` flags unresolved links/embeds, cited or ledger evidence that is superseded/exploratory/expired, and notes with no public `url:`. Clear every flag before publishing; superseded or missing evidence sends you back to step 4. Publishing itself is yours; the agent never posts.
+
+Worked example: [write-from-vault/examples/](../skills/productivity/write-from-vault/examples/).
 
 ## Copy-paste prompts
 
@@ -220,13 +268,43 @@ Update `.agent/context/project-context.md` to include [[My Synthesis Note]] as e
 /system-architect target_design for hybrid RAG over vault PDFs. Write session hub under .agent/context/architecture-sessions/. Propose ADR drafts. Stop when synthesis + next step toward /to-prd exist. Do not implement code.
 ```
 
-Recipes: `skills/engineering/system-architect/recipes/`.
-
 **Build with vault grounding:**
 
 ```
 /until-done Implement the retrieval module for issue #4. Before coding, consult vault sources in `.agent/context/project-context.md`. Stop when tests pass per `.agent/context/loops.md`.
 ```
+
+**Review a branch:**
+
+```
+/review since main. Spec: issue #42. Report Standards and Spec separately, rank findings blocker → nit, end with the verdict and the one change that would flip a FAIL.
+```
+
+**Loop with a review gate:**
+
+```
+/until-done Implement issue #42 per the PRD. After verifiers in `.agent/context/loops.md` pass, run /review in gate mode against main with the issue as spec. Treat FAIL as a failing verifier and fix blocker/major findings. Stop on PASS / PASS WITH NOTES or a stop rule; list remaining minor/nit findings. Do not push.
+```
+
+**Write an article from the vault:**
+
+```
+/write-from-vault Why do coding agents forget, and what fixes it? Reader: developers using a coding agent daily. Form: ~1200-word blog post. Use only non-superseded notes; hedge exploratory ones. Stop after the citation gate passes.
+```
+
+**Export for dev.to / Substack:**
+
+```
+Export Drafts/Why Agents Forget with write-from-vault's export script: --style footnotes for dev.to, then --style links for Substack. Show me EXPORT-REPORT.md and walk me through every flag. Don't publish anything.
+```
+
+**Design a custom workflow:**
+
+```
+/setup-agent-loops Design a custom workflow: a weekly review of my vault's new findings. Use the design-custom-workflow recipe and write the spec from workflow-spec-template.md, including verifiers, a push-right checkpoint, guardrails, and 3 eval cases.
+```
+
+Recipe: [design-custom-workflow.md](../skills/engineering/setup-agent-loops/recipes/design-custom-workflow.md) · Example: [weekly-vault-review.md](../skills/engineering/setup-agent-loops/examples/weekly-vault-review.md)
 
 **Full pipeline (external → vault → design):**
 
@@ -237,10 +315,10 @@ Recipes: `skills/engineering/system-architect/recipes/`.
 **Maintenance (weekly):**
 
 ```
-/loop 1d Run maintain-context-graph recipe from setup-knowledge-vault. Update Context Index and reconcile project-context.md for stale links. Optionally refresh vault-context-canvas.
+/loop 7d Run the maintain-context-graph recipe from setup-knowledge-vault. Update Context Index and reconcile project-context.md for stale links. Optionally refresh vault-context-canvas.
 ```
 
-Recipe: `skills/productivity/setup-knowledge-vault/recipes/maintain-context-graph.md`
+`/loop` (Cursor, Claude Code) takes `s`/`m`/`h`/`d` intervals, so weekly is `7d`. It only runs while that agent session stays open; for a dependable weekly run, use your agent's scheduler/automations or just run the prompt yourself each week. Recipe: [maintain-context-graph.md](../skills/productivity/setup-knowledge-vault/recipes/maintain-context-graph.md)
 
 ## Example: research-heavy app (knowledge graph + chatbot)
 
@@ -257,8 +335,11 @@ Recipe: `skills/productivity/setup-knowledge-vault/recipes/maintain-context-grap
 | 9 | PRD + issues | `/to-prd` → `/to-issues` |
 | 10 | Implement first slice | `/implement` or `/until-done` |
 | 11 | Agent unsure about approach | "research X from vault" |
-| 12 | Implement remaining slices | Fresh session per issue |
-| 13 | Vault hygiene | `/loop 1d` + maintain-context-graph |
+| 12 | Review gate before commit | `/review` (inside `/implement`) → PASS / PASS WITH NOTES |
+| 13 | Implement remaining slices | Fresh session per issue, each gated by `/review` |
+| 14 | Write up what you learned | `/write-from-vault` → claim ledger → citation gate |
+| 15 | Export and publish | `export.py --style footnotes` (dev.to) / `links` (Substack); clear EXPORT-REPORT flags |
+| 16 | Vault hygiene | Weekly maintain-context-graph (`/loop 7d` or scheduled) |
 
 ## Daily and weekly habits
 
@@ -271,7 +352,10 @@ Recipe: `skills/productivity/setup-knowledge-vault/recipes/maintain-context-grap
 | **Before a big feature** | `/grill-with-docs` |
 | **During / after research** | `/project-notes`; optionally `/vault-context-canvas` |
 | **During build** | `/until-done` with explicit done signal |
-| **Weekly** | `/loop 1d` with a vault maintenance recipe |
+| **Before commit / merge** | `/review` (automatic inside `/implement`) |
+| **When a topic has enough notes** | `/write-from-vault`, then export |
+| **A chore keeps recurring** | `/setup-agent-loops` → design a custom workflow |
+| **Weekly** | maintain-context-graph recipe (`/loop 7d` or your scheduler); re-run export on published drafts whose sources changed |
 | **Unsure what to run** | `/ask-brain` |
 
 ## Agent read order
@@ -292,15 +376,17 @@ When research and code intersect:
 4. **One issue, one fresh session** — after `/to-issues`, implement slices separately.
 5. **Grill before you build** — `/grill-with-docs` prevents misalignment; use `/system-architect` when multi-view design is needed.
 6. **Loops need real verifiers** — `/setup-agent-loops` must match your actual test/lint commands.
+7. **Review before you commit** — `/review` keeps Standards and Spec apart; a FAIL is a failing verifier, not a suggestion.
+8. **No claim without a source note** — every claim in an article maps to a claim-ledger row; superseded evidence is never cited, exploratory evidence is always hedged.
+9. **Export, don't hand-edit** — fix the vault draft and re-run `export.py`; never edit `export/` by hand.
 
 ## Shortest path (today)
 
-1. Install skills in your project repo
-2. Run the three setup skills (have vault path ready)
-3. Drop PDFs into vault `Sources/` + companion notes
-4. One research `/until-done` goal (or ingest recipe first)
-5. `/grill-with-docs` (or `/system-architect` if the system design is non-trivial) for what you want to build
-6. `/to-issues` then `/until-done` on the first slice
+1. **Lite path**: install → `/setup-knowledge-vault` → "research X using my vault"
+2. When you want to build: run `/setup-optimal-brain` and `/setup-agent-loops` (see Full setup)
+3. `/grill-with-docs` (or `/system-architect` if the design is non-trivial) → `/to-issues`
+4. `/implement` the first slice; it ends with `/review`
+5. When the vault has enough on a topic: `/write-from-vault`, then export
 
 ## Related
 
@@ -312,4 +398,6 @@ When research and code intersect:
 - [skills/productivity/project-notes/SKILL.md](../skills/productivity/project-notes/SKILL.md) — personal notes in vault
 - [skills/productivity/vault-context-canvas/SKILL.md](../skills/productivity/vault-context-canvas/SKILL.md) — Obsidian JSON Canvas context graph
 - [setup-knowledge-vault/recipes/](../skills/productivity/setup-knowledge-vault/recipes/) — ingest, research, maintain
-- [setup-agent-loops/recipes/](../skills/engineering/setup-agent-loops/recipes/) — implement-issue, build-test-fix
+- [setup-agent-loops/recipes/](../skills/engineering/setup-agent-loops/recipes/) — implement-issue, build-test-fix, design-custom-workflow
+- [skills/engineering/review/SKILL.md](../skills/engineering/review/SKILL.md) — two-axis review, severities, loop gate
+- [skills/productivity/write-from-vault/SKILL.md](../skills/productivity/write-from-vault/SKILL.md) — vault → sourced article, claim ledger, [export](../skills/productivity/write-from-vault/EXPORT.md)
