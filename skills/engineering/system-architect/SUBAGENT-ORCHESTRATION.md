@@ -35,7 +35,7 @@ When the environment has a Task or Agent tool (e.g. Cursor):
 4. Parent aggregates outputs into the session hub under matching headings.
 5. Do not merge/rerank conflicting findings across security vs data — report both, then synthesize in Cross-cutting synthesis.
 
-Pattern inspiration: in-progress `review` skill (parallel Standards/Spec) and `codebase-design` DESIGN-IT-TWICE.
+Pattern inspiration: parallel Standards/Spec review and `codebase-design` DESIGN-IT-TWICE.
 
 ## What subagents must not do
 

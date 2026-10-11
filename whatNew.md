@@ -28,7 +28,7 @@ That's 5 new files in a new `docs/agents/` structure.
 **Significant edits / integrations (existing files modified):**
 - `skills/engineering/ask-matt/SKILL.md` — entirely new "## Knowledge, Research & Learning" section + routing table + preconditions
 - `skills/productivity/teach/SKILL.md` + `LEARNING-RECORD-FORMAT.md` + `RESOURCES-FORMAT.md` — vault bridging + local/PDF/vault source support
-- Reach-for-vault prose added in: `agent-loop`, `until-done`, `domain-modeling`, `grill-with-docs`, `in-progress/decision-mapping`
+- Reach-for-vault prose added in: `agent-loop`, `until-done`, `domain-modeling`, `grill-with-docs`, `decision-mapping`
 - `skills/personal/obsidian-vault/SKILL.md` (annotated as the low-level base)
 - `CLAUDE.md`, top-level `README.md`, `skills/productivity/README.md`
 - `.claude-plugin/plugin.json` (now registers the 5 new skills)

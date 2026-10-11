@@ -1,11 +1,11 @@
 {
   "name": "chidi-optimal-brain",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "private": true,
-  "description": "Optimal brain for agentic engineering and research — mattpocock/skills extended with loop engineering, knowledge vault, and external research ingestion",
+  "description": "Give your coding agent a long-term memory: Obsidian vault research capture, agent loops, and system-architect skills, built on mattpocock/skills",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chidi/optimal-brain"
+    "url": "https://github.com/ChidiOkoene/optimal-brain"
   },
   "license": "MIT",
   "scripts": {
