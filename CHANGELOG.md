@@ -9,6 +9,10 @@
 - **Loops layer**: `setup-agent-loops` (with recipes), `agent-loop` + `STOP-RULES.md`, `/until-done`; `implement` uses agent-loop discipline.
 - **Architect layer**: `system-architect` with 10 competence role briefs, engagement types, and recipes.
 - **Routing**: `ask-matt` → `/ask-brain`, `setup-matt-pocock-skills` → `setup-optimal-brain`.
+- **Review**: new `review` skill. Standards and Spec axes run in parallel subagents, plus correctness/security/tests/design checks; conventional-comments findings with `blocker`/`major`/`minor`/`nit` severities; fixed PASS/FAIL report; gate mode for `/implement`, `agent-loop`, and `/until-done`; optional decision traces to the vault. `implement` now runs `/review` as its final gate.
+- **Writing**: new `write-from-vault` skill. Fragments → shape (pyramid/SCQA) → beats, with a claim ledger that traces every claim to a vault note, respects `confidence`/`superseded_by`/`valid_until`, and ends with a citation gate. Drafts live in vault `Drafts/`.
+- **Custom workflows**: `setup-agent-loops` gains a design-a-custom-workflow path (recipe, spec template, worked example): job statement, step map, verifiers, push-right checkpoints, guardrails, eval cases.
+- Each new skill ships a `REFERENCES.md` with its research sources and a small worked example. Ideas credited to Matt Pocock's unreleased drafts (`review`, `writing-*`, `loop-me`).
 - **External research**: guidance for ingesting `davidondrej/skills` research into the vault.
 - **Cleanup**: README rewritten around the three layers; removed `skills/deprecated/`, `skills/in-progress/`, and the TypeScript-specific `migrate-to-shoehorn` and `scaffold-exercises` misc skills; `package.json` repository now points at ChidiOkoene/optimal-brain.
 

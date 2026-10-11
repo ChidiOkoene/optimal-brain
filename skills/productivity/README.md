@@ -13,6 +13,7 @@ Reachable only when you type them (`disable-model-invocation: true`).
 - **[project-notes](./project-notes/SKILL.md)** — Capture personal notes during or after research in the vault under `{ProjectFolder}/Personal Notes/`.
 - **[setup-knowledge-vault](./setup-knowledge-vault/SKILL.md)** — Configure personal knowledge vault (location, learning records, PDFs, context graph, project overlay, vault integration for research & teach).
 - **[vault-context-canvas](./vault-context-canvas/SKILL.md)** — Create or refresh an Obsidian JSON Canvas context graph in the vault (not Cursor IDE canvas).
+- **[write-from-vault](./write-from-vault/SKILL.md)** — Turn vault research notes into a sourced article (fragments → shape → beats), every claim traced to a note, draft saved back into the vault.
 - **[writing-great-skills](./writing-great-skills/SKILL.md)** — Reference for writing and editing skills well: the vocabulary and principles that make a skill predictable.
 
 ## Model-invoked
