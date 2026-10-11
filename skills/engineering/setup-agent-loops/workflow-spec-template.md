@@ -14,7 +14,7 @@ When {{situation}}, I want to {{motivation}}, so I can {{outcome}}.
 ## Steps
 | # | Step | Input → Output | Owner | Verifier |
 | - | ---- | -------------- | ----- | -------- |
-| 1 | {{action}} | {{in}} → {{out}} | script / agent / human | {{command, checklist, or /review}} |
+| 1 | {{action}} | {{in}} → {{out}} | script / agent / human | {{command, checklist, or /two-axis-review}} |
 
 ## Checkpoints
 - After step {{n}}: brief = {{what was produced, why, the decision needed, link}}. Default if no answer: {{wait / skip / safe default}}.

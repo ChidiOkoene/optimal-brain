@@ -10,7 +10,8 @@
   "license": "MIT",
   "scripts": {
     "changeset": "changeset",
-    "version": "changeset version"
+    "version": "changeset version",
+    "validate": "node scripts/validate.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",
