@@ -1,0 +1,44 @@
+# Draft workspace
+
+All article work lives in the vault so it is linked, searchable, and resumable.
+
+Path: `{Vault}/Drafts/<Article Title>/` (Title Case, matches the article file name). If `knowledge-vault.md` names a different drafts folder, use that.
+
+## Brief.md
+
+```yaml
+---
+type: article-brief
+question: "Why do coding agents forget, and what fixes it?"
+reader: "Developers using Claude Code or Cursor daily; know what a context window is"
+form: blog post
+length: ~1200 words
+status: started | fragments-done | shaped | drafted | verified
+sources: ["[[2026-07-13 Agent Memory]]"]   # session hubs drawn on
+---
+```
+
+Body sections: `## Grounded concepts` (start list, then appended as beats ground new ones), `## Decisions` (dated one-liners: cut X, softened Y).
+
+## Fragments.md
+
+One bullet per fragment, see FRAGMENTS.md.
+
+## Claim Ledger.md
+
+One table, see CLAIM-LEDGER.md.
+
+## Outline.md
+
+SCQA opening, governing thought, key points with ledger IDs, see SHAPE.md.
+
+## <Article Title>.md
+
+```yaml
+---
+type: article-draft
+brief: "[[Brief]]"
+status: drafted | verified
+sources: []   # every note cited, filled at verify time
+---
+```

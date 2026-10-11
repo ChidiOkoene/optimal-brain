@@ -12,7 +12,7 @@ Reachable only when you type them (`disable-model-invocation: true`).
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
 - **[system-architect](./system-architect/SKILL.md)** — Orchestrate solution/system architecture across competence roles into a session hub, ADRs, and delivery handoff.
 - **[setup-optimal-brain](./setup-optimal-brain/SKILL.md)** — Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo.
-- **[setup-agent-loops](./setup-agent-loops/SKILL.md)** — Configure verification commands, stop rules, and scope for agent loops. Run once per repo before `/until-done` or autonomous iteration.
+- **[setup-agent-loops](./setup-agent-loops/SKILL.md)** — Configure verification commands, stop rules, and scope for agent loops. Run once per repo before `/until-done` or autonomous iteration. Also designs custom recurring workflow specs.
 - **[to-issues](./to-issues/SKILL.md)** — Break any plan, spec, or PRD into independently-grabbable issues using vertical slices.
 - **[to-prd](./to-prd/SKILL.md)** — Turn the current conversation into a PRD and publish it to the issue tracker.
 - **[implement](./implement/SKILL.md)** — Implement a PRD or issue using agent-loop discipline until verifiers pass.
@@ -27,4 +27,5 @@ Model- or user-reachable (rich trigger phrasing so the model can reach for them)
 - **[diagnosing-bugs](./diagnosing-bugs/SKILL.md)** — Disciplined diagnosis loop for hard bugs and performance regressions: reproduce → minimise → hypothesise → instrument → fix → regression-test.
 - **[tdd](./tdd/SKILL.md)** — Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
 - **[domain-modeling](./domain-modeling/SKILL.md)** — Actively build and sharpen a project's domain model — challenge terms, stress-test with scenarios, update `CONTEXT.md` and ADRs inline.
+- **[review](./review/SKILL.md)** — Two-axis code review (Standards vs Spec) plus correctness, security, and test checks; severity-ranked conventional comments and a PASS/FAIL verdict usable as a loop gate.
 - **[codebase-design](./codebase-design/SKILL.md)** — Shared discipline and vocabulary for designing deep modules: small interfaces, clean seams, testable through the interface.

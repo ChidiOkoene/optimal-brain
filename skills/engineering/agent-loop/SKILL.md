@@ -38,7 +38,7 @@ Paste or summarize the relevant output — pass/fail must be unambiguous from ex
 
 ## 4. Verify
 
-- **Pass** → if the task touched multiple areas, run the **before-stopping** gate (full suite). If that passes, stop with success brief.
+- **Pass** → if the task touched multiple areas, run the **before-stopping** gate (full suite). If that passes, and the change is code, run the `review` skill in gate mode; a `FAIL` verdict is a failing verifier. Then stop with success brief.
 - **Fail** → proceed to step 5.
 
 ## 5. Stop or continue
