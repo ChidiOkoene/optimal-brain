@@ -14,6 +14,7 @@
 - **Custom workflows**: `setup-agent-loops` gains a design-a-custom-workflow path (recipe, spec template, worked example): job statement, step map, verifiers, push-right checkpoints, guardrails, eval cases.
 - Each new skill ships a `REFERENCES.md` with its research sources and a small worked example. Ideas credited to Matt Pocock's unreleased drafts (`review`, `writing-*`, `loop-me`).
 - `resolving-merge-conflicts` is now listed in `plugin.json` and the READMEs; fixed broken relative links in `domain-modeling`, `setup-agent-loops`, and `setup-optimal-brain`.
+- **Playbook**: `docs/PLAYBOOK.md` reorganised into six phases (Research → Ideate/Architect → Design → Build → Review → Publish), opens with the README's Lite path, agent-agnostic setup notes, new prompts for review, review-gated loops, writing, export, and custom workflows.
 - **External research**: guidance for ingesting `davidondrej/skills` research into the vault.
 - **Cleanup**: README rewritten around the three layers; removed `skills/deprecated/`, `skills/in-progress/`, and the TypeScript-specific `migrate-to-shoehorn` and `scaffold-exercises` misc skills; `package.json` repository now points at ChidiOkoene/optimal-brain.
 

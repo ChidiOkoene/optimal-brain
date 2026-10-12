@@ -2,10 +2,10 @@ Skills are organized into bucket folders under `skills/`:
 
 - `engineering/` — daily code work
 - `productivity/` — daily non-code workflow tools
-- `misc/` — kept around but rarely used
+- `misc/` — opt-in repo tooling, kept around but rarely used
 - `personal/` — tied to my own setup, not promoted
 
-Every skill in `engineering/`, `productivity/`, or `misc/` must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`. Skills in `personal/` must not appear in either.
+Every skill in `engineering/` or `productivity/` must have a reference in the top-level `README.md` and an entry in `.claude-plugin/plugin.json`. Skills in `misc/` are opt-in: list them in the top-level `README.md` but keep them out of `.claude-plugin/plugin.json`. Skills in `personal/` must not appear in either.
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
