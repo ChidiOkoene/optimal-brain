@@ -1,5 +1,11 @@
 # optimal-brain
 
+## 2.0.1
+
+### Patch Changes
+
+- [#16](https://github.com/ChidiOkoene/optimal-brain/pull/16) [`5b6ddd1`](https://github.com/ChidiOkoene/optimal-brain/commit/5b6ddd1fe9bd4dcbb76d12fc6d2ecb494a7344e1) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - Add CONTRIBUTING.md, CODE_OF_CONDUCT.md (Contributor Covenant 2.1), issue and PR templates, CODEOWNERS, and docs/ROADMAP.md.
+
 ## 2.0.0
 
 ### Major Changes
