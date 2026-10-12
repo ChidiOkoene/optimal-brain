@@ -1,0 +1,28 @@
+name: Bug in a skill
+description: A skill gave wrong instructions, broke, or referenced something that doesn't exist.
+labels: ["bug"]
+body:
+  - type: input
+    id: skill
+    attributes: { label: Skill, description: "Folder name, e.g. two-axis-review", placeholder: write-from-vault }
+    validations: { required: true }
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options: [Cursor, Claude Code, Codex, GitHub Copilot, Other (say below)]
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes: { label: optimal-brain version or commit, placeholder: "2.0.0 / abc1234" }
+  - type: textarea
+    id: what
+    attributes: { label: What happened, description: "Prompt you gave, what the agent did, relevant output. Redact vault paths and secrets." }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: What you expected }
+    validations: { required: true }
+  - type: textarea
+    id: context
+    attributes: { label: Setup context, description: "Which setup skills you ran; contents of .agent/context/ files if relevant (no personal paths)." }

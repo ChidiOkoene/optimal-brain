@@ -17,7 +17,7 @@ Read `.agent/context/knowledge-vault.md` first (fallback: `docs/agents/knowledge
 - PDF / source companion rules
 - Indexing and research capture layout
 
-If both paths are missing, fall back to patterns from `skills/personal/obsidian-vault/SKILL.md` (ask the user to confirm the path) or run `/setup-knowledge-vault` for the user.
+If both paths are missing, fall back to patterns from `skills/personal/obsidian-vault/SKILL.md` (ask the user to confirm the path) or run `/setup-knowledge-vault` for the user. If missing and `.agent/context/knowledge-vault.example.md` exists, ask the user to copy it and fill in their own path; never use the placeholder.
 
 Also read when present:
 - `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`) — which global vault notes apply to this project

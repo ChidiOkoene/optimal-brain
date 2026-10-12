@@ -40,7 +40,7 @@ Assume the user does not know what these terms mean. Each section starts with a 
 
 **Section A — Issue tracker.**
 
-> Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-issues`, `triage`, `to-prd`, and `qa` read from and write to it — they need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo.
+> Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-issues`, `triage`, and `to-prd` read from and write to it — they need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo.
 
 Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. Otherwise (or if the user prefers), offer:
 
@@ -140,3 +140,18 @@ Tell the user the setup is complete and which engineering skills will now read f
 Recommend **`/setup-agent-loops`** as an optional follow-up — it configures verification commands, stop rules, and scope for autonomous iteration (`/until-done`, `/implement`, Cursor `/loop`).
 
 Mention **`/system-architect`** for solution/system architecture engagements (session hubs under `.agent/context/architecture-sessions/` when created).
+
+### 6. Commit guidance
+
+Follow the **Git** section of `AGENT-CONTEXT-PATH.md` in `/setup-knowledge-vault`. In short:
+
+1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+   ```gitignore
+   # optimal-brain (personal)
+   .agent/context/knowledge-vault.md
+   .agent/context/project-context.md
+   .scratch/
+   ```
+   If any of them is already tracked, tell the user to run `git rm --cached <file>`.
+2. **Tell the user what to commit:** the rest of `.agent/context/`, the `## Agent skills` block in `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, and `docs/adr/`. Shared config gives every teammate and agent the same tracker, labels, and verification. The ignored files hold machine-specific vault paths. Don't commit for them.
+3. **Teams:** offer to write a committed `.agent/context/knowledge-vault.example.md` (placeholder paths) so teammates can copy it to their own gitignored `knowledge-vault.md`.

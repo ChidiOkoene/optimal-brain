@@ -15,7 +15,7 @@ Use these terms when a workflow needs them; never force them in.
 - **Job**: the progress the user wants from the loop, in their words: "When ___, I want to ___, so I can ___." Not a feature list.
 - **Trigger**: what starts a run: an **event** (new issue, new file in `Inbox/`) or a **schedule** (`/loop 1d`). Prefer events: no empty runs.
 - **Steps**: the map from trigger to outcome. Each step has an input, an action, an output, and an owner (`script`, `agent`, `human`).
-- **Verifier**: how a run knows it succeeded: a command, a checklist, or a `/review` gate. No verifier, no autonomy.
+- **Verifier**: how a run knows it succeeded: a command, a checklist, or a `/two-axis-review` gate. No verifier, no autonomy.
 - **Checkpoint**: where a human verifies or decides. **Push right**: put it as late as possible, do all preparable work first, ask once.
 - **Brief**: what a checkpoint shows: what was produced, why, the one decision needed, a link to the asset. Readable in under a minute. Never the raw output.
 - **Guardrails**: stop rules, forbidden actions, scope, budget (time/tokens/money).

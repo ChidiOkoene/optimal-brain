@@ -1,9 +1,9 @@
 ---
-name: review
+name: two-axis-review
 description: Review a set of code changes against two separate axes, Standards (does it follow this repo's documented rules?) and Spec (does it do what the issue/PRD asked?), plus correctness, security, and test checks. Produces severity-ranked findings in conventional-comments style and a PASS/FAIL verdict usable as an agent-loop verification gate. Use when the user wants to review a branch, PR, diff, or work-in-progress, asks "review since X", "is this ready to merge", "check my changes against the issue", or when /implement, agent-loop, or /until-done needs a review gate before stopping.
 ---
 
-# Review
+# Two-Axis Review
 
 Inspired by Matt Pocock's draft `review` skill in [mattpocock/skills](https://github.com/mattpocock/skills).
 

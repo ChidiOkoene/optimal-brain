@@ -15,7 +15,7 @@ Writing from a vault is not summarising it. Notes are atomic and written for you
 
 ## Before you start
 
-Read `.agent/context/knowledge-vault.md` first (fallback: `docs/agents/knowledge-vault.md`). If missing, run `/setup-knowledge-vault` before continuing. Also read vault `Indexes/Context Index.md` when present.
+Read `.agent/context/knowledge-vault.md` first (fallback: `docs/agents/knowledge-vault.md`). If missing, run `/setup-knowledge-vault` before continuing. If missing and `.agent/context/knowledge-vault.example.md` exists, ask the user to copy it and fill in their own path; never use the placeholder. Also read vault `Indexes/Context Index.md` when present.
 
 Settle three things with the user, one question at a time, each with your recommended answer:
 

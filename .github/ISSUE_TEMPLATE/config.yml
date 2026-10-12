@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Usage questions and ideas
+    url: https://github.com/ChidiOkoene/optimal-brain/blob/main/docs/PLAYBOOK.md
+    about: Check the Playbook first (or run /ask-brain in your agent).
+  - name: Contributing guide
+    url: https://github.com/ChidiOkoene/optimal-brain/blob/main/CONTRIBUTING.md
+    about: How skills are organised and what a PR needs.

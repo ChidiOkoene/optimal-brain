@@ -21,4 +21,4 @@ python3 ../scripts/export.py sample-vault "Drafts/Why Agents Forget" --style foo
 git diff --exit-code sample-vault/Drafts/
 ```
 
-Exit code 2 (flags present) is expected; the `git diff` must show no changes.
+Exit code 2 (flags present) is expected; the `git diff` must show no changes. Expected `links` and `pandoc` outputs live in [expected-export/](expected-export/). `npm run validate` runs all three styles as a golden test in CI.

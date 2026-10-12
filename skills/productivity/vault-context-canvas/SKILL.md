@@ -75,4 +75,4 @@ User argument `create` forces full rebuild (confirm if canvas has manual edits).
 
 ## When vault is not configured
 
-Suggest `/setup-knowledge-vault`. Do not guess paths.
+Suggest `/setup-knowledge-vault` (or copying `.agent/context/knowledge-vault.example.md` if present). Do not guess paths.

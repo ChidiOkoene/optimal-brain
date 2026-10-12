@@ -46,7 +46,7 @@ Propose commands detected from the repo. Typical defaults:
 
 - **After each change** (fast feedback): single-file test, typecheck, or lint
 - **Before stopping** (full gate): full test suite
-- **Review gate** (optional): `/review` in gate mode — a `FAIL` verdict counts as a failing verifier
+- **Review gate** (optional): `/two-axis-review` in gate mode — a `FAIL` verdict counts as a failing verifier
 
 Ask the user to confirm or override each command. If the repo has no tests, propose typecheck or build as the verifier and note the gap.
 
@@ -129,3 +129,18 @@ Tell the user setup is complete. Mention:
 - They can edit `.agent/context/loops.md` directly; re-run this skill only to restart from scratch
 
 If `/setup-optimal-brain` has not been run yet, recommend it for issue tracker and domain doc setup.
+
+### 6. Commit guidance
+
+Follow the **Git** section of `AGENT-CONTEXT-PATH.md` in `/setup-knowledge-vault`. In short:
+
+1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+   ```gitignore
+   # optimal-brain (personal)
+   .agent/context/knowledge-vault.md
+   .agent/context/project-context.md
+   .scratch/
+   ```
+   If any of them is already tracked, tell the user to run `git rm --cached <file>`.
+2. **Tell the user what to commit:** the rest of `.agent/context/`, the `## Agent skills` block in `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, and `docs/adr/`. Shared config gives every teammate and agent the same tracker, labels, and verification. The ignored files hold machine-specific vault paths. Don't commit for them.
+3. **Teams:** offer to write a committed `.agent/context/knowledge-vault.example.md` (placeholder paths) so teammates can copy it to their own gitignored `knowledge-vault.md`.
