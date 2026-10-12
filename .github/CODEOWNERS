@@ -1,0 +1,7 @@
+# Default owner for everything
+*               @ChidiOkoene
+
+# Skills, tooling, and CI are reviewed explicitly
+/skills/        @ChidiOkoene
+/scripts/       @ChidiOkoene
+/.github/       @ChidiOkoene

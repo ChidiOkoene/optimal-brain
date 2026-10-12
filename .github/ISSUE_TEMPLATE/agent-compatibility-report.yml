@@ -1,0 +1,31 @@
+name: Agent compatibility report
+description: You tried optimal-brain in an agent; tell us what worked.
+labels: ["agent-compat"]
+body:
+  - type: input
+    id: agent
+    attributes: { label: Agent and version, placeholder: "Codex CLI 0.x / Copilot agent mode / ..." }
+    validations: { required: true }
+  - type: dropdown
+    id: install
+    attributes:
+      label: Install method
+      options: [npx skills add, Claude plugin (.claude-plugin), scripts/link-skills.sh, Manual copy, Other]
+    validations: { required: true }
+  - type: checkboxes
+    id: tried
+    attributes:
+      label: What you tried
+      options:
+        - label: Skills are discovered / listed
+        - label: A user-invoked /command runs
+        - label: A model-invoked skill triggers from a plain prompt
+        - label: Setup skills write .agent/context/
+        - label: research-from-vault writes vault notes
+        - label: agent-loop / until-done loop
+        - label: two-axis-review
+        - label: write-from-vault export
+  - type: textarea
+    id: results
+    attributes: { label: Results, description: "What worked, what didn't, workarounds. Logs welcome (redact paths/secrets)." }
+    validations: { required: true }
