@@ -145,6 +145,10 @@ Reports for untested agents are welcome via issues.
 ./scripts/link-skills.sh   # symlink skills into ~/.claude/skills and ~/.agents/skills
 ```
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for how skills are organized and what a PR needs, and [docs/ROADMAP.md](./docs/ROADMAP.md) for where the project is going. This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md).
+
 ## License
 
 MIT. See [LICENSE](./LICENSE).
