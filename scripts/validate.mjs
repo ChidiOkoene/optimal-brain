@@ -61,6 +61,37 @@ for (const f of files.filter((f) => f.endsWith(".md"))) {
   }
 }
 
+// 4b. skill references: every /command and removed-skill name must exist
+const skillNames = new Set(files.filter((f) => /^skills\/[^/]+\/[^/]+\/SKILL\.md$/.test(f)).map((f) => f.split("/")[2]));
+// Commands that are real but not ours: agent built-ins and other packs we document.
+const EXTERNAL = new Set([
+  "loop", "compact", "clear", "goal", "babysit", "init", "help", "model", "plugin", "skills", // agent built-ins
+  "skill", "tmp", "settings", "orders", // placeholders and example paths in prose
+  // garrytan/gstack (see docs/WITH-GSTACK.md)
+  "review", "qa", "qa-only", "browse", "cso", "design-review", "ship", "land-and-deploy", "canary", "investigate",
+  "context-save", "context-restore", "learn", "office-hours", "plan-eng-review", "plan-ceo-review", "plan-design-review",
+  "autoplan", "spec", "document-generate", "document-release", "setup-gbrain", "sync-gbrain", "gstack-review", "gstack-office-hours",
+]);
+// Skills that no longer exist here; naming them is only OK in history/credit lines.
+const REMOVED = ["qa", "design-an-interface", "request-refactor-plan", "ubiquitous-language", "loop-me", "writing-beats",
+  "writing-fragments", "writing-shape", "migrate-to-shoehorn", "scaffold-exercises", "ask-matt", "setup-matt-pocock-skills"];
+const HISTORY_FILES = /(^|\/)(CHANGELOG\.md|REFERENCES\.md)$|^\.changeset\/|^whatNew\.md$|^docs\/OPTIMAL-BRAIN\.md$/; // fork-history docs
+const HISTORY_LINE = /Inspired by|mattpocock|Matt Pocock|Evolved from|gstack|davidondrej|→ `\/ask-brain`|ask-matt.*ask-brain/;
+for (const f of files.filter((f) => f.endsWith(".md") && !HISTORY_FILES.test(f))) {
+  read(f).split("\n").forEach((line, i) => {
+    if (HISTORY_LINE.test(line)) return;
+    for (const m of line.matchAll(/(?<![\w.~/:}-])\/([a-z][a-z0-9]*(?:-[a-z0-9]+)*)(?![\w/.-]*\/)(?=[\s`*"'),.:;|\]]|$)/g)) {
+      const name = m[1];
+      if (!skillNames.has(name) && !EXTERNAL.has(name)) fail(`${f}:${i + 1}: unknown command /${name}`);
+      if (name === "review") fail(`${f}:${i + 1}: bare /review (ours is /two-axis-review; gstack's /review only on gstack lines)`);
+    }
+    for (const name of REMOVED) {
+      if (new RegExp("`/?" + name + "`|\\*\\*" + name + "\\*\\*|skills/[a-z]+/" + name + "\\b").test(line))
+        fail(`${f}:${i + 1}: references removed skill ${name}`);
+    }
+  });
+}
+
 // 5. golden test: write-from-vault export
 const ex = "skills/productivity/write-from-vault/examples";
 const draft = "Drafts/Why Agents Forget";

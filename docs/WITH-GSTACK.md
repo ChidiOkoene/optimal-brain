@@ -20,7 +20,7 @@ gstack's default Claude Code install puts unprefixed skills in `~/.claude/skills
 
 | Name | Status |
 | ---- | ------ |
-| `review` | **Collided.** Both packs shipped `/review`. optimal-brain's is now **`two-axis-review`**. |
+| `review` | **Collided.** gstack and optimal-brain both shipped `/review`. optimal-brain's is now **`two-axis-review`**. |
 | everything else | No exact name clash. |
 
 Why `two-axis-review`: it names what makes the skill different (Standards and Spec reviewed separately, never reranked), stays a valid Agent Skills name, and won't plausibly collide with a generic `review`/`code-review` from any pack. `vault-review` was rejected because the skill reviews code, not the vault.

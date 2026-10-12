@@ -1,0 +1,28 @@
+name: New skill proposal
+description: Propose a new skill (please discuss before opening a PR).
+labels: ["new-skill"]
+body:
+  - type: input
+    id: name
+    attributes: { label: Proposed name, description: "kebab-case; checked against existing skills and gstack (docs/WITH-GSTACK.md)" }
+    validations: { required: true }
+  - type: dropdown
+    id: bucket
+    attributes: { label: Bucket, options: [engineering, productivity, misc] }
+    validations: { required: true }
+  - type: dropdown
+    id: invocation
+    attributes: { label: Invocation, options: [User-invoked (/command), Model-invoked, Not sure] }
+  - type: textarea
+    id: job
+    attributes: { label: Job to be done, description: "When ___, I want ___, so that ___. Who uses it and how often?" }
+    validations: { required: true }
+  - type: textarea
+    id: overlap
+    attributes: { label: Overlap, description: "Existing skills (here or in other packs) it overlaps or composes with." }
+  - type: textarea
+    id: evidence
+    attributes: { label: Prior art / references, description: "Sources that would go in REFERENCES.md." }
+  - type: textarea
+    id: example
+    attributes: { label: Worked example, description: "A small input and the output you'd expect (becomes examples/)." }

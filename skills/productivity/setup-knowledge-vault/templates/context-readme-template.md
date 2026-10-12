@@ -9,4 +9,4 @@ Skills read these files; they are not application source code.
 
 Human-facing domain docs (`CONTEXT.md`, ADRs) stay at their conventional repo paths; see `domain.md` here for locations.
 
-Do not gitignore this folder by default — commit it so the team shares the same agent setup.
+Commit this folder so the team shares the same agent setup, **except** `knowledge-vault.md` and `project-context.md`. Those hold personal vault paths and go under `# optimal-brain (personal)` in `.gitignore`. Teammates copy `knowledge-vault.example.md`, if there is one.

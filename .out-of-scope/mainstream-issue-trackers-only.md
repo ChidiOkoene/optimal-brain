@@ -1,6 +1,6 @@
 # Issue tracker integrations are limited to mainstream tools
 
-`setup-matt-pocock-skills` only offers first-class support for **mainstream** issue trackers. Requests to add support for niche, new, or single-vendor experimental trackers are out of scope.
+`setup-optimal-brain` only offers first-class support for **mainstream** issue trackers. Requests to add support for niche, new, or single-vendor experimental trackers are out of scope.
 
 ## Why this is out of scope
 

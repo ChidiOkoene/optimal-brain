@@ -19,8 +19,8 @@ Per-repo agent config lives under **`.agent/context/`** — not scattered `docs/
 
 ```text
 .agent/context/
-  knowledge-vault.md       # vault path + conventions
-  project-context.md       # which vault notes apply here
+  knowledge-vault.md       # vault path + conventions   (personal, gitignored)
+  project-context.md       # which vault notes apply here (personal, gitignored)
   loops.md                 # verifiers + stop rules
   issue-tracker.md
   triage-labels.md
@@ -75,6 +75,8 @@ In order:
 3. **`/setup-knowledge-vault`** — vault path, learning records, context graph, research capture folders → `.agent/context/knowledge-vault.md` + `.agent/context/project-context.md`
 
 Have your Obsidian vault path ready for step 3.
+
+Each setup skill ends with **commit guidance**. It adds a `# optimal-brain (personal)` block to `.gitignore` covering `.agent/context/knowledge-vault.md`, `.agent/context/project-context.md`, and `.scratch/`, because those hold your machine's vault paths. Commit the rest of `.agent/context/`, the skills block in `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, and `docs/adr/`. On a team, commit `.agent/context/knowledge-vault.example.md` with placeholder paths and have each teammate copy it. Details: `skills/productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md`.
 
 ### 4. Verify
 

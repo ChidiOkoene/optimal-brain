@@ -9,7 +9,7 @@ argument-hint: "Your thought, reflection, or debrief to save in the vault"
 
 Capture **your** voice during or after research — reflections, questions, todos, half-formed ideas. Notes land in the Obsidian vault under **`{ProjectFolder}/Personal Notes/`**, not in agent-owned `Research Sessions/` or `Findings/`.
 
-Requires `/setup-knowledge-vault` (vault path + project overlay configured).
+Requires `/setup-knowledge-vault` (vault path + project overlay configured). Both files are personal and gitignored, so a fresh clone won't have them. If they're missing, say so and point to `/setup-knowledge-vault` (or `.agent/context/knowledge-vault.example.md` if the team committed one). Don't guess paths.
 
 ## Prerequisites
 
