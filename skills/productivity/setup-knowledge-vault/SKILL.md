@@ -170,3 +170,18 @@ Tell the user the setup is complete. Mention:
 Recommend running `/setup-agent-loops` (if not done) for engineering execution loops, and that the two compose well.
 
 If the personal `obsidian-vault` skill exists, note that it remains the low-level implementation; this config + productivity skills provide the research/engineering layer on top.
+
+### 6. Commit guidance
+
+Follow the **Git** section of [AGENT-CONTEXT-PATH.md](./AGENT-CONTEXT-PATH.md). In short:
+
+1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+   ```gitignore
+   # optimal-brain (personal)
+   .agent/context/knowledge-vault.md
+   .agent/context/project-context.md
+   .scratch/
+   ```
+   If any of them is already tracked, tell the user to run `git rm --cached <file>`.
+2. **Tell the user what to commit:** the rest of `.agent/context/`, the `## Agent skills` block in `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, and `docs/adr/`. Shared config gives every teammate and agent the same tracker, labels, and verification. The ignored files hold machine-specific vault paths. Don't commit for them.
+3. **Teams:** offer to write a committed `.agent/context/knowledge-vault.example.md` from [templates/knowledge-vault-example-template.md](./templates/knowledge-vault-example-template.md) (placeholder paths) so teammates can copy it to their own gitignored `knowledge-vault.md`.

@@ -87,4 +87,4 @@ Copy-paste prompts in [recipes/](./recipes/).
 
 ## When setup is missing
 
-Suggest `/setup-optimal-brain` (and `/setup-knowledge-vault` if research roles need a vault). Do not invent tracker or vault paths.
+Suggest `/setup-optimal-brain` (and `/setup-knowledge-vault` if research roles need a vault). Do not invent tracker or vault paths. `knowledge-vault.md` is gitignored, so a teammate's clone may only have `knowledge-vault.example.md`; ask them to copy it and fill it in.

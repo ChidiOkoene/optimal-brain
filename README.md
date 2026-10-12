@@ -80,6 +80,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 - **Architect**: install `system-architect`, then `/system-architect` for discovery, as-is review, target design, or migration.
 - **Engineering base**: run `/setup-optimal-brain` once per repo before `to-prd`, `to-issues`, `triage`.
 - **External research**: `npx skills@latest add davidondrej/skills` and pick `research-and-web` to feed fresh material into the vault.
+- **Git**: the setup skills gitignore your personal vault config (`.agent/context/knowledge-vault.md`, `project-context.md`, `.scratch/`) and tell you what to commit. Teams can share a `knowledge-vault.example.md` template. See [AGENT-CONTEXT-PATH.md](./skills/productivity/setup-knowledge-vault/AGENT-CONTEXT-PATH.md#git-what-to-commit-what-to-ignore).
 - Also using [gstack](https://github.com/garrytan/gstack)? See [docs/WITH-GSTACK.md](./docs/WITH-GSTACK.md).
 - Not sure where to start? Use `/ask-brain`. For a full walkthrough see [docs/PLAYBOOK.md](./docs/PLAYBOOK.md).
 
