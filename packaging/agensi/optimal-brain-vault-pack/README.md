@@ -22,6 +22,7 @@ Only the current repo (`.agent/context/`, plus a `.gitignore` block) and the vau
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): all skills discovered. Setup, research trigger, seed, and export passed; project-notes and vault-context-canvas weren't exercised. Details: [docs/AGENSI.md](https://github.com/ChidiOkoene/optimal-brain/blob/main/docs/AGENSI.md).
 - **Claude Code:** supported, **not yet tested**.
 - Others: untested. Please report at https://github.com/ChidiOkoene/optimal-brain/issues.
 

@@ -15,6 +15,7 @@ Type `/vault-context-canvas`.
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): discovered and listed only; not exercised.
 - **Claude Code:** supported via the plugin manifest, **not yet tested**.
 - Other Agent Skills agents: untested. Reports are welcome at https://github.com/ChidiOkoene/optimal-brain/issues.
 

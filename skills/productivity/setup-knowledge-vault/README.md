@@ -15,6 +15,7 @@ Type `/setup-knowledge-vault` once per repo. It asks one section at a time and w
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): wrote `.agent/context/` and the `.gitignore` block, and set up only the vault path given. It probed no other locations.
 - **Claude Code:** supported via the plugin manifest, **not yet tested**.
 - Other Agent Skills agents: untested. Reports are welcome at https://github.com/ChidiOkoene/optimal-brain/issues.
 

@@ -15,6 +15,7 @@ Ask in plain language, e.g. "research X using my vault" or "what do my notes say
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): loaded from the plain prompt "research … using my vault". With no vault configured, it stopped and asked for the path without scanning the disk. A full research run against a configured vault was not tested.
 - **Claude Code:** supported via the plugin manifest, **not yet tested**.
 - Other Agent Skills agents: untested. Reports are welcome at https://github.com/ChidiOkoene/optimal-brain/issues.
 

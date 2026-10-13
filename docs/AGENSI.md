@@ -59,20 +59,46 @@ The packager has no dependencies and writes reproducible zips (fixed timestamps)
 | **Checklist: trigger-based description** ("Use when", 3–5 phrases) | ✅ All 31 plugin skills, enforced in CI. | `validate.mjs` |
 | **Checklist: extra frontmatter fields valid** | ✅ `disable-model-invocation` and `argument-hint` are valid YAML (optional, agent-specific). | |
 | **Checklist: specific instructions and output format** | ✅ for listed skills | |
-| **Checklist: tested in at least two agents** | ❌ **Pending.** Only Cursor has been used. | see below |
+| **Checklist: tested in at least two agents** | ✅ Cursor; OpenCode 1.19.0 with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless, 6 scenarios, see below). Claude Code itself is still untested. | see below |
 | **Checklist: self-contained** | ✅ for the two zips. ⚠️ Some `--all` per-skill zips are thin wrappers (e.g. `grill-me` calls `/grilling`) or expect setup skills. Don't list those alone. | |
 | **Checklist: at least one supporting file or example** | ✅ for listed skills (`examples/` in research-from-vault, setup-knowledge-vault, seed-vault-from-repo, write-from-vault, two-axis-review). ⚠️ project-notes and vault-context-canvas have format references but no examples. | |
 | **Checklist: README.md in skill folder** | ✅ for every listed skill and the pack root, enforced in CI. | |
 | **Checklist: no OS junk files** | ✅ Excluded by the packager. | |
 
+## Second-agent test: OpenCode (2026-10-13)
+
+Run with OpenCode 1.19.0, headless (`opencode run`), using `anthropic/claude-sonnet-5.5` via OpenRouter. Both zips were unzipped into a fixture repo's `.opencode/skills/`, and OpenCode also found the pack's nested skill folders. Total model cost was about $0.46.
+
+| Scenario | Result |
+|----------|--------|
+| Skills discovered and listed (router, 6 vault skills, two-axis-review) | Pass |
+| "research … using my vault" loads `research-from-vault`. With no vault configured, it asks for the path and doesn't scan the disk. | Pass |
+| `/setup-knowledge-vault` with the path given writes only `.agent/context/`, the `.gitignore` block, and the given vault | Pass |
+| `/seed-vault-from-repo` on a 2-unit monorepo: 12 notes with `source_commit`, Shared contract, flow, CI, and glossary; `.env` never opened | Pass |
+| `/two-axis-review` on the bundled example: 3/3 planted issues, FAIL verdict, 0 false positives | Pass |
+| `write-from-vault` `export.py` on the bundled example: matches the golden output (exit 2, flags as expected) | Pass |
+
+Nothing was written outside the test directory.
+
+**Not covered:**
+- interactive confirmation gates (the drafts were pre-approved in the prompt)
+- TUI slash commands
+- `project-notes` and `vault-context-canvas`
+- the staged writing flow of `write-from-vault`
+
+**Follow-ups found:**
+- Note titles `Plan: X` and `Decision Trace: X` contain colons, which aren't valid in filenames; use ` - `.
+- `seed-vault-from-repo` should use the Context Index location from `knowledge-vault.md`.
+- Setup should append to `.gitignore`, never rewrite it.
+
 ## Before publishing (still to do, by Chidi)
 
-1. **Two-agent test (required by the checklist):** unzip both zips into Claude Code's skills folder (`~/.claude/skills/`) and check that:
+1. **Optional Claude Code check:** the two-agent requirement is met by Cursor plus OpenCode (above). To claim Claude Code too, unzip both zips into `~/.claude/skills/` and check that:
    - the skills appear
    - "research X using my vault" triggers `research-from-vault`
    - `/setup-knowledge-vault` asks for the path
    - `/two-axis-review` reproduces `examples/expected-review.md` closely
 
-   Then update the "Agents tested" lines in the READMEs and the README compatibility table. **Until then, every listing must say Claude Code is untested.**
+   Then update the "Agents tested" lines. **Until then, every listing must say Claude Code is untested.**
 2. **Ask Agensi** whether a multi-skill pack with a root router is accepted as one listing.
 3. Have someone who didn't build the skills try them (checklist: "Ask someone else to test it").

@@ -15,6 +15,7 @@ Type `/write-from-vault <topic>`. It stops for your review between stages. Expor
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): `export.py` on the bundled example matched the golden output. The staged writing flow (fragments, outline, beats) was not tested.
 - **Claude Code:** supported via the plugin manifest, **not yet tested**.
 - Other Agent Skills agents: untested. Reports are welcome at https://github.com/ChidiOkoene/optimal-brain/issues.
 

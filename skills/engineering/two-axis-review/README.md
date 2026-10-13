@@ -15,6 +15,7 @@ Type `/two-axis-review` (e.g. "review since main against issue #42"), or ask "is
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): on the bundled example it found all 3 planted issues with a FAIL verdict and 0 false positives (by the eval grader).
 - **Claude Code:** supported via the plugin manifest, **not yet tested**.
 - Other Agent Skills agents: untested. Reports are welcome at https://github.com/ChidiOkoene/optimal-brain/issues.
 

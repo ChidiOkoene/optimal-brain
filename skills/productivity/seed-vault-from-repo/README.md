@@ -15,6 +15,7 @@ Type `/seed-vault-from-repo` (or `/seed-vault-from-repo resync`). It drafts the 
 ## Agents tested
 
 - **Cursor:** used during development.
+- **OpenCode 1.19.0** with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless): seeded a 2-unit monorepo fixture: 12 notes, all with `source_commit`, including a Shared contract, flow, CI, and glossary. It never opened `.env`.
 - **Claude Code:** supported via the plugin manifest, **not yet tested**.
 - Other Agent Skills agents: untested. Reports are welcome at https://github.com/ChidiOkoene/optimal-brain/issues.
 
