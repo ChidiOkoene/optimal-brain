@@ -147,3 +147,17 @@ Same setup. The skill reviewed the bundled `examples/change.diff`, read as a raw
    Then update the "Agents tested" lines. **Until then, every listing must say Claude Code is untested.**
 2. **Ask Agensi** whether a multi-skill pack with a root router is accepted as one listing.
 3. Have someone who didn't build the skills try them (checklist: "Ask someone else to test it").
+
+### Follow-up 2: verify-before-cite step (5 runs, strict grader)
+
+Change: step 5 of `SKILL.md` now says to verify every `file:line` in the post-change file before citing it. If you only have a diff, apply it to a temp copy first. If you can't verify a line, cite the hunk and mark it `line unverified`. The example now includes the post-change files in `examples/after/`. Setup: OpenCode 1.19.0, `anthropic/claude-sonnet-5.5`, rebuilt zip. The prompt is unchanged and does not mention `after/`.
+
+| Run | Strict grade | Locations | Cause of failure | Cost |
+|---|---|---|---|---|
+| 7 | FAIL | all correct (`:9`, `:12`, `:16-17`) | bullet layout instead of the FINDINGS-FORMAT label line, so the grader parsed 0 findings | $0.075 |
+| 8 | FAIL | all correct; diff applied to a temp copy | 1 false positive (a `major` on the sort at `:13`) | $0.048 |
+| 9 | FAIL | all correct | bullet layout, same as run 7 | $0.034 |
+| 10 | PASS | all correct | – | $0.053 |
+| 11 | PASS | all correct | – | $0.043 |
+
+Result: 2/5 strict passes, $0.253. Every one of the 5 runs cited correct post-change lines. There were no diff-position citations and no miscounts, so the line-number problem is fixed. No run needed `line unverified`, and no run opened `expected-review.md`. The remaining failures have other causes: report-layout drift (2 runs) and one over-flagged spec finding.
