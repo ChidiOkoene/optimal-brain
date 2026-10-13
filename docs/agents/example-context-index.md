@@ -13,7 +13,7 @@ _(none yet — move entries here when superseded)_
 
 ## Recent decision traces
 
-- [[Decision Trace: Agent Second Brains Literature Review]]
+- [[Decision Trace - Agent Second Brains Literature Review]]
 
 ## Vault indexes (quick links)
 

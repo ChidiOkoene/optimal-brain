@@ -5,7 +5,7 @@ ingested_via: research-from-vault
 confidence: medium
 ---
 
-# Decision Trace: Agent Second Brains Literature Review
+# Decision Trace - Agent Second Brains Literature Review
 
 **Goal:** Research agent second brains using newly landed vault sources; produce synthesis + learning record.
 **Started:** 2026-07-12

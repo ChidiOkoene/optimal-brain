@@ -42,15 +42,15 @@ The user renames "ML Platform" to "ML Engineering" and says **write it**.
 
 - `Acme Analytics/Data Platform/Findings/Daily Orders DAG.md` has `source_paths: [data-platform/dags/daily_orders.py]` and `confidence: high` for the schedule, which the DAG states. The owner line reads "Not found in repo".
 - `Findings/Fct Orders Model.md` links `[[Fct Orders]]` under `## Contracts`.
-- `Decision Traces/Decision Trace: Use dbt for Transforms.md` comes from ADR 0001.
-- `Plans/Plan: Backfill 2024.md` has `status: in-progress`, with the evidence "3/5 checklist items ticked".
+- `Decision Traces/Decision Trace - Use dbt for Transforms.md` comes from ADR 0001.
+- `Plans/Plan - Backfill 2024.md` has `status: in-progress`, with the evidence "3/5 checklist items ticked".
 - `Data Platform Index.md`
 
 ## 3. Pass 2, ML Engineering
 
 - `Findings/Order Features.md` reads `fct_orders` per `features/order_features.yaml`, so it links `[[Fct Orders]]`.
 - `Findings/Churn Model Training.md` lists the open question "(inferred) retrain cadence unclear: no schedule found".
-- `Plans/Plan: Realtime Scoring.md` has `status: proposed`.
+- `Plans/Plan - Realtime Scoring.md` has `status: proposed`.
 
 ## 4. Shared pass
 
@@ -63,11 +63,11 @@ The user renames "ML Platform" to "ML Engineering" and says **write it**.
 - `Shared/End-to-End Flow.md`: orders, then the DAG, then `fct_orders`, then features, then training.
 - `Shared/Shared Infra and CI.md`: `.github/workflows/ci.yml` jobs, listed by name.
 - `Shared/Glossary.md`: "order" means a placed order in Data Platform but a completed order in the feature docs. This is flagged as a conflict.
-- `Indexes/Context Index.md` gains both Unit Indexes and the four Shared notes.
+- `Indexes/Context Index.md` (this example's `knowledge-vault.md` sets the index folder to `Indexes/`) gains both Unit Indexes and the four Shared notes.
 
 ## 5. Re-sync a week later (hypothetical)
 
 `daily_orders.py` changed and `plans/realtime-scoring.md` was deleted. Re-sync then:
 - updates `Daily Orders DAG.md` above `## Manual`
-- marks `Plan: Realtime Scoring.md` with `status: source-deleted`, without deleting it
+- marks `Plan - Realtime Scoring.md` with `status: source-deleted`, without deleting it
 - leaves the user-edited `Order Features.md` alone and adds a `## Proposed Update` section to it instead

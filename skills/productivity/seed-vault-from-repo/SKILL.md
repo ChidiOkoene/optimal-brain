@@ -15,7 +15,8 @@ Prompt-driven, not a script. Draft first, write only when the user says so, and 
 
 - Read `.agent/context/knowledge-vault.md` (fallback `docs/agents/knowledge-vault.md`). If it's missing, stop and tell the user to run `/setup-knowledge-vault` first. If only `knowledge-vault.example.md` exists, ask them to copy it and fill in their own path. Never guess a vault path.
 - Get `git rev-parse HEAD` and `git status --porcelain`. With a dirty tree, ask: seed from HEAD (uncommitted changes ignored) or wait. Every note records `source_commit`.
-- Read the vault's conventions (Title Case, wikilinks, `Indexes/`, existing project folder from `project-context.md`). Follow them over the defaults here.
+- Read the vault's layout and conventions from the **Vault Layout** section of `knowledge-vault.md`: index folder (`Indexes/` or vault root), flat or substructure, folder names, Title Case, wikilinks, and the project folder from `project-context.md`. Follow them over the defaults here. If the layout isn't stated, ask the user once and offer to record the answer in `knowledge-vault.md`. Never assume `Indexes/`.
+- Note titles must be filename-safe: no `:` `/` `\` `?` `*` `<` `>` `|` `"`. Use ` - ` as the separator (e.g. `Plan - Warehouse Migration`, `Decision Trace - Use DuckDB`).
 - Argument `resync` jumps to [RESYNC.md](./RESYNC.md).
 
 ## 1. Discover units, then confirm
@@ -57,7 +58,7 @@ After all units are done, write `<Project>/Shared/`:
 - **Shared Infra and CI**: pipelines, environments, and deploy paths used by several units.
 - **Glossary**: terms with per-unit meanings. Defer to `CONTEXT.md` if it exists.
 
-Cross-link both sides. Each contract links the producer and consumer Findings, and those Findings link back under `## Contracts`. Then update `Indexes/Context Index.md` (create it from `/setup-knowledge-vault`'s template if it's missing) with every Unit Index and Shared note.
+Cross-link both sides. Each contract links the producer and consumer Findings, and those Findings link back under `## Contracts`. Then update `<Index Folder>/Context Index.md` (index folder from `knowledge-vault.md`) (create it from `/setup-knowledge-vault`'s template if it's missing) with every Unit Index and Shared note.
 
 ## 4. Guardrails (always)
 

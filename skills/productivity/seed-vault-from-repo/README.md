@@ -9,7 +9,7 @@ Type `/seed-vault-from-repo` (or `/seed-vault-from-repo resync`). It drafts the 
 ## What it reads and writes
 
 - **Reads:** repo READMEs, docs, ADRs, plans, CI/pipeline configs, code structure, and `git` metadata. Never `.env*`, keys, credentials, or data samples.
-- **Writes:** notes under your project folder in the vault, plus `Indexes/Context Index.md`. Never edits `## Manual` sections.
+- **Writes:** notes under your project folder in the vault, plus `<Index Folder>/Context Index.md` (index folder from `knowledge-vault.md`). Never edits `## Manual` sections.
 - Reads and writes only this repo and the vault path you configured (in `.agent/context/knowledge-vault.md`). It never scans the disk for a vault, and never reads `.env` files, credentials, or secrets.
 
 ## Agents tested

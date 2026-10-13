@@ -134,7 +134,7 @@ If `/setup-optimal-brain` has not been run yet, recommend it for issue tracker a
 
 Follow the **Git** section of `AGENT-CONTEXT-PATH.md` in `/setup-knowledge-vault`. In short:
 
-1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+1. **Ignore the personal files.** **Append only, never rewrite `.gitignore`.** Read it first. If `# optimal-brain (personal)` is already there, append just the missing lines below the existing block. Otherwise append the whole block at the end (`>>`, with a blank line before it), creating the file only if it doesn't exist. Never truncate, reorder, or regenerate the file (no `>` redirect, no full-file write):
    ```gitignore
    # optimal-brain (personal)
    .agent/context/knowledge-vault.md

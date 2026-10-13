@@ -40,7 +40,7 @@ Propose:
 - A path already recorded in this repo's config (`.agent/context/knowledge-vault.md`), if any.
 - Otherwise ask the user to provide the root (e.g. `/Users/you/Obsidian/My Vault` or `D:\Obsidian\AI Research`).
 
-Confirm whether:
+Confirm whether (record the answer in the **Vault Layout** section of `knowledge-vault.md`, including the index folder, `Indexes/` or vault root; other vault skills read it from there):
 - Flat at root (use Index notes for grouping).
 - Or light substructure is acceptable.
 
@@ -176,7 +176,7 @@ If the personal `obsidian-vault` skill exists, note that it remains the low-leve
 
 Follow the **Git** section of [AGENT-CONTEXT-PATH.md](./AGENT-CONTEXT-PATH.md). In short:
 
-1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+1. **Ignore the personal files.** **Append only, never rewrite `.gitignore`.** Read it first. If `# optimal-brain (personal)` is already there, append just the missing lines below the existing block. Otherwise append the whole block at the end (`>>`, with a blank line before it), creating the file only if it doesn't exist. Never truncate, reorder, or regenerate the file (no `>` redirect, no full-file write):
    ```gitignore
    # optimal-brain (personal)
    .agent/context/knowledge-vault.md

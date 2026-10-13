@@ -86,10 +86,10 @@ Nothing was written outside the test directory.
 - `project-notes` and `vault-context-canvas`
 - the staged writing flow of `write-from-vault`
 
-**Follow-ups found:**
-- Note titles `Plan: X` and `Decision Trace: X` contain colons, which aren't valid in filenames; use ` - `.
-- `seed-vault-from-repo` should use the Context Index location from `knowledge-vault.md`.
-- Setup should append to `.gitignore`, never rewrite it.
+**Follow-ups found (all resolved in PR #22):**
+- ✅ Note titles are now filename-safe: `Plan - X`, `Decision Trace - X`, `Research Session - X`. The rule (no `:` `/` `\` `?` `*` `<` `>` `|` `"`) is in the vault template, seed-vault-from-repo, and RESEARCH-CAPTURE-FORMAT. `validate.mjs` fails on colon note titles or unsafe wikilinks.
+- ✅ seed-vault-from-repo (including resync) and research-from-vault read the index folder and layout from the new **Vault Layout** section of `knowledge-vault.md`, and ask if it isn't stated. There's no hardcoded `Indexes/`.
+- ✅ Setup skills (setup-knowledge-vault, setup-optimal-brain, setup-agent-loops, AGENT-CONTEXT-PATH) append the personal block only if it's missing, and never rewrite `.gitignore`.
 
 ## Before publishing (still to do, by Chidi)
 

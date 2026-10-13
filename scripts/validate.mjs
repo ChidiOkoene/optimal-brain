@@ -93,6 +93,20 @@ for (const f of files.filter((f) => f.endsWith(".md") && !HISTORY_FILES.test(f))
   });
 }
 
+// 4b2. Note titles must be filename-safe (no : / \ ? * < > | "). Colons break on Windows and in Obsidian.
+// Checks wikilink targets and "Prefix: Title" note names in skills, docs, and packaging (history files excluded).
+for (const f of files.filter((f) => f.endsWith(".md") && /^(skills|docs|packaging)\//.test(f) && !HISTORY_FILES.test(f) && f !== "docs/AGENSI.md")) {
+  read(f).split("\n").forEach((line, i) => {
+    for (const [, target] of line.matchAll(/\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]/g)) {
+      const t = target.replace(/<[^<>]+>/g, "X").replace(/\\$/, ""); // <Placeholder> and escaped \]] in tables
+      if (target.includes("{{")) continue;
+      if (/[:\\?*<>"]/.test(t)) fail(`${f}:${i + 1}: wikilink [[${target}]] is not filename-safe (use " - " instead of ":")`);
+    }
+    if (/\b(Decision Trace|Plan|Research Session|Contract|Decision Map|Learning Record): [A-Z{<]/.test(line) && /^#|\.md\b|\[\[/.test(line))
+      fail(`${f}:${i + 1}: note title uses ":"; use " - " (filename-safe titles)`);
+  });
+}
+
 // 4c. Agensi readiness (docs/AGENSI.md)
 // Every plugin skill description needs a trigger clause ("Use when ...").
 for (const dir of plugin) {

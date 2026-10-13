@@ -9,7 +9,7 @@ Ask in plain language, e.g. "research X using my vault" or "what do my notes say
 ## What it reads and writes
 
 - **Reads:** vault notes and PDF companions; `.agent/context/knowledge-vault.md` and `project-context.md`.
-- **Writes:** `Research Sessions/`, `Findings/`, synthesis notes, and `Indexes/` in the vault.
+- **Writes:** `Research Sessions/`, `Findings/`, synthesis notes, and index notes (in the index folder set in `knowledge-vault.md`) in the vault.
 - Reads and writes only this repo and the vault path you configured (in `.agent/context/knowledge-vault.md`). It never scans the disk for a vault, and never reads `.env` files, credentials, or secrets. External web research only happens if you've installed a separate, optional third-party tool.
 
 ## Agents tested

@@ -21,8 +21,8 @@ If both paths are missing, ask the user for the vault path (never scan the disk 
 
 Also read when present:
 - `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`) — which global vault notes apply to this project
-- Vault `Indexes/Context Index.md` or `Context Index.md` at vault root — active vs superseded knowledge, recent decision traces
-- Vault `Indexes/Research Index.md` — prior research sessions
+- Vault `Context Index.md` in the index folder named in `knowledge-vault.md`'s Vault Layout (`Indexes/` or vault root; if unstated, check both, and ask before creating one) — active vs superseded knowledge, recent decision traces
+- Vault `Research Index.md` in the same index folder — prior research sessions
 
 Apply **context validity rules** from `knowledge-vault.md`: prefer non-superseded high-confidence notes; treat exploratory notes as design input only.
 
