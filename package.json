@@ -1,6 +1,6 @@
 {
   "name": "chidi-optimal-brain",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "private": true,
   "description": "Give your coding agent a long-term memory: Obsidian vault research capture, agent loops, and system-architect skills, built on mattpocock/skills",
   "repository": {
