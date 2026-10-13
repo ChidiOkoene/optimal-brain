@@ -102,7 +102,7 @@ Same setup (OpenCode 1.19.0, `anthropic/claude-sonnet-5.5` via OpenRouter, headl
 | Seed on both vaults: Context Index at the vault root (flat) and in `Indexes/` (substructure); `source_commit` on every note | Pass |
 | Interactive setup without pre-approval: stopped after Section A, wrote nothing | Pass |
 | `export.py` matches the golden output | Pass |
-| two-axis-review: 3/3 issues, right severities, FAIL verdict, 0 false positives | Pass on findings. Line numbers came from the `.diff` file, not the source file. Fixed by the location rule now in `FINDINGS-FORMAT.md`. |
+| two-axis-review: 3/3 issues, right severities, FAIL verdict, 0 false positives | Pass on findings. Line numbers came from the `.diff` file, not the source file. See the follow-up below. |
 
 **Fixes verified:**
 - No `:` in any note filename or wikilink; titles use ` - `.
@@ -112,6 +112,29 @@ Same setup (OpenCode 1.19.0, `anthropic/claude-sonnet-5.5` via OpenRouter, headl
 **Safety:**
 - Nothing was written outside the test directory.
 - The `.env` canary was never read.
+
+### Follow-up: two-axis-review line numbers (6 runs, strict grader)
+
+Same setup. The skill reviewed the bundled `examples/change.diff`, read as a raw `.diff` file. A strict pass needs all of:
+- the 3 issues
+- correct severities
+- verdict FAIL
+- `file:line` on the post-change source (SQLi `:9`, superseded filter `:12`)
+- 0 false positives
+
+| Run | Skill text | Strict result | Notes | Cost |
+|-----|-----------|---------------|-------|------|
+| 1 | Location rule in `FINDINGS-FORMAT.md` only | FAIL | Cited diff-file lines (`:13-15`, `:17`) | $0.088 |
+| 2 | same | PASS | | $0.059 |
+| 3 | same | PASS | | $0.047 |
+| 4 | Rule also in `SKILL.md` steps 1 and 5 (hunk `+start`, count down) | PASS | | $0.065 |
+| 5 | same | FAIL | Not diff positions: it miscounted by 2 (SQLi `:7`, superseded `:11`). All findings and severities were correct. | $0.041 |
+| 6 | same | PASS | | $0.054 |
+
+**Result:**
+- **Strict pass rate:** 4/6 overall, 2/3 after the `SKILL.md` change. No post-change run cited diff-file positions.
+- **Unaffected:** findings, severities, and verdict were correct in all 6 runs, with false positives in only one run (run 1).
+- **What's left:** counting line numbers out of a raw `.diff` stays error-prone. On a real branch, the skill reads `git diff` and can open the file at the reviewed commit, which avoids counting.
 
 ## Before publishing (still to do, by Chidi)
 

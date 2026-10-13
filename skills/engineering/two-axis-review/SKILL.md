@@ -36,6 +36,8 @@ Copy this checklist and tick it as you go:
 - Record `git log <base>..HEAD --oneline` and `git diff --stat`.
 - **Size check.** Defect detection drops sharply above ~400 changed lines (see [REFERENCES.md](REFERENCES.md)). Over that, split the review by area (one pass per directory or commit group) and say so in the report. Generated files, lockfiles, and vendored code get a skim, not a line-by-line read.
 
+When you read the diff, note each hunk's `+start` so findings can cite post-change line numbers (see step 5).
+
 ### 2. Find the spec and the standards
 
 **Spec**, first match wins: issue refs in commit messages or branch name (`#123`, `Closes #45`) → path the user passed → PRD/spec under `docs/`, `specs/`, `.scratch/`, `.agent/context/` matching the feature → ask. If there is genuinely none, the Spec axis reports `no spec` and the verdict cannot be PASS on spec grounds alone; say so.
@@ -60,7 +62,7 @@ If verifiers are configured (`.agent/context/loops.md`, fallback `docs/agents/lo
 
 ### 5. Rank, decide, report
 
-Label and rank every finding using [FINDINGS-FORMAT.md](FINDINGS-FORMAT.md). Severity order: `blocker` > `major` > `minor` > `nit`. Every finding needs a location (`file:line`) and evidence (a quote of the rule, the spec line, or the code). No evidence, no finding: downgrade it to a `question`.
+Label and rank every finding using [FINDINGS-FORMAT.md](FINDINGS-FORMAT.md). Severity order: `blocker` > `major` > `minor` > `nit`. Every finding needs a location (`file:line`, where `line` is the line number in the **post-change source file**: take the hunk header `@@ … +start,len @@` and count down from `start`, skipping `-` lines; never the line's position in the diff text or a `.diff` file) and evidence (a quote of the rule, the spec line, or the code). No evidence, no finding: downgrade it to a `question`.
 
 **Verdict:**
 - **FAIL** if any `blocker`, or any `major` on Spec or Security.
