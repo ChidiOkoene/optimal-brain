@@ -91,6 +91,28 @@ Nothing was written outside the test directory.
 - ✅ seed-vault-from-repo (including resync) and research-from-vault read the index folder and layout from the new **Vault Layout** section of `knowledge-vault.md`, and ask if it isn't stated. There's no hardcoded `Indexes/`.
 - ✅ Setup skills (setup-knowledge-vault, setup-optimal-brain, setup-agent-loops, AGENT-CONTEXT-PATH) append the personal block only if it's missing, and never rewrite `.gitignore`.
 
+## Re-test on v2.2.0: OpenCode (2026-10-13)
+
+Same setup (OpenCode 1.19.0, `anthropic/claude-sonnet-5.5` via OpenRouter, headless), on `main` @ v2.2.0 with rebuilt zips. Total cost was about $0.85 for 9 runs.
+
+| Scenario | Result |
+|----------|--------|
+| Discovery; research trigger (no vault: it asks for the path and the index location) | Pass |
+| Setup with a flat layout, and setup with an `Indexes/` substructure. Vault Layout recorded in each case. | Pass |
+| Seed on both vaults: Context Index at the vault root (flat) and in `Indexes/` (substructure); `source_commit` on every note | Pass |
+| Interactive setup without pre-approval: stopped after Section A, wrote nothing | Pass |
+| `export.py` matches the golden output | Pass |
+| two-axis-review: 3/3 issues, right severities, FAIL verdict, 0 false positives | Pass on findings. Line numbers came from the `.diff` file, not the source file. Fixed by the location rule now in `FINDINGS-FORMAT.md`. |
+
+**Fixes verified:**
+- No `:` in any note filename or wikilink; titles use ` - `.
+- The index location follows Vault Layout.
+- `.gitignore` is append-only: the original commented file is a byte-exact prefix of the new one, with the block added exactly once.
+
+**Safety:**
+- Nothing was written outside the test directory.
+- The `.env` canary was never read.
+
 ## Before publishing (still to do, by Chidi)
 
 1. **Optional Claude Code check:** the two-agent requirement is met by Cursor plus OpenCode (above). To claim Claude Code too, unzip both zips into `~/.claude/skills/` and check that:
