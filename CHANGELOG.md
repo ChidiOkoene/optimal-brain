@@ -1,5 +1,11 @@
 # optimal-brain
 
+## 2.1.0
+
+### Minor Changes
+
+- [#20](https://github.com/ChidiOkoene/optimal-brain/pull/20) [`3b141d6`](https://github.com/ChidiOkoene/optimal-brain/commit/3b141d67a99b355ce326833bb0dae113959e0be2) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - Add `seed-vault-from-repo`: seed an existing vault from a repo (per-unit Findings, Decision Traces, Plans, Unit Index; Shared contracts, flow, infra, glossary for multi-unit repos), with source paths and commit in frontmatter, secret/data guardrails, and a re-sync mode that updates only stale notes and never overwrites user-owned sections.
+
 ## 2.0.1
 
 ### Patch Changes
