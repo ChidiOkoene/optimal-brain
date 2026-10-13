@@ -89,6 +89,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 ### Vault memory layer
 
 - **[setup-knowledge-vault](./skills/productivity/setup-knowledge-vault/SKILL.md)** (user): configure vault location, learning records, PDFs, context graph, and recipes for ingestion.
+- **[seed-vault-from-repo](./skills/productivity/seed-vault-from-repo/SKILL.md)** (user): seed the vault from an existing repo: per-unit Findings, Decision Traces, Plans, and a Shared contracts layer, all citing paths and commit; re-sync updates only stale notes.
 - **[research-from-vault](./skills/productivity/research-from-vault/SKILL.md)** (model): research and synthesize with the vault as the primary source; captures findings per `RESEARCH-CAPTURE-FORMAT.md`.
 - **[project-notes](./skills/productivity/project-notes/SKILL.md)** (user): capture personal notes under `{ProjectFolder}/Personal Notes/`.
 - **[vault-context-canvas](./skills/productivity/vault-context-canvas/SKILL.md)** (user): create or refresh an Obsidian JSON Canvas context graph.

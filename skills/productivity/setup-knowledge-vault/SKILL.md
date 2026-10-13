@@ -167,6 +167,8 @@ Tell the user the setup is complete. Mention:
 - Maintenance: use Cursor `/loop` + recipes (indexes, context graph, nightly inbox processing).
 - They can edit `.agent/context/knowledge-vault.md` and `.agent/context/project-context.md` directly; re-run this skill only to restart configuration.
 
+If this repo already has code, docs, ADRs or plans worth knowing, recommend `/seed-vault-from-repo` next. It seeds the vault from the repo one unit at a time, with sources and commit cited.
+
 Recommend running `/setup-agent-loops` (if not done) for engineering execution loops, and that the two compose well.
 
 If the personal `obsidian-vault` skill exists, note that it remains the low-level implementation; this config + productivity skills provide the research/engineering layer on top.
