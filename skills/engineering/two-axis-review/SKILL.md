@@ -60,7 +60,9 @@ If verifiers are configured (`.agent/context/loops.md`, fallback `docs/agents/lo
 
 ### 5. Rank, decide, report
 
-Label and rank every finding using [FINDINGS-FORMAT.md](FINDINGS-FORMAT.md). Severity order: `blocker` > `major` > `minor` > `nit`. Every finding needs a location (`file:line`) and evidence (a quote of the rule, the spec line, or the code). No evidence, no finding: downgrade it to a `question`.
+Label and rank every finding using [FINDINGS-FORMAT.md](FINDINGS-FORMAT.md). Severity order: `blocker` > `major` > `minor` > `nit`. Every finding needs a location (`file:line` in the post-change file) and evidence (a quote of the rule, the spec line, or the code). No evidence, no finding: downgrade it to a `question`.
+
+**Verify every location before citing it.** Open the post-change file and confirm the quoted code is on that line (`grep -n '<snippet>' <file>`, or read the file at that line). Use the working tree or `git show HEAD:<file>`. If you only have a `.diff`, apply it to a temp copy first (`git apply` or `patch -p1`) and look up the line there. Never cite a line's position inside the diff text. If you can't verify a line, cite the hunk (`file @@ +start,len`) and write `line unverified`. Don't guess.
 
 **Verdict:**
 - **FAIL** if any `blocker`, or any `major` on Spec or Security.

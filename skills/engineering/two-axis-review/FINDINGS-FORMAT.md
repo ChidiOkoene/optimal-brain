@@ -10,6 +10,8 @@ Every finding is one conventional comment with a severity and a location. The fi
 <suggested fix: smallest change, patch snippet if useful>
 ```
 
+**Location:** `path:line` is the line number in the file **after** the change (new side). Count from the hunk header's `+start` (`@@ -a,b +start,len @@`), or read the file at the reviewed commit. Never use the line's position inside the diff output or a `.diff` file. Use `path:start-end` for ranges.
+
 ## Labels (from Conventional Comments)
 
 | Label | Use for | Blocking? |

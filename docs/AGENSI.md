@@ -91,6 +91,51 @@ Nothing was written outside the test directory.
 - ✅ seed-vault-from-repo (including resync) and research-from-vault read the index folder and layout from the new **Vault Layout** section of `knowledge-vault.md`, and ask if it isn't stated. There's no hardcoded `Indexes/`.
 - ✅ Setup skills (setup-knowledge-vault, setup-optimal-brain, setup-agent-loops, AGENT-CONTEXT-PATH) append the personal block only if it's missing, and never rewrite `.gitignore`.
 
+## Re-test on v2.2.0: OpenCode (2026-10-13)
+
+Same setup (OpenCode 1.19.0, `anthropic/claude-sonnet-5.5` via OpenRouter, headless), on `main` @ v2.2.0 with rebuilt zips. Total cost was about $0.85 for 9 runs.
+
+| Scenario | Result |
+|----------|--------|
+| Discovery; research trigger (no vault: it asks for the path and the index location) | Pass |
+| Setup with a flat layout, and setup with an `Indexes/` substructure. Vault Layout recorded in each case. | Pass |
+| Seed on both vaults: Context Index at the vault root (flat) and in `Indexes/` (substructure); `source_commit` on every note | Pass |
+| Interactive setup without pre-approval: stopped after Section A, wrote nothing | Pass |
+| `export.py` matches the golden output | Pass |
+| two-axis-review: 3/3 issues, right severities, FAIL verdict, 0 false positives | Pass on findings. Line numbers came from the `.diff` file, not the source file. See the follow-up below. |
+
+**Fixes verified:**
+- No `:` in any note filename or wikilink; titles use ` - `.
+- The index location follows Vault Layout.
+- `.gitignore` is append-only: the original commented file is a byte-exact prefix of the new one, with the block added exactly once.
+
+**Safety:**
+- Nothing was written outside the test directory.
+- The `.env` canary was never read.
+
+### Follow-up: two-axis-review line numbers (6 runs, strict grader)
+
+Same setup. The skill reviewed the bundled `examples/change.diff`, read as a raw `.diff` file. A strict pass needs all of:
+- the 3 issues
+- correct severities
+- verdict FAIL
+- `file:line` on the post-change source (SQLi `:9`, superseded filter `:12`)
+- 0 false positives
+
+| Run | Skill text | Strict result | Notes | Cost |
+|-----|-----------|---------------|-------|------|
+| 1 | Location rule in `FINDINGS-FORMAT.md` only | FAIL | Cited diff-file lines (`:13-15`, `:17`) | $0.088 |
+| 2 | same | PASS | | $0.059 |
+| 3 | same | PASS | | $0.047 |
+| 4 | Rule also in `SKILL.md` steps 1 and 5 (hunk `+start`, count down) | PASS | | $0.065 |
+| 5 | same | FAIL | Not diff positions: it miscounted by 2 (SQLi `:7`, superseded `:11`). All findings and severities were correct. | $0.041 |
+| 6 | same | PASS | | $0.054 |
+
+**Result:**
+- **Strict pass rate:** 4/6 overall, 2/3 after the `SKILL.md` change. No post-change run cited diff-file positions.
+- **Unaffected:** findings, severities, and verdict were correct in all 6 runs, with false positives in only one run (run 1).
+- **What's left:** counting line numbers out of a raw `.diff` stays error-prone. On a real branch, the skill reads `git diff` and can open the file at the reviewed commit, which avoids counting.
+
 ## Before publishing (still to do, by Chidi)
 
 1. **Optional Claude Code check:** the two-agent requirement is met by Cursor plus OpenCode (above). To claim Claude Code too, unzip both zips into `~/.claude/skills/` and check that:
@@ -102,3 +147,17 @@ Nothing was written outside the test directory.
    Then update the "Agents tested" lines. **Until then, every listing must say Claude Code is untested.**
 2. **Ask Agensi** whether a multi-skill pack with a root router is accepted as one listing.
 3. Have someone who didn't build the skills try them (checklist: "Ask someone else to test it").
+
+### Follow-up 2: verify-before-cite step (5 runs, strict grader)
+
+Change: step 5 of `SKILL.md` now says to verify every `file:line` in the post-change file before citing it. If you only have a diff, apply it to a temp copy first. If you can't verify a line, cite the hunk and mark it `line unverified`. The example now includes the post-change files in `examples/after/`. Setup: OpenCode 1.19.0, `anthropic/claude-sonnet-5.5`, rebuilt zip. The prompt is unchanged and does not mention `after/`.
+
+| Run | Strict grade | Locations | Cause of failure | Cost |
+|---|---|---|---|---|
+| 7 | FAIL | all correct (`:9`, `:12`, `:16-17`) | bullet layout instead of the FINDINGS-FORMAT label line, so the grader parsed 0 findings | $0.075 |
+| 8 | FAIL | all correct; diff applied to a temp copy | 1 false positive (a `major` on the sort at `:13`) | $0.048 |
+| 9 | FAIL | all correct | bullet layout, same as run 7 | $0.034 |
+| 10 | PASS | all correct | – | $0.053 |
+| 11 | PASS | all correct | – | $0.043 |
+
+Result: 2/5 strict passes, $0.253. Every one of the 5 runs cited correct post-change lines. There were no diff-position citations and no miscounts, so the line-number problem is fixed. No run needed `line unverified`, and no run opened `expected-review.md`. The remaining failures have other causes: report-layout drift (2 runs) and one over-flagged spec finding.
