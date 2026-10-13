@@ -1,6 +1,6 @@
 ---
 name: seed-vault-from-repo
-description: Populate an existing optimal-brain Obsidian vault from the current state of a repo (code layout, READMEs, docs, ADRs, plans, CI/pipeline configs). Discovers units (monorepo workspaces or sub-projects), confirms the unit list and vault layout, then writes per-unit Findings, Decision Traces, Plans and a Unit Index one unit at a time, plus a Shared layer for cross-unit contracts. Every note cites source paths and the commit; re-sync mode updates only stale notes. Use after /setup-knowledge-vault when you want the vault to know an existing codebase.
+description: Populate an existing optimal-brain Obsidian vault from the current state of a repo (code layout, READMEs, docs, ADRs, plans, CI/pipeline configs). Discovers units (monorepo workspaces or sub-projects), confirms the unit list and vault layout, then writes per-unit Findings, Decision Traces, Plans and a Unit Index one unit at a time, plus a Shared layer for cross-unit contracts. Every note cites source paths and the commit; re-sync mode updates only stale notes. Use when the user wants the vault to know an existing codebase or monorepo, after /setup-knowledge-vault, or says seed/re-sync the vault from this repo. Reads and writes only this repo and the vault path you configured.
 disable-model-invocation: true
 argument-hint: "[resync] [unit paths...]"
 ---
@@ -15,7 +15,8 @@ Prompt-driven, not a script. Draft first, write only when the user says so, and 
 
 - Read `.agent/context/knowledge-vault.md` (fallback `docs/agents/knowledge-vault.md`). If it's missing, stop and tell the user to run `/setup-knowledge-vault` first. If only `knowledge-vault.example.md` exists, ask them to copy it and fill in their own path. Never guess a vault path.
 - Get `git rev-parse HEAD` and `git status --porcelain`. With a dirty tree, ask: seed from HEAD (uncommitted changes ignored) or wait. Every note records `source_commit`.
-- Read the vault's conventions (Title Case, wikilinks, `Indexes/`, existing project folder from `project-context.md`). Follow them over the defaults here.
+- Read the vault's layout and conventions from the **Vault Layout** section of `knowledge-vault.md`: index folder (`Indexes/` or vault root), flat or substructure, folder names, Title Case, wikilinks, and the project folder from `project-context.md`. Follow them over the defaults here. If the layout isn't stated, ask the user once and offer to record the answer in `knowledge-vault.md`. Never assume `Indexes/`.
+- Note titles must be filename-safe: no `:` `/` `\` `?` `*` `<` `>` `|` `"`. Use ` - ` as the separator (e.g. `Plan - Warehouse Migration`, `Decision Trace - Use DuckDB`).
 - Argument `resync` jumps to [RESYNC.md](./RESYNC.md).
 
 ## 1. Discover units, then confirm
@@ -57,7 +58,7 @@ After all units are done, write `<Project>/Shared/`:
 - **Shared Infra and CI**: pipelines, environments, and deploy paths used by several units.
 - **Glossary**: terms with per-unit meanings. Defer to `CONTEXT.md` if it exists.
 
-Cross-link both sides. Each contract links the producer and consumer Findings, and those Findings link back under `## Contracts`. Then update `Indexes/Context Index.md` (create it from `/setup-knowledge-vault`'s template if it's missing) with every Unit Index and Shared note.
+Cross-link both sides. Each contract links the producer and consumer Findings, and those Findings link back under `## Contracts`. Then update `<Index Folder>/Context Index.md` (index folder from `knowledge-vault.md`) (create it from `/setup-knowledge-vault`'s template if it's missing) with every Unit Index and Shared note.
 
 ## 4. Guardrails (always)
 

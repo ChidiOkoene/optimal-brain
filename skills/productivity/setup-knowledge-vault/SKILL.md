@@ -1,6 +1,6 @@
 ---
 name: setup-knowledge-vault
-description: Configure a personal knowledge vault for research and learning (vault location, learning records, PDFs/sources, context graph, project overlay, integration). Run once before using vault-backed teach, research-from-vault, or loops that consult personal knowledge.
+description: "Configure a personal knowledge vault for research and learning (vault location, learning records, PDFs/sources, context graph, project overlay). Use when the user first sets up optimal-brain's vault layer, before research-from-vault, /teach, or other vault skills, or to change the vault path. Reads and writes only this repo and the vault path you configured."
 disable-model-invocation: true
 ---
 
@@ -21,10 +21,9 @@ This is a prompt-driven skill, not a deterministic script. Explore, present sect
 
 Look for existing signals; don't assume:
 
-- `skills/personal/obsidian-vault/SKILL.md` (if present) — may contain a hardcoded path.
 - Any `.agent/context/knowledge-vault.md` or legacy `docs/agents/knowledge-vault.md`
 - `CLAUDE.md` / `AGENTS.md` at roots — look for existing "Knowledge", "Vault", "Research", or "Second brain" sections.
-- Common Obsidian locations on this machine (ask user or probe typical paths if tools allow).
+- The vault path itself: **ask the user** for it. Don't scan the disk or probe common Obsidian locations. This skill and the vault skills read and write only this repo and the vault path the user gives.
 - Teach workspaces in the current tree (look for `MISSION.md`, `learning-records/`, `RESOURCES.md`).
 
 ### 2. Present findings and ask
@@ -38,11 +37,11 @@ Assume the user does not know the terms. Start each with a short explainer and s
 > Explainer: The vault is your durable, queryable second brain (PDFs, notes, transcripts, articles). Skills will read and write notes here using the filesystem. We need the absolute root path and basic access notes.
 
 Propose:
-- A path discovered from `obsidian-vault` or common locations.
-- Or ask the user to provide the root (e.g. `/Users/you/Obsidian/My Vault` or `D:\Obsidian\AI Research`).
+- A path already recorded in this repo's config (`.agent/context/knowledge-vault.md`), if any.
+- Otherwise ask the user to provide the root (e.g. `/Users/you/Obsidian/My Vault` or `D:\Obsidian\AI Research`).
 
-Confirm whether:
-- Flat at root (use Index notes for grouping, like the personal obsidian-vault pattern).
+Confirm whether (record the answer in the **Vault Layout** section of `knowledge-vault.md`, including the index folder, `Indexes/` or vault root; other vault skills read it from there):
+- Flat at root (use Index notes for grouping).
 - Or light substructure is acceptable.
 
 Record the path and a one-line access note.
@@ -76,7 +75,7 @@ Confirm / explain:
 - `research-from-vault` will be the reusable discipline for synthesis from vault sources (PDFs + notes).
 - Agent loops (`agent-loop`, `/until-done`) may reach `research-from-vault` for knowledge gaps and accept goals like "research X until synthesis is in the vault".
 - `domain-modeling`, `grill-with-docs`, and decision-mapping Research tickets will consult vault sources first when available.
-- External research (davidondrej research-and-web skills) lands material in the vault; then synthesize.
+- Optional, third-party: external research (davidondrej/skills research-and-web, a separate pack the user installs themselves) lands material in the vault; then synthesize.
 
 Also note any maintenance loops the user wants (e.g. daily inbox processing).
 
@@ -128,7 +127,7 @@ The block (example):
 ```markdown
 ## Knowledge & Research
 
-Personal knowledge vault configuration, learning record placement, PDF/source handling, and research-from-vault flows. See `.agent/context/knowledge-vault.md`. External research ingestion uses tools like davidondrej research-and-web skills feeding the vault.
+Personal knowledge vault configuration, learning record placement, PDF/source handling, and research-from-vault flows. See `.agent/context/knowledge-vault.md`. External research ingestion can optionally use third-party tools like davidondrej research-and-web skills (installed separately by the user) feeding the vault.
 ```
 
 Create `.agent/context/` if missing. Write `.agent/context/README.md` from [templates/context-readme-template.md](./templates/context-readme-template.md).
@@ -162,7 +161,7 @@ Tell the user the setup is complete. Mention:
 
 - `/teach` will now bridge learning records into the vault (when configured).
 - Use `research-from-vault` (reached by prose or loops) for synthesis from PDFs/notes.
-- For fresh external info: install davidondrej/skills (focus on research-and-web), fetch, save results to vault, then synthesize.
+- Optional, third-party: for fresh external info, the user can install davidondrej/skills (research-and-web) themselves, fetch, save results to the vault, then synthesize. This skill never installs anything.
 - **Context graph:** global validity in vault Context Index; project filter in `.agent/context/project-context.md`.
 - Maintenance: use Cursor `/loop` + recipes (indexes, context graph, nightly inbox processing).
 - They can edit `.agent/context/knowledge-vault.md` and `.agent/context/project-context.md` directly; re-run this skill only to restart configuration.
@@ -177,7 +176,7 @@ If the personal `obsidian-vault` skill exists, note that it remains the low-leve
 
 Follow the **Git** section of [AGENT-CONTEXT-PATH.md](./AGENT-CONTEXT-PATH.md). In short:
 
-1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+1. **Ignore the personal files.** **Append only, never rewrite `.gitignore`.** Read it first. If `# optimal-brain (personal)` is already there, append just the missing lines below the existing block. Otherwise append the whole block at the end (`>>`, with a blank line before it), creating the file only if it doesn't exist. Never truncate, reorder, or regenerate the file (no `>` redirect, no full-file write):
    ```gitignore
    # optimal-brain (personal)
    .agent/context/knowledge-vault.md

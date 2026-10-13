@@ -29,7 +29,8 @@ function processPayment(order, paymentClient) {
 
 // Hard to mock
 function processPayment(order) {
-  const client = new StripeClient(process.env.STRIPE_KEY);
+  // Illustrative only: PaymentClient and PAYMENT_API_KEY are placeholder names.
+  const client = new PaymentClient(process.env.PAYMENT_API_KEY);
   return client.charge(order.total);
 }
 ```

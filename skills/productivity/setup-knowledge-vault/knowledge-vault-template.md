@@ -8,6 +8,16 @@ Personal knowledge vault configuration for research, learning records, and synth
 
 Access via the filesystem tools (Grep, Glob, Read, Write on paths under this root). Prefer Title Case filenames and `[[wikilinks]]`.
 
+## Vault Layout
+
+Vault skills read this section instead of assuming folders. Setup fills it in from the user's answers.
+
+- **Layout:** flat (index notes at the vault root) | substructure
+- **Index folder:** `Indexes/` | vault root. Context Index, Research Index and Learning Records Index live here.
+- **Research folders:** `Research Sessions/`, `Findings/`
+- **Decision traces:** `Decision Traces/`
+- **Project folder:** `<Project Name>/` (see `project-context.md`)
+
 ## Learning Records in the Vault
 
 Learning records from teaching sessions are bridged here for long-term retention and cross-linking.
@@ -102,6 +112,8 @@ Project folder name matches `project-context.md` vault project folder / project 
 
 ## Indexing and Linking Rules
 
+- Note titles must be filename-safe: no `:` `/` `\` `?` `*` `<` `>` `|` `"`. Use ` - ` as the separator (e.g. `Plan - Warehouse Migration`, `Decision Trace - Use DuckDB`).
+
 - Use Obsidian `[[wikilinks]]` (Title Case target).
 - Notes link to related/dependency notes at the bottom.
 - Index notes are flat lists of links (no subfolders required).
@@ -124,7 +136,7 @@ grep -rl "\[\[Some Concept\]\]" "{{VAULT_PATH}}"
 - **Engineering skills** (`domain-modeling`, `grill-with-docs`, decision-mapping Research tickets): Prefer vault sources first for grounding terms and decisions when configured.
 - **`/project-notes`**: User personal reflections in `{ProjectFolder}/Personal Notes/`.
 - **`/vault-context-canvas`**: Obsidian JSON Canvas context graph at `{ProjectFolder}/Context Graph.canvas`.
-- **External ingestion**: Use davidondrej/skills `research-and-web` (browser, YouTube, web) to fetch fresh material. Land results as source files or notes in the vault, then synthesize with `research-from-vault` or `/teach`.
+- **External ingestion (optional, third-party)**: if installed by the user, use davidondrej/skills `research-and-web` (browser, YouTube, web) to fetch fresh material. Land results as source files or notes in the vault, then synthesize with `research-from-vault` or `/teach`.
 
 ## Starter Recipes
 

@@ -1,6 +1,6 @@
 ---
 name: to-prd
-description: Turn the current conversation into a PRD and publish it to the project issue tracker — no interview, just synthesis of what you've already discussed.
+description: "Turn the current conversation into a PRD and publish it to the project issue tracker, with no interview, just synthesis of what you've already discussed. Use when the user says write a PRD, turn this into a spec, or file this as a PRD."
 disable-model-invocation: true
 ---
 

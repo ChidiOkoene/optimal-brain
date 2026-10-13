@@ -44,7 +44,7 @@ status: in-progress | complete
 Body sections:
 
 ```markdown
-# Research Session: Topic Name
+# Research Session - Topic Name
 
 ## Goal
 
@@ -68,7 +68,7 @@ _(Link at end of run)_
 - [[Research Index]]
 ```
 
-Link the session from `Indexes/Research Index.md` when created.
+Link the session from `Research Index.md` in the index folder from `knowledge-vault.md` (`Indexes/` or vault root) when created.
 
 ### 2. During — capture every substantive finding
 
@@ -96,6 +96,8 @@ For each **substantive** finding (a claim, tradeoff, data point, or conclusion w
 Set session hub `status: complete` in frontmatter.
 
 ## Wikilink rules
+
+- Note titles must be filename-safe: no `:` `/` `\` `?` `*` `<` `>` `|` `"`. Use ` - ` as the separator (e.g. `Plan - Warehouse Migration`, `Decision Trace - Use DuckDB`).
 
 - Session hub ↔ finding notes ↔ sources ↔ synthesis ↔ indexes
 - Use Title Case targets consistent with filenames

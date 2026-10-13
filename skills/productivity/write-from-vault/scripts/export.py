@@ -7,6 +7,12 @@ Usage:
 Writes <draft>/export/<slug>.md, <draft>/export/EXPORT-REPORT.md, copies embedded
 attachments into <draft>/export/assets/. Exit code 0 = clean, 2 = flags to review,
 1 = usage/input error. Standard library only (Python 3.8+).
+
+What this script touches (nothing else):
+  Reads:  Markdown notes and embedded attachments inside <vault_root>, the vault path
+          the user passes on the command line (the draft folder and the notes it links).
+  Writes: only <vault_root>/<draft>/export/ (the exported .md, EXPORT-REPORT.md, assets/).
+  No network access, no subprocesses, no environment variables, never deletes files.
 """
 import datetime, re, shutil, sys
 from pathlib import Path

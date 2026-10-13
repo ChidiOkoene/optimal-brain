@@ -51,8 +51,9 @@ for (const f of files.filter((f) => /^skills\/[^/]+\/[^/]+\/SKILL\.md$/.test(f))
   }
 }
 
-// 4. relative links in Markdown (code blocks and spans skipped)
-for (const f of files.filter((f) => f.endsWith(".md"))) {
+// 4. relative links in Markdown (code blocks and spans skipped).
+// packaging/agensi/ pack roots link to zip-internal paths; package-agensi.mjs checks those.
+for (const f of files.filter((f) => f.endsWith(".md") && !f.startsWith("packaging/agensi/"))) {
   const text = read(f).replace(/```[\s\S]*?```/g, "").replace(/`[^`\n]*`/g, "");
   for (const [, target] of text.matchAll(/\]\(([^)\s#]+)(?:#[^)]*)?\)/g)) {
     if (/^(https?:|mailto:)/.test(target) || target.includes("{{")) continue;
@@ -90,6 +91,39 @@ for (const f of files.filter((f) => f.endsWith(".md") && !HISTORY_FILES.test(f))
         fail(`${f}:${i + 1}: references removed skill ${name}`);
     }
   });
+}
+
+// 4b2. Note titles must be filename-safe (no : / \ ? * < > | "). Colons break on Windows and in Obsidian.
+// Checks wikilink targets and "Prefix: Title" note names in skills, docs, and packaging (history files excluded).
+for (const f of files.filter((f) => f.endsWith(".md") && /^(skills|docs|packaging)\//.test(f) && !HISTORY_FILES.test(f) && f !== "docs/AGENSI.md")) {
+  read(f).split("\n").forEach((line, i) => {
+    for (const [, target] of line.matchAll(/\[\[([^\]|#]+)(?:[#|][^\]]*)?\]\]/g)) {
+      const t = target.replace(/<[^<>]+>/g, "X").replace(/\\$/, ""); // <Placeholder> and escaped \]] in tables
+      if (target.includes("{{")) continue;
+      if (/[:\\?*<>"]/.test(t)) fail(`${f}:${i + 1}: wikilink [[${target}]] is not filename-safe (use " - " instead of ":")`);
+    }
+    if (/\b(Decision Trace|Plan|Research Session|Contract|Decision Map|Learning Record): [A-Z{<]/.test(line) && /^#|\.md\b|\[\[/.test(line))
+      fail(`${f}:${i + 1}: note title uses ":"; use " - " (filename-safe titles)`);
+  });
+}
+
+// 4c. Agensi readiness (docs/AGENSI.md)
+// Every plugin skill description needs a trigger clause ("Use when ...").
+for (const dir of plugin) {
+  const fm = /^---\n([\s\S]*?)\n---/.exec(read(join(dir, "SKILL.md")))?.[1] ?? "";
+  const desc = /^description:\s*(.+)$/m.exec(fm)?.[1] ?? "";
+  if (!/\bUse when\b/i.test(desc)) fail(`${dir}/SKILL.md: description has no "Use when ..." trigger clause`);
+}
+// Every skill listed on Agensi needs a README.md (what, how to invoke, reads/writes, agents tested).
+const agensi = JSON.parse(read("packaging/agensi/agensi.config.json"));
+for (const pack of agensi.packs) {
+  const dirs = pack.skills ? [pack.root, ...pack.skills] : [pack.skill];
+  for (const d of dirs) if (!existsSync(join(root, d, "README.md"))) fail(`${d}: listed on Agensi but has no README.md`);
+}
+// Build every zip in dry-run mode: structure, symlinks, forbidden paths, scan patterns.
+{
+  const r = spawnSync(process.execPath, ["scripts/package-agensi.mjs", "--dry-run", "--all"], { cwd: root, encoding: "utf8" });
+  if (r.status !== 0) fail(`package:agensi dry run failed:\n${(r.stderr || r.stdout).trim()}`);
 }
 
 // 5. golden test: write-from-vault export

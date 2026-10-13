@@ -42,7 +42,7 @@ Two files in `.agent/context/` hold **one person's machine**: `knowledge-vault.m
 
 Every setup skill ends with this step.
 
-**(a) Ignore the personal files.** Append this block to the consumer repo's `.gitignore`, creating the file if needed. It's idempotent: if the line `# optimal-brain (personal)` is already there, add only the entries that are missing and don't create a second block.
+**(a) Ignore the personal files.** Append this block to the consumer repo's `.gitignore`. **Append only; never rewrite the file.** Read it first. If the line `# optimal-brain (personal)` is already there, append just the missing entries and don't create a second block. Otherwise append the block at the end with `>>`, creating the file only if it doesn't exist. Never truncate, reorder, or regenerate `.gitignore` (no `>` redirect, no full-file write).
 
 ```gitignore
 # optimal-brain (personal)

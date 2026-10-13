@@ -1,6 +1,6 @@
 ---
 name: project-notes
-description: Capture personal notes during or after research in the Obsidian vault under the project's Personal Notes folder.
+description: "Capture personal notes during or after research in the Obsidian vault under the project's Personal Notes folder. Use when the user wants to jot a reflection, save a thought about the research, or keep notes the agent won't overwrite. Reads and writes only this repo and the vault path you configured."
 disable-model-invocation: true
 argument-hint: "Your thought, reflection, or debrief to save in the vault"
 ---

@@ -1,6 +1,6 @@
 ---
 name: research-from-vault
-description: Research and synthesize using the personal knowledge vault as the primary source. Use when the user says "research X using my vault", "consult the knowledge vault", "look up in my PDFs and notes", "synthesize from vault sources", or when a knowledge gap appears during loops or engineering work.
+description: Research and synthesize using the personal knowledge vault as the primary source. Use when the user says "research X using my vault", "consult the knowledge vault", "look up in my PDFs and notes", "synthesize from vault sources", or when a knowledge gap appears during loops or engineering work. Reads and writes only this repo and the vault path you configured.
 ---
 
 # Research from Vault
@@ -17,12 +17,12 @@ Read `.agent/context/knowledge-vault.md` first (fallback: `docs/agents/knowledge
 - PDF / source companion rules
 - Indexing and research capture layout
 
-If both paths are missing, fall back to patterns from `skills/personal/obsidian-vault/SKILL.md` (ask the user to confirm the path) or run `/setup-knowledge-vault` for the user. If missing and `.agent/context/knowledge-vault.example.md` exists, ask the user to copy it and fill in their own path; never use the placeholder.
+If both paths are missing, ask the user for the vault path (never scan the disk for one) or run `/setup-knowledge-vault` for the user. If missing and `.agent/context/knowledge-vault.example.md` exists, ask the user to copy it and fill in their own path; never use the placeholder.
 
 Also read when present:
 - `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`) — which global vault notes apply to this project
-- Vault `Indexes/Context Index.md` or `Context Index.md` at vault root — active vs superseded knowledge, recent decision traces
-- Vault `Indexes/Research Index.md` — prior research sessions
+- Vault `Context Index.md` in the index folder named in `knowledge-vault.md`'s Vault Layout (`Indexes/` or vault root; if unstated, check both, and ask before creating one) — active vs superseded knowledge, recent decision traces
+- Vault `Research Index.md` in the same index folder — prior research sessions
 
 Apply **context validity rules** from `knowledge-vault.md`: prefer non-superseded high-confidence notes; treat exploratory notes as design input only.
 
@@ -75,7 +75,7 @@ Follow [RESEARCH-CAPTURE-FORMAT.md](./RESEARCH-CAPTURE-FORMAT.md) on every run:
 
 The vault is the source of truth for *personal* and *already-captured* knowledge. When the question needs fresh or broader data:
 
-- First use installed external research capabilities (e.g. davidondrej/skills research-and-web category: browser, web search, YouTube, etc.).
+- If the user has external research tools installed (optional, third-party, e.g. davidondrej/skills research-and-web: browser, web search, YouTube), use them. This skill installs nothing and makes no network calls itself.
 - Save or summarize the fetched material as vault sources (PDFs or annotated .md companions).
 - **Capture findings as you ingest** — session hub + finding notes, not only raw dumps.
 - Then resume synthesis with this skill (or hand off to `/teach` for multi-session treatment).

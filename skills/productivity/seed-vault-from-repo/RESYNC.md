@@ -17,7 +17,7 @@ Run `/seed-vault-from-repo resync` after merges. Goal: bring seeded notes up to 
    - If the user edited above `## Manual` (the generated body differs from what the old seed would have produced, or the note has `manual: true` in frontmatter), **don't overwrite**. Write the proposed update to a `## Proposed Update (<date>)` section and flag it.
    - Bump `source_commit` and `seeded_at` on updated notes only.
    - Never delete notes. For deleted sources, add `status: source-deleted` and a callout at the top, and list them in the Unit Index under `## Needs Review`.
-   - Update ADR supersession (`superseded_by`) and `Indexes/Context Index.md` (move superseded notes).
+   - Update ADR supersession (`superseded_by`) and `<Index Folder>/Context Index.md` (index folder from `knowledge-vault.md`) (move superseded notes).
 6. **Report:** fresh, updated, flagged, and new counts; conflicts left as proposals; and the new `source_commit`.
 
 ## Frontmatter flags

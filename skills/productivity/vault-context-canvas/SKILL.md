@@ -1,6 +1,6 @@
 ---
 name: vault-context-canvas
-description: Create or refresh an Obsidian JSON Canvas context graph in the vault from Context Index and project-context notes. Not the Cursor IDE React canvas.
+description: "Create or refresh an Obsidian JSON Canvas context graph in the vault from Context Index and project-context notes (not the Cursor IDE canvas). Use when the user wants to see how vault notes connect, asks for a context graph or map, or after big research sessions. Reads and writes only this repo and the vault path you configured."
 disable-model-invocation: true
 argument-hint: "Optional: create | refresh (default refresh if canvas exists)"
 ---

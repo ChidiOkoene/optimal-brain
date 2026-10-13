@@ -21,7 +21,7 @@ Do not treat as current unless explicitly reviewing history:
 
 Audit trail of significant agent/research runs:
 
-- [[Decision Trace: Example Research Run]]
+- [[Decision Trace - Example Research Run]]
 
 ## Vault indexes (quick links)
 

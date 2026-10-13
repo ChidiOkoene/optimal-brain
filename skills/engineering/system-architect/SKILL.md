@@ -1,6 +1,6 @@
 ---
 name: system-architect
-description: Orchestrate solution and system architecture across competence roles — discovery, as-is review, target design, or migration — into a session hub, ADRs, and delivery handoff.
+description: "Orchestrate solution and system architecture across competence roles (discovery, as-is review, target design, or migration) into a session hub, ADRs, and delivery handoff. Use when the user starts an architecture engagement, asks for a target design or migration plan, or wants an as-is system review."
 disable-model-invocation: true
 argument-hint: "Engagement type or architecture question (e.g. target design for chat retrieval)"
 ---

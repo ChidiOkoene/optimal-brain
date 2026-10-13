@@ -1,6 +1,6 @@
 ---
 name: implement
-description: "Implement a piece of work based on a PRD or set of issues."
+description: "Implements a PRD or issue set end to end: plans, writes code test-first, runs the repo's verification commands, and gates on /two-axis-review before committing. Use when the user says implement this PRD, build issue #N, or work through these issues. Do not use for one-line fixes."
 disable-model-invocation: true
 ---
 

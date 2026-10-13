@@ -7,7 +7,7 @@ status: complete
 confidence: exploratory
 ---
 
-# Research Session: Hybrid RAG for Academic PDFs
+# Research Session - Hybrid RAG for Academic PDFs
 
 **Package repo example** — in consumer projects, link conceptually to `.agent/context/project-context.md`.
 

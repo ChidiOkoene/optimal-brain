@@ -11,7 +11,8 @@
   "scripts": {
     "changeset": "changeset",
     "version": "changeset version",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "package:agensi": "node scripts/package-agensi.mjs"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

@@ -4,7 +4,7 @@
 
 **Requires:** 
 - `/setup-knowledge-vault` completed.
-- davidondrej/skills (or equivalent) installed with research-and-web skills available (browser, search, YouTube, etc.).
+- Optional, third-party: davidondrej/skills (or equivalent), installed by the user, with research-and-web skills available (browser, search, YouTube, etc.).
 
 ## Flow
 

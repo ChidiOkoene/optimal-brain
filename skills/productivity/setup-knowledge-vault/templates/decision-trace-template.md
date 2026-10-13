@@ -5,7 +5,7 @@ ingested_via: research-from-vault | agent-loop | until-done | teach
 confidence: medium
 ---
 
-# Decision Trace: {{Short Title}}
+# Decision Trace - {{Short Title}}
 
 **Goal:** {{What the run was trying to accomplish}}
 **Started:** YYYY-MM-DD

@@ -134,6 +134,7 @@ Skills are plain `SKILL.md` folders (the Agent Skills format), so any agent that
 | ----- | ------ | -------- |
 | Cursor | Used during development | Development notes in `.cursor/plans/`; some skills mention Cursor features (e.g. `/until-done`, `babysit`) |
 | Claude Code | Supported, not separately tested | `.claude-plugin/plugin.json` manifest; `scripts/link-skills.sh` links into `~/.claude/skills` |
+| OpenCode 1.19.0 | Tested 2026-10-13 (headless, `anthropic/claude-sonnet-5.5` via OpenRouter) on the Agensi zips: discovery, research trigger, vault setup, seed-vault-from-repo, two-axis-review, write-from-vault export | [docs/AGENSI.md](./docs/AGENSI.md#second-agent-test-opencode-2026-10-13); other skills not exercised |
 | Other Agent-Skills harnesses (`~/.agents/skills`) | Untested | `scripts/link-skills.sh` links there; install via `npx skills add` |
 | Codex, GitHub Copilot, others | Untested | No specific docs yet |
 
@@ -148,7 +149,7 @@ Reports for untested agents are welcome via issues.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for how skills are organized and what a PR needs, and [docs/ROADMAP.md](./docs/ROADMAP.md) for where the project is going. This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md).
+Agensi listing and zip build: [docs/AGENSI.md](./docs/AGENSI.md). See [CONTRIBUTING.md](./CONTRIBUTING.md) for how skills are organized and what a PR needs, and [docs/ROADMAP.md](./docs/ROADMAP.md) for where the project is going. This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md).
 
 ## License
 

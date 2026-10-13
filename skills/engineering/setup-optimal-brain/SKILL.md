@@ -1,6 +1,6 @@
 ---
 name: setup-optimal-brain
-description: Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.
+description: "Configure this repo for the engineering skills: issue tracker, triage label vocabulary, and domain doc layout, written to .agent/context/. Use when the user first installs optimal-brain in a repo, or before the first /to-prd, /to-issues, or /triage."
 disable-model-invocation: true
 ---
 
@@ -145,7 +145,7 @@ Mention **`/system-architect`** for solution/system architecture engagements (se
 
 Follow the **Git** section of `AGENT-CONTEXT-PATH.md` in `/setup-knowledge-vault`. In short:
 
-1. **Ignore the personal files.** Append this block to the repo's `.gitignore`, creating the file if needed. If `# optimal-brain (personal)` is already there, add only the missing lines and don't duplicate the block:
+1. **Ignore the personal files.** **Append only, never rewrite `.gitignore`.** Read it first. If `# optimal-brain (personal)` is already there, append just the missing lines below the existing block. Otherwise append the whole block at the end (`>>`, with a blank line before it), creating the file only if it doesn't exist. Never truncate, reorder, or regenerate the file (no `>` redirect, no full-file write):
    ```gitignore
    # optimal-brain (personal)
    .agent/context/knowledge-vault.md

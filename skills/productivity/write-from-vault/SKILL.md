@@ -1,6 +1,6 @@
 ---
 name: write-from-vault
-description: Turn vault research notes into a sourced article, one stage at a time (mine fragments, shape a pyramid, write beat by beat), with every claim traced to a note, saved back into the vault, and exported to publish-ready Markdown.
+description: "Turn vault research notes into a sourced article, one stage at a time (mine fragments, shape a pyramid, write beat by beat), with every claim traced to a note, saved back into the vault, and exported to publish-ready Markdown. Use when the user wants a blog post, article, memo, or newsletter from their research, or says write this up from my notes. Reads and writes only this repo and the vault path you configured."
 disable-model-invocation: true
 argument-hint: "A topic or question, a session hub, or an existing Drafts/ folder to resume"
 ---

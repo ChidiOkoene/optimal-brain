@@ -1,5 +1,7 @@
 # Templates
 
+Folder names and the index location come from the Vault Layout section of `.agent/context/knowledge-vault.md`; the tree below shows defaults only. Note titles must be filename-safe: no `:` `/` `\` `?` `*` `<` `>` `|` `"`. Use ` - ` as the separator (e.g. `Plan - Warehouse Migration`, `Decision Trace - Use DuckDB`).
+
 Adapt names to the vault's existing conventions (see `.agent/context/knowledge-vault.md`). `<Project>` is the project folder from `project-context.md`, or the repo name if there isn't one.
 
 ## Vault layout
@@ -16,7 +18,7 @@ Adapt names to the vault's existing conventions (see `.agent/context/knowledge-v
     Shared Infra and CI.md
     Glossary.md
     <Contract Name>.md # one per table / API / feature / schema crossing units
-Indexes/
+<Index Folder>/         # from knowledge-vault.md: Indexes/ or vault root (flat)
   Context Index.md     # every Unit Index + Shared note listed under Active knowledge
 ```
 
@@ -69,7 +71,7 @@ Three to six bullets. Identifiers in backticks, no copied code.
 ## Decision Trace (from ADR or recorded decision)
 
 ```markdown
-# Decision Trace: <Decision Title>
+# Decision Trace - <Decision Title>
 
 **Source:** `docs/adr/0003-....md` (status in ADR: accepted | superseded | ...)
 **Decision:** one sentence.
@@ -83,7 +85,7 @@ Three to six bullets. Identifiers in backticks, no copied code.
 ## Plan
 
 ```markdown
-# Plan: <Plan Title>
+# Plan - <Plan Title>
 
 **Source:** `plans/....md`
 **Status:** <status>. Evidence: e.g. "checkboxes 4/7 done", "merged in PR #123 (per git log)", or "unknown".
@@ -107,12 +109,12 @@ Three to six bullets. Identifiers in backticks, no copied code.
 - [[...]]
 
 ## Decisions
-- [[Decision Trace: ...]]
+- [[Decision Trace - ...]]
 
 ## Plans
 | Plan | Status |
 |------|--------|
-| [[Plan: ...]] | in-progress |
+| [[Plan - ...]] | in-progress |
 
 ## Shared Contracts
 - [[<Contract Name>]] (produces / consumes)

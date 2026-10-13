@@ -1,6 +1,6 @@
 ---
 name: teach
-description: Teach the user a new skill or concept, within this workspace.
+description: "Multi-session tutor that keeps a mission, resources and learning records in the workspace and, if configured, bridges them into your Obsidian vault. Use when the user wants to learn a topic over several sessions, says teach me X, or wants a study plan with progress tracking."
 disable-model-invocation: true
 argument-hint: "What would you like to learn about?"
 ---
