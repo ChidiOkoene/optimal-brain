@@ -1,5 +1,13 @@
 # optimal-brain
 
+## 2.2.1
+
+### Patch Changes
+
+- [#26](https://github.com/ChidiOkoene/optimal-brain/pull/26) [`37cb8a2`](https://github.com/ChidiOkoene/optimal-brain/commit/37cb8a2714e8bc72827516236808046229039dd0) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - two-axis-review: SKILL.md now includes the exact finding template and the full report skeleton (no bullet or prose findings), plus a self-check step before output. The self-check covers layout, verified location, evidence-backed severity (downgrade or drop findings that rest on assumptions), and verdict consistency.
+
+- [#24](https://github.com/ChidiOkoene/optimal-brain/pull/24) [`e002da8`](https://github.com/ChidiOkoene/optimal-brain/commit/e002da884c5a5eae56e3f120ddc8cda37c3da7f5) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - two-axis-review: findings cite line numbers in the post-change file (from the hunk header), not positions in the diff output. docs/AGENSI.md records the OpenCode re-test on v2.2.0. `SKILL.md` steps 1 and 5 now spell out how to derive post-change line numbers from the hunk header. Every location is now verified against the post-change file, or cited as a hunk marked `line unverified`; the example ships the post-change files in `examples/after/`.
+
 ## 2.2.0
 
 ### Minor Changes
