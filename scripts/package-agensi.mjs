@@ -10,11 +10,15 @@ import { tmpdir } from "node:os";
 import { deflateRawSync } from "node:zlib";
 
 const root = process.cwd();
+// Windows checkouts may have CRLF (core.autocrlf). Normalize every text read to LF so parsers
+// match and zips always contain LF.
+const lf = (s) => s.replace(/\r\n?/g, "\n");
+const readText = (p) => lf(readFileSync(p, "utf8"));
 const args = process.argv.slice(2);
 const dry = args.includes("--dry-run");
 const all = args.includes("--all");
 const outDir = resolve(root, args.includes("--out") ? args[args.indexOf("--out") + 1] : "dist/agensi");
-const config = JSON.parse(readFileSync(join(root, "packaging/agensi/agensi.config.json"), "utf8"));
+const config = JSON.parse(readText(join(root, "packaging/agensi/agensi.config.json")));
 
 const TEXT_EXT = new Set([".md", ".py", ".sh", ".mjs", ".js", ".ts", ".json", ".yaml", ".yml", ".txt", ".diff", ".canvas", ".csv"]);
 const SKIP = new Set([".DS_Store", "Thumbs.db", "node_modules", "__pycache__", ".git"]);
@@ -46,7 +50,7 @@ function copyTree(src, dest, rel = "") {
     if (FORBIDDEN_NAME.some((re) => re.test(name))) { fail(`forbidden file: ${r}`); continue; }
     if (!TEXT_EXT.has(extname(name))) { fail(`non-text file (binary?) not allowed: ${r}`); continue; }
     mkdirSync(dirname(d), { recursive: true });
-    writeFileSync(d, readFileSync(s));
+    writeFileSync(d, readText(s));
   }
 }
 
@@ -75,7 +79,7 @@ function vendorShared(top, srcDir) {
   for (const f of filesUnder(top)) {
     if (!f.endsWith(".md")) continue;
     const srcFile = join(srcDir, relative(top, f));
-    let text = readFileSync(f, "utf8"), changed = false;
+    let text = readText(f), changed = false;
     text = text.replace(/\]\((\.\.\/[^)\s#]+)((?:#[^)]*)?)\)/g, (m, t, hash) => {
       const repoTarget = resolve(dirname(srcFile), decodeURIComponent(t));
       if (!existsSync(repoTarget) || !repoTarget.startsWith(root + sep)) return m;
@@ -83,7 +87,7 @@ function vendorShared(top, srcDir) {
       if (/^skills\/(misc|personal)\//.test(rel.split(sep).join("/"))) return m;
       const dest = join(top, "_shared", rel);
       mkdirSync(dirname(dest), { recursive: true });
-      writeFileSync(dest, readFileSync(repoTarget));
+      writeFileSync(dest, TEXT_EXT.has(extname(repoTarget)) ? readText(repoTarget) : readFileSync(repoTarget));
       changed = true;
       return `](${relative(dirname(f), dest).split(sep).join("/")}${hash})`;
     });
@@ -94,7 +98,7 @@ function vendorShared(top, srcDir) {
 function check(top, name, strict = true) {
   const entries = readdirSync(top);
   if (!entries.includes("SKILL.md")) return fail(`${name}: no SKILL.md at the top-level folder root`);
-  const skill = readFileSync(join(top, "SKILL.md"), "utf8");
+  const skill = readText(join(top, "SKILL.md"));
   const fm = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(skill);
   if (!fm) return fail(`${name}: SKILL.md has no frontmatter`);
   const n = /^name:\s*["']?([^"'\n]+)/m.exec(fm[1])?.[1].trim();
@@ -103,7 +107,7 @@ function check(top, name, strict = true) {
   if (fm[2].trim().length < 200) (strict ? fail : warn)(`${name}: SKILL.md body is very short (wrapper around another skill?)`);
   for (const f of filesUnder(top)) {
     const rel = relative(dirname(top), f).split(sep).join("/");
-    const text = readFileSync(f, "utf8");
+    const text = readText(f);
     for (const [label, re] of CONTENT_RULES) {
       const m = re.exec(text);
       if (m) fail(`${rel}: ${label}: "${m[0].slice(0, 60)}"`);
@@ -162,7 +166,7 @@ function build(target, stage) {
     copyTree(join(root, target.skill), top); inZip.set(basename(target.skill), top);
     vendorShared(top, join(root, target.skill));
   }
-  for (const f of filesUnder(top)) if (f.endsWith(".md")) writeFileSync(f, rewrite(readFileSync(f, "utf8"), dirname(f), inZip));
+  for (const f of filesUnder(top)) if (f.endsWith(".md")) writeFileSync(f, rewrite(readText(f), dirname(f), inZip));
   check(top, target.name, !target.sub);
   return top;
 }
@@ -170,7 +174,7 @@ function build(target, stage) {
 const stage = mkdtempSync(join(tmpdir(), "agensi-"));
 const targets = [...config.packs];
 if (all) {
-  const plugin = JSON.parse(readFileSync(join(root, ".claude-plugin/plugin.json"), "utf8")).skills;
+  const plugin = JSON.parse(readText(join(root, ".claude-plugin/plugin.json"))).skills;
   for (const s of plugin) if (!targets.some((t) => t.skill === s.replace(/^\.\//, ""))) targets.push({ name: basename(s), skill: s.replace(/^\.\//, ""), sub: "skills" });
 }
 const built = [];

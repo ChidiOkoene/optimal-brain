@@ -8,7 +8,9 @@ import { spawnSync } from "node:child_process";
 const root = process.cwd();
 const errors = [];
 const fail = (msg) => errors.push(msg);
-const read = (p) => readFileSync(join(root, p), "utf8");
+// Normalize CRLF (Windows autocrlf checkouts) so frontmatter and other parsers match.
+const lf = (s) => s.replace(/\r\n?/g, "\n");
+const read = (p) => lf(readFileSync(join(root, p), "utf8"));
 
 function walk(dir, out = []) {
   for (const name of readdirSync(join(root, dir))) {
@@ -144,7 +146,7 @@ try {
     if (r.status !== 2) fail(`golden ${style}: exit ${r.status}, expected 2 (flags present)\n${r.stdout}${r.stderr}`);
     const outDir = join(tmp, "vault", draft, "export");
     for (const [got, exp] of [[join(outDir, "why-agents-forget.md"), expMd], [join(outDir, "EXPORT-REPORT.md"), expReport]]) {
-      if (readFileSync(got, "utf8") !== read(exp)) fail(`golden ${style}: ${basename(got)} differs from ${exp}`);
+      if (lf(readFileSync(got, "utf8")) !== read(exp)) fail(`golden ${style}: ${basename(got)} differs from ${exp}`);
     }
   }
 } finally { rmSync(tmp, { recursive: true, force: true }); }
