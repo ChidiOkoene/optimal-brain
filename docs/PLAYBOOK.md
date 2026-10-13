@@ -121,6 +121,10 @@ Phases run in this order for a feature, but **Publish** can start from any point
 
 **Goal:** Turn PDFs, notes, and web material into durable knowledge the agent reuses while coding and writing.
 
+#### Seed the vault from an existing repo
+
+Joining or documenting a codebase that already exists? Run `/seed-vault-from-repo` after `/setup-knowledge-vault`. It finds units (monorepo workspaces, or sub-projects with their own README, docs or plans) and confirms them with you. Then, one unit at a time, it writes `Findings/`, `Decision Traces/` (from ADRs), `Plans/` (with status), and a Unit Index. Multi-unit repos also get `Shared/` contract notes, an end-to-end flow, shared CI, and a glossary. Every note cites `source_paths` and `source_commit`. It never reads secrets or data samples. Run `/seed-vault-from-repo resync` after big merges: it updates only stale notes and leaves your `## Manual` sections alone.
+
 #### Add sources (PDFs) to the vault
 
 Agents read files under the vault path in `.agent/context/knowledge-vault.md`. Obsidian does **not** need to be running — only the folder on disk matters. Do **not** put large PDFs in the code repo unless you intend that.
@@ -395,6 +399,7 @@ When research and code intersect:
 - [OPTIMAL-BRAIN.md](./OPTIMAL-BRAIN.md) — architecture, Matt comparison, Karpathy distinction
 - [agents/brain.md](./agents/brain.md) — layers, quickstart, config files
 - [agents/knowledge-vault.md](./agents/knowledge-vault.md) — vault rules and examples
+- [seed-vault-from-repo](../skills/productivity/seed-vault-from-repo/SKILL.md): seed the vault from an existing repo, with re-sync
 - [skills/engineering/ask-brain/SKILL.md](../skills/engineering/ask-brain/SKILL.md) — full routing tables
 - [skills/engineering/system-architect/](../skills/engineering/system-architect/) — orchestrator + [recipes/](../skills/engineering/system-architect/recipes/)
 - [skills/productivity/project-notes/SKILL.md](../skills/productivity/project-notes/SKILL.md) — personal notes in vault

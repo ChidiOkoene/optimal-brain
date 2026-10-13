@@ -12,6 +12,8 @@
 | Memory | **Vault notes**: human-readable Markdown in Obsidian (session hubs, Findings, synthesis, Context Index), with confidence and supersession rules. You read and edit them. | **GBrain**: a database-backed brain (PGLite or Supabase, MCP tools) that indexes your **code** (`/sync-gbrain`: symbol search, defs, refs) and stores agent pages; plus gstack `/learn` learnings. |
 | Best at | "What do we know about X, and where did it come from?" | "Where is X defined, who calls it, and is this diff safe to land?" |
 
+`/seed-vault-from-repo` and `/sync-gbrain` are not the same thing. The first writes human-readable vault notes that *summarize* a repo (components, decisions, plans, contracts); the second indexes code symbols. They can run side by side.
+
 They complement each other: GBrain answers questions about the code; the vault answers questions about the world and your decisions. Keep research and sources in the vault; let GBrain index the repo.
 
 ## Name collisions

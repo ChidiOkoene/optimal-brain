@@ -11,6 +11,7 @@ Reachable only when you type them (`disable-model-invocation: true`).
 - **[teach](./teach/SKILL.md)** — Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
 - **[decision-mapping](./decision-mapping/SKILL.md)** — Turn a loose idea into a sequenced map of investigation tickets under `.agent/context/decision-maps/`, then drive them to resolution one at a time.
 - **[project-notes](./project-notes/SKILL.md)** — Capture personal notes during or after research in the vault under `{ProjectFolder}/Personal Notes/`.
+- **[seed-vault-from-repo](./seed-vault-from-repo/SKILL.md)** — Populate the vault from a repo's code, docs, ADRs, plans, and CI, one unit at a time, plus a Shared layer for cross-unit contracts; re-sync updates only stale notes.
 - **[setup-knowledge-vault](./setup-knowledge-vault/SKILL.md)** — Configure personal knowledge vault (location, learning records, PDFs, context graph, project overlay, vault integration for research & teach).
 - **[vault-context-canvas](./vault-context-canvas/SKILL.md)** — Create or refresh an Obsidian JSON Canvas context graph in the vault (not Cursor IDE canvas).
 - **[write-from-vault](./write-from-vault/SKILL.md)** — Turn vault research notes into a sourced article (fragments → shape → beats), every claim traced to a note, draft saved back into the vault.

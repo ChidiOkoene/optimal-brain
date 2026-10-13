@@ -107,6 +107,7 @@ When you want to build or consult durable personal knowledge, learn over session
 
 - **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`.agent/context/knowledge-vault.md`, fallback: `docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
 - **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Also wires external research (davidondrej research-and-web) into the vault.
+- **`/seed-vault-from-repo`** — after setup, seed the vault from an existing repo (code, docs, ADRs, plans, CI): per-unit Findings, Decision Traces, Plans, and Shared contracts, all citing paths and commit. `resync` updates stale notes only.
 - **`research-from-vault`** (model-invoked) — reusable discipline for research and synthesis from the vault. Rich triggers: "research X using my vault", "consult the knowledge vault", "synthesize from PDFs and notes". Reads the config and emits wikilinked notes + learning records.
 - External research ingestion: install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
 - Maintenance loops: Cursor `/loop` + recipes in `setup-knowledge-vault/recipes/` (ingest sources, research a topic, maintain indexes, maintain context graph, ingest-external-then-synthesize).
@@ -117,6 +118,7 @@ When you want to build or consult durable personal knowledge, learn over session
 | --------- | --------- |
 | Want to deeply learn a topic over time | `/teach` (vault bridge happens automatically when configured) |
 | First time setting up personal knowledge | `/setup-knowledge-vault` |
+| Vault should know an existing codebase / monorepo | `/seed-vault-from-repo` (then `resync` after big merges) |
 | Need synthesis from existing PDFs/notes in vault | `research-from-vault` (or `/until-done Research X from vault`) |
 | Need fresh external info + durable capture | Use davidondrej research skills → save to vault → `research-from-vault` or `/teach` |
 | Recurring processing of new vault material | `/loop 1d ...` with a recipe from setup-knowledge-vault |
