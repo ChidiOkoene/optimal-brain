@@ -1,0 +1,18 @@
+{
+  "$comment": "Agensi listings built by scripts/package-agensi.mjs. See docs/AGENSI.md.",
+  "packs": [
+    {
+      "name": "optimal-brain-vault-pack",
+      "root": "packaging/agensi/optimal-brain-vault-pack",
+      "skills": [
+        "skills/productivity/setup-knowledge-vault",
+        "skills/productivity/research-from-vault",
+        "skills/productivity/seed-vault-from-repo",
+        "skills/productivity/write-from-vault",
+        "skills/productivity/project-notes",
+        "skills/productivity/vault-context-canvas"
+      ]
+    },
+    { "name": "two-axis-review", "skill": "skills/engineering/two-axis-review" }
+  ]
+}

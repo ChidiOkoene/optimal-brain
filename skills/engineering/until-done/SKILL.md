@@ -1,6 +1,6 @@
 ---
 name: until-done
-description: Run a goal-based agent loop until verification passes or a stop rule fires — Cursor's equivalent of handing off the stop condition.
+description: "Run a goal-based agent loop until verification passes or a stop rule fires (Cursor's equivalent of handing off the stop condition). Use when the user says keep going until it works, loop until tests pass, or hands over a goal with a clear done condition."
 disable-model-invocation: true
 argument-hint: "A clear goal with optional verifier override"
 ---

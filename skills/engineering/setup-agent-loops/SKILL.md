@@ -1,6 +1,6 @@
 ---
 name: setup-agent-loops
-description: Configure this repo for agent loops (verification commands, stop rules, scope, starter recipes), or design a custom recurring workflow spec. Run once before /until-done or autonomous iteration.
+description: "Configure this repo for agent loops (verification commands, stop rules, scope, starter recipes), or design a custom recurring workflow spec. Use when the user is about to run /until-done or autonomous iteration for the first time, wants stop rules, or wants to design a repeatable workflow."
 disable-model-invocation: true
 ---
 

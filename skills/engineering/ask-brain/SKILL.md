@@ -1,6 +1,6 @@
 ---
 name: ask-brain
-description: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+description: "Router for the optimal-brain pack: recommends the right skill or flow (research, vault, loops, architecture, review, writing) for what you're doing. Use when the user asks which skill to use, where to start, or how the pieces fit together."
 disable-model-invocation: true
 ---
 
@@ -106,10 +106,10 @@ When system design is non-trivial — multiple views (domain, data, security, NF
 When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources. The **context graph** adds governance: global validity in vault Context Index, project filter in `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`).
 
 - **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`.agent/context/knowledge-vault.md`, fallback: `docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
-- **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Also wires external research (davidondrej research-and-web) into the vault.
+- **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Can also wire in optional third-party external research (davidondrej research-and-web, installed separately).
 - **`/seed-vault-from-repo`** — after setup, seed the vault from an existing repo (code, docs, ADRs, plans, CI): per-unit Findings, Decision Traces, Plans, and Shared contracts, all citing paths and commit. `resync` updates stale notes only.
 - **`research-from-vault`** (model-invoked) — reusable discipline for research and synthesis from the vault. Rich triggers: "research X using my vault", "consult the knowledge vault", "synthesize from PDFs and notes". Reads the config and emits wikilinked notes + learning records.
-- External research ingestion: install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
+- External research ingestion (optional, third-party): the user may install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
 - Maintenance loops: Cursor `/loop` + recipes in `setup-knowledge-vault/recipes/` (ingest sources, research a topic, maintain indexes, maintain context graph, ingest-external-then-synthesize).
 
 **When to use which:**

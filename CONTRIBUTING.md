@@ -47,7 +47,8 @@ Consumer-repo config paths (`.agent/context/` first, then `docs/agents/`) are de
    - the `write-from-vault` export golden tests
 
    CI runs the same check (`checks` / `validate`) on every push and PR.
-8. **Changeset:** for user-visible changes, run `npx changeset` and describe the change in one or two sentences. Changesets generates `CHANGELOG.md` on release, so don't hand-edit released sections.
+8. **Agensi:** plugin skill descriptions must include a "Use when …" clause, and skills listed in `packaging/agensi/agensi.config.json` need a `README.md`. `npm run validate` checks both and dry-runs the zip build (see [docs/AGENSI.md](./docs/AGENSI.md)).
+9. **Changeset:** for user-visible changes, run `npx changeset` and describe the change in one or two sentences. Changesets generates `CHANGELOG.md` on release, so don't hand-edit released sections.
 
 ## Honesty rules
 

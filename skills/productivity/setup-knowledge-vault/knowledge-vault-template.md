@@ -124,7 +124,7 @@ grep -rl "\[\[Some Concept\]\]" "{{VAULT_PATH}}"
 - **Engineering skills** (`domain-modeling`, `grill-with-docs`, decision-mapping Research tickets): Prefer vault sources first for grounding terms and decisions when configured.
 - **`/project-notes`**: User personal reflections in `{ProjectFolder}/Personal Notes/`.
 - **`/vault-context-canvas`**: Obsidian JSON Canvas context graph at `{ProjectFolder}/Context Graph.canvas`.
-- **External ingestion**: Use davidondrej/skills `research-and-web` (browser, YouTube, web) to fetch fresh material. Land results as source files or notes in the vault, then synthesize with `research-from-vault` or `/teach`.
+- **External ingestion (optional, third-party)**: if installed by the user, use davidondrej/skills `research-and-web` (browser, YouTube, web) to fetch fresh material. Land results as source files or notes in the vault, then synthesize with `research-from-vault` or `/teach`.
 
 ## Starter Recipes
 

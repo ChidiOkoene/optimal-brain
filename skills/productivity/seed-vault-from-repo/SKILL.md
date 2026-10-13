@@ -1,6 +1,6 @@
 ---
 name: seed-vault-from-repo
-description: Populate an existing optimal-brain Obsidian vault from the current state of a repo (code layout, READMEs, docs, ADRs, plans, CI/pipeline configs). Discovers units (monorepo workspaces or sub-projects), confirms the unit list and vault layout, then writes per-unit Findings, Decision Traces, Plans and a Unit Index one unit at a time, plus a Shared layer for cross-unit contracts. Every note cites source paths and the commit; re-sync mode updates only stale notes. Use after /setup-knowledge-vault when you want the vault to know an existing codebase.
+description: Populate an existing optimal-brain Obsidian vault from the current state of a repo (code layout, READMEs, docs, ADRs, plans, CI/pipeline configs). Discovers units (monorepo workspaces or sub-projects), confirms the unit list and vault layout, then writes per-unit Findings, Decision Traces, Plans and a Unit Index one unit at a time, plus a Shared layer for cross-unit contracts. Every note cites source paths and the commit; re-sync mode updates only stale notes. Use when the user wants the vault to know an existing codebase or monorepo, after /setup-knowledge-vault, or says seed/re-sync the vault from this repo. Reads and writes only this repo and the vault path you configured.
 disable-model-invocation: true
 argument-hint: "[resync] [unit paths...]"
 ---

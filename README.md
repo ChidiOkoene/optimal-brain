@@ -148,7 +148,7 @@ Reports for untested agents are welcome via issues.
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for how skills are organized and what a PR needs, and [docs/ROADMAP.md](./docs/ROADMAP.md) for where the project is going. This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md).
+Agensi listing and zip build: [docs/AGENSI.md](./docs/AGENSI.md). See [CONTRIBUTING.md](./CONTRIBUTING.md) for how skills are organized and what a PR needs, and [docs/ROADMAP.md](./docs/ROADMAP.md) for where the project is going. This project follows the [Contributor Covenant](./CODE_OF_CONDUCT.md).
 
 ## License
 
