@@ -161,3 +161,17 @@ Change: step 5 of `SKILL.md` now says to verify every `file:line` in the post-ch
 | 11 | PASS | all correct | – | $0.043 |
 
 Result: 2/5 strict passes, $0.253. Every one of the 5 runs cited correct post-change lines. There were no diff-position citations and no miscounts, so the line-number problem is fixed. No run needed `line unverified`, and no run opened `expected-review.md`. The remaining failures have other causes: report-layout drift (2 runs) and one over-flagged spec finding.
+
+### Follow-up 3: exact finding template and self-check (5 runs, strict grader)
+
+Change: `SKILL.md` now includes the exact finding template and the full report skeleton, with the rule "every finding must use this exact layout; no bullet or prose findings". It also adds step 6, a self-check before output: layout, verified location, evidence-backed severity (downgrade or drop findings that rest on assumptions), and a verdict that matches the severities. Setup: OpenCode 1.19.0, `anthropic/claude-sonnet-5.5`, rebuilt zip, same prompt.
+
+| Run | Strict grade | SQL injection | Superseded filter | Scope creep | False positives | Bullet findings | Cost |
+|---|---|---|---|---|---|---|---|
+| 12 | PASS | blocker | blocker | minor | 0 | 0 | $0.099 |
+| 13 | PASS | blocker | blocker | major | 0 | 0 | $0.033 |
+| 14 | PASS | blocker | major | minor | 0 | 0 | $0.062 |
+| 15 | PASS | blocker | major | major | 0 | 0 | $0.040 |
+| 16 | PASS | blocker | major | minor | 0 | 0 | $0.034 |
+
+Result: 5/5 strict passes (up from 2/5), $0.268. Every run used the template, had a `FAIL` verdict and 0 false positives, and none opened `expected-review.md`. Remaining variance: scope creep is graded `minor` in 3 of 5 runs. The grader accepts any severity there.
