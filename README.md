@@ -112,7 +112,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 
 ### Router and setup
 
-- **[ask-brain](./skills/engineering/ask-brain/SKILL.md)** (user): which skill or flow fits your situation.
+- **[ask-brain](./skills/engineering/ask-brain/SKILL.md)** (user + model): routes any task to the best skill or chain of skills across the whole pack.
 - **[setup-optimal-brain](./skills/engineering/setup-optimal-brain/SKILL.md)** (user): issue tracker, triage labels, domain doc layout.
 
 ### Engineering base (from mattpocock/skills)

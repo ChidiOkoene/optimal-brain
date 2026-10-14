@@ -109,6 +109,28 @@ for (const f of files.filter((f) => f.endsWith(".md") && /^(skills|docs|packagin
   });
 }
 
+// 4b3. ask-brain routing table must list every skill folder exactly once, and nothing else.
+{
+  const ab = read("skills/engineering/ask-brain/SKILL.md");
+  const sec = /## Routing table\n([\s\S]*?)(?=\n## )/.exec(ab)?.[1];
+  if (!sec) fail("ask-brain: missing '## Routing table' section");
+  else {
+    const rows = sec.split("\n").filter((l) => /^\|/.test(l) && !/^\|\s*-/.test(l)).slice(1);
+    const listed = rows.map((l) => /`([a-z0-9-]+)`/.exec(l.split("|")[2] ?? "")?.[1]).filter(Boolean);
+    const seen = new Set();
+    for (const n of listed) {
+      if (!skillNames.has(n)) fail(`ask-brain: routing table lists nonexistent skill ${n}`);
+      if (seen.has(n)) fail(`ask-brain: routing table lists ${n} twice`);
+      seen.add(n);
+    }
+    for (const n of skillNames) if (!seen.has(n)) fail(`ask-brain: routing table is missing skill ${n}`);
+    // Chains and prose may only name real skills too.
+    for (const [, n] of ab.matchAll(/`\/?([a-z][a-z0-9]*(?:-[a-z0-9]+)+)`/g))
+      if (!skillNames.has(n) && !EXTERNAL.has(n)) fail(`ask-brain: references unknown skill ${n}`);
+    if (/https?:\/\//.test(ab)) fail("ask-brain: SKILL.md must not contain external links");
+  }
+}
+
 // 4c. Agensi readiness (docs/AGENSI.md)
 // Every plugin skill description needs a trigger clause ("Use when ...").
 for (const dir of plugin) {
