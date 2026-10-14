@@ -117,9 +117,10 @@ for (const dir of plugin) {
   if (!/\bUse when\b/i.test(desc)) fail(`${dir}/SKILL.md: description has no "Use when ..." trigger clause`);
 }
 // Every skill listed on Agensi needs a README.md (what, how to invoke, reads/writes, agents tested).
+// Bundle packs ("readme": "root", e.g. optimal-brain-full) document every skill in the pack-root README.
 const agensi = JSON.parse(read("packaging/agensi/agensi.config.json"));
 for (const pack of agensi.packs) {
-  const dirs = pack.skills ? [pack.root, ...pack.skills] : [pack.skill];
+  const dirs = pack.skills ? (pack.readme === "root" ? [pack.root] : [pack.root, ...pack.skills]) : [pack.skill];
   for (const d of dirs) if (!existsSync(join(root, d, "README.md"))) fail(`${d}: listed on Agensi but has no README.md`);
 }
 // Build every zip in dry-run mode: structure, symlinks, forbidden paths, scan patterns.

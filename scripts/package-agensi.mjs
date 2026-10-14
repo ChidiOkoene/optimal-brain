@@ -32,7 +32,6 @@ const CONTENT_RULES = [
   ["package install", /\b(npm|pnpm|yarn)\s+(i|install|add)\s+-g\b|\bpip install\b|\bsudo\b/],
   ["hardcoded secret", /\b(sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|xox[bp]-[A-Za-z0-9-]{20,})/],
   ["obfuscated blob", /[A-Za-z0-9+/]{160,}={0,2}/],
-  ["excluded skill reference", /skills\/(misc|personal)\//],
 ];
 
 const errors = [];
@@ -65,7 +64,13 @@ function filesUnder(dir) {
 
 // Rewrite repo paths (skills/<bucket>/<name>/...) to paths inside the zip.
 function rewrite(text, here, inZip) {
-  return text.replace(/skills\/(engineering|productivity)\/([a-z0-9-]+)\/?/g, (m, _b, name) => {
+  // Relative links across buckets (../../productivity/<skill>/...) point at the flattened copy.
+  text = text.replace(/(?:\.\.\/)+(?:engineering|productivity|misc|personal)\/([a-z0-9-]+)\//g, (m, name) => {
+    if (!inZip.has(name)) return m;
+    const r = relative(here, inZip.get(name)).split(sep).join("/");
+    return r === "" ? "./" : r + "/";
+  });
+  return text.replace(/skills\/(engineering|productivity|misc|personal)\/([a-z0-9-]+)\/?/g, (m, _b, name) => {
     if (!inZip.has(name)) return m;
     const target = inZip.get(name);
     let r = relative(here, target).split(sep).join("/");
@@ -95,7 +100,7 @@ function vendorShared(top, srcDir) {
   }
 }
 
-function check(top, name, strict = true) {
+function check(top, name, strict = true, inZip = new Map(), allow = {}) {
   const entries = readdirSync(top);
   if (!entries.includes("SKILL.md")) return fail(`${name}: no SKILL.md at the top-level folder root`);
   const skill = readText(join(top, "SKILL.md"));
@@ -110,8 +115,12 @@ function check(top, name, strict = true) {
     const text = readText(f);
     for (const [label, re] of CONTENT_RULES) {
       const m = re.exec(text);
-      if (m) fail(`${rel}: ${label}: "${m[0].slice(0, 60)}"`);
+      if (m && !(allow[rel.split("/").slice(1).join("/")] || []).includes(label)) fail(`${rel}: ${label}: "${m[0].slice(0, 60)}"`);
+      else if (m) warn(`${rel}: ${label} allowed by config (opt-in skill): "${m[0].slice(0, 60)}"`);
     }
+    // References to misc/personal skills are only allowed when that skill ships in this zip.
+    for (const [m, n] of text.matchAll(/skills\/(?:misc|personal)\/([a-z0-9-]+)/g))
+      if (!inZip.has(n)) fail(`${rel}: excluded skill reference: "${m}"`);
     if (f.endsWith(".md")) {
       const body = text.replace(/```[\s\S]*?```/g, "").replace(/`[^`\n]*`/g, "");
       for (const [, t] of body.matchAll(/\]\(([^)\s#]+)(?:#[^)]*)?\)/g)) {
@@ -167,7 +176,7 @@ function build(target, stage) {
     vendorShared(top, join(root, target.skill));
   }
   for (const f of filesUnder(top)) if (f.endsWith(".md")) writeFileSync(f, rewrite(readText(f), dirname(f), inZip));
-  check(top, target.name, !target.sub);
+  check(top, target.name, !target.sub, inZip, target.allow || {});
   return top;
 }
 
