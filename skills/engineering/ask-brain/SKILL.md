@@ -1,140 +1,96 @@
 ---
 name: ask-brain
-description: "Router for the optimal-brain pack: recommends the right skill or flow (research, vault, loops, architecture, review, writing) for what you're doing. Use when the user asks which skill to use, where to start, or how the pieces fit together."
-disable-model-invocation: true
+description: "Router for the whole optimal-brain pack: given a task, picks the single best skill or an ordered chain of skills, says why, and says what to skip. Use when the user is unsure which skill to use, asks what to do next or where to start, or describes a task without naming a skill."
 ---
 
 # Ask Brain
 
-You don't remember every skill, so ask.
+You don't remember every skill, so ask. This skill turns a task into a route: one skill, or an ordered chain.
 
-**Lineage:** Evolved from Matt Pocock's `ask-matt` in [mattpocock/skills](https://github.com/mattpocock/skills). Engineering flows unchanged; this fork adds Knowledge, Research & Learning routing.
+## How to route
 
-A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone.
+1. **Read the task.** Match it to an intent in the routing table below. If it spans several intents, use a chain from Common chains.
+2. **Check preconditions.** Engineering skills that touch the tracker need `setup-optimal-brain` first; vault skills need `setup-knowledge-vault` (or `setup-optimal-brain` with a vault); loops need `setup-agent-loops`. If `.agent/context/` already has the config, skip setup.
+3. **Answer in this shape:**
+   - **Route:** `skill` or `skill-a → skill-b → skill-c`
+   - **Why:** one line per step, tied to the user's task.
+   - **Skip:** skills that look relevant but aren't, and why (e.g. "skip `triage`: these issues came from `to-issues` and are already agent-ready").
+   - **Start with:** the exact first command to run.
+4. **Ambiguous?** Ask **one** clarifying question (usually: "Is there a codebase?" or "Is this one session or several?"), then route. Never ask more than one.
+5. Recommend only skills in the table. Don't invent skills. If nothing fits, say so and suggest the closest one.
+
+## Routing table
+
+Every skill in the pack appears here exactly once as a row. Model-invoked skills (no slash needed) are marked *auto*; the agent applies them on its own when the situation matches.
+
+| Intent | Skill | Use it for |
+| ------ | ----- | ---------- |
+| Start a project | `setup-optimal-brain` | First run in a repo: issue tracker, triage labels, doc layout, vault write-back rules. |
+| Start a project | `setup-knowledge-vault` | First run for a personal/research vault: location, PDF companions, learning records. |
+| Start a project | `setup-agent-loops` | Before autonomous loops: verification commands, stop rules, scope, recipes. |
+| Understand a codebase | `seed-vault-from-repo` | Fill the vault from an existing repo (code, docs, ADRs, CI); `resync` after big merges. |
+| Understand a codebase | `codebase-design` | *auto*. Shared vocabulary for deep modules, seams and interfaces. |
+| Understand a codebase | `domain-modeling` | *auto*. Pin down domain terms (CONTEXT.md) and record architectural decisions. |
+| Understand a codebase | `vault-context-canvas` | Draw an Obsidian canvas of how vault notes connect. |
+| Research with papers/PDFs | `research-from-vault` | *auto*. Answer questions from vault PDFs and notes, with citations; save web sources into the vault. |
+| Research with papers/PDFs | `project-notes` | Your own reflections in the project's Personal Notes folder; the agent won't overwrite them. |
+| Research with papers/PDFs | `obsidian-vault` | *auto* (personal). Find, create and organise Obsidian notes with wikilinks. |
+| Plan a feature | `grill-with-docs` | Interview to sharpen an idea in a repo; writes ADRs and CONTEXT.md as decisions land. |
+| Plan a feature | `grill-me` | Same interview with no codebase; saves nothing. |
+| Plan a feature | `grilling` | *auto*. The shared interview discipline behind the grill skills. |
+| Plan a feature | `decision-mapping` | Fuzzy idea with many unknowns: sequenced investigation tickets, resolved one by one. |
+| Plan a feature | `system-architect` | Non-trivial system design: discovery, as-is review, target design, migration. |
+| Plan a feature | `prototype` | Throwaway code when a question needs a runnable answer (state, logic, UI). |
+| Plan a feature | `to-prd` | Turn the current conversation into a PRD. |
+| Plan a feature | `to-issues` | Split a PRD into independent, agent-ready issues. |
+| Build | `implement` | Build a PRD or issue end to end, test-first, gated on review. |
+| Build | `tdd` | *auto*. Red-green-refactor for any feature or fix. |
+| Build | `until-done` | Goal-based loop: keep going until verification passes or a stop rule fires. |
+| Build | `agent-loop` | *auto*. The loop discipline used by `until-done` and `implement`. |
+| Debug | `diagnosing-bugs` | *auto*. Diagnosis loop for hard bugs and performance regressions. |
+| Debug | `resolving-merge-conflicts` | *auto*. Resolve an in-progress merge or rebase conflict. |
+| Review | `two-axis-review` | *auto*. Review changes on Standards and Spec separately; ranked findings, one verdict. |
+| Review | `improve-codebase-architecture` | Spare-moment health check: HTML report of shallow modules, then grill one. |
+| Review | `triage` | Raw incoming issues and external PRs: categorise, verify, write agent-ready briefs. |
+| Write an article | `write-from-vault` | Turn vault notes into a sourced article, every claim traced to a note. |
+| Write an article | `edit-article` | (personal) Restructure and tighten an existing draft. |
+| Write an article | `writing-great-skills` | Write or edit a SKILL.md so it triggers and behaves predictably. |
+| Learn a topic | `teach` | Multi-session tutor; learning records bridge into the vault. |
+| Keep the vault current | `vault-sync` | End of a session: update stale notes, capture missed decisions, log the session. |
+| Hand off | `handoff` | Context is getting long or you're switching sessions/agents: write a handoff file. |
+| Hand off | `ask-brain` | This router. Run it again whenever you're unsure what's next. |
+| Repo safety (opt-in) | `git-guardrails-claude-code` | (misc) Claude Code hooks that block destructive git commands. |
+| Repo safety (opt-in) | `setup-pre-commit` | (misc) Husky + lint-staged pre-commit hooks for formatting, types and tests. |
+
+## Common chains
+
+| Situation | Chain |
+| --------- | ----- |
+| New repo, first time | `setup-optimal-brain` → `seed-vault-from-repo` → `vault-context-canvas` (optional) |
+| Feature in a repo | `grill-with-docs` → `to-prd` → `to-issues` → `implement` (one fresh session per issue) → `two-axis-review` → `vault-sync` |
+| Small change, one session | `grill-with-docs` (short) → `implement` → `vault-sync` |
+| PhD / literature work | `setup-knowledge-vault` → `research-from-vault` → `write-from-vault` → `vault-sync` |
+| Learn a field from your papers | `setup-knowledge-vault` → `teach` → `project-notes` |
+| Question needs runnable code | `handoff` → `prototype` (fresh session) → `handoff` back → continue the plan |
+| Fuzzy idea, many unknowns | `decision-mapping` → `grill-with-docs` → `to-prd` |
+| System design | `system-architect` → `to-prd` → `to-issues` → `implement` |
+| Hard bug | `diagnosing-bugs` → `tdd` (regression test) → `two-axis-review` |
+| Backlog of raw issues | `triage` → `implement` |
+| Let the agent iterate unattended | `setup-agent-loops` → `until-done` |
+| Codebase upkeep | `improve-codebase-architecture` → `grill-with-docs` → main flow |
+| Plan with no codebase | `grill-me` |
 
 ## The main flow: idea → ship
 
-The route most work travels. You have an idea and want it built.
+1. **`/grill-with-docs`** to sharpen the idea (no codebase: `/grill-me`). If a question needs runnable code, detour through `/prototype` with `/handoff` in both directions.
+2. **Several sessions?** `/to-prd` → `/to-issues`, then one fresh session per issue running `/implement` with the PRD and that issue. **One session?** `/implement` right here.
+3. **`/two-axis-review`**: `/implement` runs it as the final gate; run it yourself on any branch.
+4. **`/vault-sync`** so the vault records what changed and what was decided.
 
-1. **`/grill-with-docs`** — sharpen the idea by interview. Start here when you **have a codebase**: it's stateful, retaining what it learns in `CONTEXT.md` and ADRs. (No codebase? Use `/grill-me` — see Standalone.)
-2. **Branch — can you settle every question in conversation?** If a question needs a runnable answer (state, business logic, a UI you have to see), detour through a prototype, bridged by **`/handoff`** in both directions (see Crossing sessions):
-   - **`/handoff`** out, then open a fresh session against that file,
-   - **`/prototype`** to answer the question with throwaway code,
-   - **`/handoff`** back what you learned, and reference it from the original idea thread.
-3. **Branch — is this a multi-session build?**
-   - **Yes** → **`/to-prd`** (turn the thread into a PRD) → **`/to-issues`** (split the PRD into independently-grabbable issues). Because the issues are independent, **clear context between each one**: start a fresh session per issue and kick off **`/implement`** by passing it the PRD and the single issue to work on.
-   - **No** → **`/implement`** right here, in the same context window.
-4. **`/two-axis-review`** — `/implement` runs it as its final gate. Run it yourself on any branch or PR ("review since main"): Standards and Spec axes kept separate, findings ranked `blocker` → `nit`, one verdict.
+Don't `/triage` issues that `/to-issues` made; they're already agent-ready.
 
 ### Context hygiene
 
-Keep steps 1–3 in **one unbroken context window** — don't compact or clear until after `/to-issues` — so the grilling, PRD, and issues all build on the same thinking. Each `/implement` then starts fresh, working from the issue.
+Keep grilling, PRD and issues in **one unbroken conversation** so they build on the same thinking; don't compact or clear until after `/to-issues`. Each `/implement` then starts fresh from its issue.
 
-The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~120k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/to-issues`, don't push on degraded — `/handoff` and continue in a fresh thread.
-
-## On-ramps
-
-A starting situation that generates work, then merges onto the main flow.
-
-- **Bugs and requests piling up** → **`/triage`**. It moves issues through triage roles and produces agent-ready issues, which **`/implement`** later picks up.
-
-  Triage is only for issues **you didn't create** — bug reports, incoming feature requests, anything that arrives raw. Issues that `/to-issues` produced are already agent-ready, so **don't triage them**.
-
-## Codebase health
-
-Not feature work — upkeep.
-
-- **`/improve-codebase-architecture`** — run whenever you have a spare moment to keep the codebase good for agents to operate in. It surfaces deepening opportunities; picking one _generates an idea_ you can take into the main flow at `/grill-with-docs`.
-
-## Crossing sessions
-
-- **`/handoff`** — when a thread is full or you need to branch off (e.g. into a `/prototype` session), this compacts the conversation into a markdown file. You don't continue in place — you **open a new session and reference that file** to carry the context across. It's the bridge between context windows, in either direction. Use it when you want a **fresh session** but need the **current conversation preserved**.
-- **`/compact`** (built-in) — stay in the **same conversation**, letting the earlier turns be summarized. Use it at **intentional breaks between phases**, when you don't mind losing the verbatim history. Don't compact mid-phase — the agent can lose its way. `/handoff` forks; `/compact` continues.
-
-## Standalone
-
-Off the main flow entirely.
-
-- **`/grill-me`** — the same relentless interview as `/grill-with-docs`, but for when you have **no codebase**. Stateless: it saves nothing locally, builds no `CONTEXT.md`. Reach for it to sharpen any plan or design that doesn't live in a repo.
-- **`/teach`** — learn a concept over multiple sessions, using the current directory as a stateful workspace. When a vault is configured, learning records and resources bridge to the vault for long-term use and cross-linking.
-- **`/write-from-vault`** — when you want to publish what you've learned: mines the vault, builds an argument, writes beat by beat with a claim ledger. See Knowledge, Research & Learning.
-- **`/writing-great-skills`** — reference for writing and editing skills well.
-
-## Agent loops
-
-When you want the agent to **iterate autonomously** until an objective says done — without prompting every step.
-
-- **`/setup-agent-loops`** — run once per repo to configure verification commands, stop rules, and scope. Do this after `/setup-optimal-brain` (or standalone if you only need loops).
-- **`/until-done`** — goal-based loop: you hand off the stop condition ("fix this test", "implement issue #42"). Cursor's equivalent of `/goal`.
-- **Cursor `/loop`** — time-based recurrence (`/loop 5m …`, `/loop 1h /triage`). Combine with recipes in the `setup-agent-loops` skill folder.
-- **`/implement`** — uses agent-loop stop rules when `.agent/context/loops.md` exists (fallback: `docs/agents/loops.md`); iterate until verifiers pass within the iteration cap.
-
-**When to use which:**
-
-| Situation | Reach for |
-| --------- | --------- |
-| One-shot fix with clear done signal | `/until-done` |
-| Implementing an issue from `/to-issues` | Fresh session + `/implement` (or `/until-done` with issue ref) |
-| Recurring maintenance while you work | `/loop 30m …` |
-| Incoming issues piling up | `/loop 1h /triage` |
-| PR failing CI | Cursor `babysit` skill |
-| Need a quality gate before the loop stops | `/two-axis-review` in gate mode (FAIL counts as a failing verifier) |
-| Want to delegate a recurring job but it's fuzzy | `/setup-agent-loops` → design a custom workflow path |
-
-## Solution & system architecture
-
-When system design is non-trivial — multiple views (domain, data, security, NFR), as-is vs target, or migration sequencing — use the orchestrator rather than only grilling or only code deepening.
-
-- **`/system-architect`** — user-invoked orchestrator. Engagements: `discovery`, `as_is_review`, `target_design`, `migration`. Selects ≤6 competence **role briefs** (not separate slash skills), writes `.agent/context/architecture-sessions/`, proposes ADRs, hands off to `/to-prd`. Parallel subagents when available; sequential fallback elsewhere.
-- **`/improve-codebase-architecture`** — deepen shallow modules in an existing codebase (HTML report). Use alone for code health; use inside `as_is_review` when system-architect runs.
-- **`/decision-mapping`** — fog of war / multi-session investigation tickets. System-architect bootstraps this when open questions need their own map.
-
-**When to use which:**
-
-| Situation | Reach for |
-| --------- | --------- |
-| Greenfield problem framing | `/system-architect` discovery |
-| Understand current system risks/seams | `/system-architect` as_is_review |
-| Propose target + ADRs | `/system-architect` target_design |
-| Phased cutover from as-is to target | `/system-architect` migration |
-| Only deepen one shallow module | `/improve-codebase-architecture` |
-| Many investigation tickets over sessions | `/decision-mapping` |
-| Architecture hub ready to build | `/to-prd` (see system-architect recipe `architecture-to-prd`) |
-
-## Knowledge, Research & Learning
-
-When you want to build or consult durable personal knowledge, learn over sessions, or synthesize from PDFs/notes/transcripts (your vault) and external sources. The **context graph** adds governance: global validity in vault Context Index, project filter in `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`).
-
-- **`/teach`** — multi-session learning using the current directory as workspace. When a vault is configured (`.agent/context/knowledge-vault.md`, fallback: `docs/agents/knowledge-vault.md`), learning records are bridged to vault form (Title Case wikilinked notes) and RESOURCES can reference vault-local PDFs and notes.
-- **`/setup-knowledge-vault`** — run once per vault (or major workspace). Configures location, learning record conventions, PDF companion rules, and how teach/research/loops consume the vault. Can also wire in optional third-party external research (davidondrej research-and-web, installed separately).
-- **`/seed-vault-from-repo`** — after setup, seed the vault from an existing repo (code, docs, ADRs, plans, CI): per-unit Findings, Decision Traces, Plans, and Shared contracts, all citing paths and commit. `resync` updates stale notes only.
-- **`research-from-vault`** (model-invoked) — reusable discipline for research and synthesis from the vault. Rich triggers: "research X using my vault", "consult the knowledge vault", "synthesize from PDFs and notes". Reads the config and emits wikilinked notes + learning records.
-- External research ingestion (optional, third-party): the user may install `davidondrej/skills` (focus `research-and-web`), use its browser/YT/web skills to pull fresh material, land sources in the vault, then synthesize via `research-from-vault` or `/teach`.
-- Maintenance loops: Cursor `/loop` + recipes in `setup-knowledge-vault/recipes/` (ingest sources, research a topic, maintain indexes, maintain context graph, ingest-external-then-synthesize).
-
-**When to use which:**
-
-| Situation | Reach for |
-| --------- | --------- |
-| Want to deeply learn a topic over time | `/teach` (vault bridge happens automatically when configured) |
-| First time setting up personal knowledge | `/setup-knowledge-vault` |
-| Vault should know an existing codebase / monorepo | `/seed-vault-from-repo` (then `resync` after big merges) |
-| Need synthesis from existing PDFs/notes in vault | `research-from-vault` (or `/until-done Research X from vault`) |
-| Need fresh external info + durable capture | Use davidondrej research skills → save to vault → `research-from-vault` or `/teach` |
-| Recurring processing of new vault material | `/loop 1d ...` with a recipe from setup-knowledge-vault |
-| Knowledge gap during engineering/loop | Agent reaches `research-from-vault` (or you say "use the vault") |
-| Need governed context / what's still valid? | Read vault Context Index + `.agent/context/project-context.md` (fallback: `docs/agents/project-context.md`); recipe `maintain-context-graph.md` |
-| Loose idea needing multi-session investigation | `/decision-mapping` — sequenced tickets under `.agent/context/decision-maps/` |
-| Turn vault research into an article/post/memo | `/write-from-vault` — fragments → shape → beats, every claim cited to a note |
-| Personal reflection during/after research | `/project-notes` — notes in vault `{ProjectFolder}/Personal Notes/` |
-| Visual context graph in Obsidian | `/vault-context-canvas` — JSON Canvas at `{ProjectFolder}/Context Graph.canvas` |
-
-See also the brain architecture in `docs/agents/brain.md` (package repo examples; consumer repos use `.agent/context/` for per-repo config).
-
-## Precondition
-
-**`/setup-optimal-brain`** — run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
-
-**`/setup-agent-loops`** — run before `/until-done` or unattended iteration. Optional but recommended for any repo where the agent should loop until tests pass.
-
-**`/setup-knowledge-vault`** — run before relying on vault-backed learning, research, or loops that consult personal knowledge sources.
+Models reason less sharply as a conversation gets very long, well before the hard limit of what they can hold. If a session is getting long before you reach `/to-issues`, don't push on: run `/handoff` and continue in a fresh session. `/handoff` starts a new session with the context carried over in a file; the built-in `/compact` keeps the same session and summarises earlier turns. Use `/compact` only at clean breaks between phases.
