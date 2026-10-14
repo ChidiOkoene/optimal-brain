@@ -10,6 +10,7 @@ Long-term memory for coding agents, kept in an Obsidian vault. It has six skills
 | `write-from-vault` | Turn notes into a sourced article, with a claim ledger and Markdown export |
 | `project-notes` | Personal notes in the vault, separate from agent-written notes |
 | `vault-context-canvas` | An Obsidian JSON Canvas of how notes connect |
+| `vault-sync` | Session-end sync: stale notes flagged or updated, missed decisions captured |
 
 ## Install and use
 

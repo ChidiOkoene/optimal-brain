@@ -133,6 +133,8 @@ For "other" issue trackers, write `.agent/context/issue-tracker.md` from scratch
 
 If the user agreed to architecture sessions, create `.agent/context/architecture-sessions/` (empty is fine).
 
+**Vault write-back.** If `.agent/context/knowledge-vault.md` exists, write the marker-delimited `## Vault write-back` block from [VAULT-WRITE-BACK.md](./VAULT-WRITE-BACK.md) into `AGENTS.md`, and into `CLAUDE.md` as well if it exists (this is the one block that goes into both, so every agent sees it). If the markers already exist, replace only what's between them. No vault configured yet: skip it and say `/setup-knowledge-vault` will add it.
+
 ### 5. Done
 
 Tell the user the setup is complete and which engineering skills will now read from `.agent/context/`. Mention they can edit `.agent/context/*.md` directly later — re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
@@ -153,5 +155,5 @@ Follow the **Git** section of `AGENT-CONTEXT-PATH.md` in `/setup-knowledge-vault
    .scratch/
    ```
    If any of them is already tracked, tell the user to run `git rm --cached <file>`.
-2. **Tell the user what to commit:** the rest of `.agent/context/`, the `## Agent skills` block in `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, and `docs/adr/`. Shared config gives every teammate and agent the same tracker, labels, and verification. The ignored files hold machine-specific vault paths. Don't commit for them.
+2. **Tell the user what to commit:** the rest of `.agent/context/`, the `## Agent skills` and `## Vault write-back` blocks in `AGENTS.md`/`CLAUDE.md`, `CONTEXT.md`, and `docs/adr/`. Shared config gives every teammate and agent the same tracker, labels, and verification. The ignored files hold machine-specific vault paths. Don't commit for them.
 3. **Teams:** offer to write a committed `.agent/context/knowledge-vault.example.md` (placeholder paths) so teammates can copy it to their own gitignored `knowledge-vault.md`.

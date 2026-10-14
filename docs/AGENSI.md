@@ -13,8 +13,8 @@ The guides it's checked against:
 
 | Zip | Contents | Why |
 |-----|----------|-----|
-| `optimal-brain-full.zip` (upload first) | Root `SKILL.md` router + all 35 skills under `skills/` as subfolders (engineering, productivity, personal, misc). Routes new users to `setup-optimal-brain`. `setup-pre-commit` and `git-guardrails-claude-code` are marked opt-in. | The full optimal-brain experience in one install. Pack-root `README.md` documents every skill (`"readme": "root"` in the config). |
-| `optimal-brain-vault-pack.zip` | Root `SKILL.md` router + `setup-knowledge-vault`, `research-from-vault`, `seed-vault-from-repo`, `write-from-vault`, `project-notes`, `vault-context-canvas` as subfolders | These skills depend on each other (all read `.agent/context/knowledge-vault.md`), so they ship together. |
+| `optimal-brain-full.zip` (upload first) | Root `SKILL.md` router + all 36 skills under `skills/` as subfolders (engineering, productivity, personal, misc). Routes new users to `setup-optimal-brain`. `setup-pre-commit` and `git-guardrails-claude-code` are marked opt-in. | The full optimal-brain experience in one install. Pack-root `README.md` documents every skill (`"readme": "root"` in the config). |
+| `optimal-brain-vault-pack.zip` | Root `SKILL.md` router + `setup-knowledge-vault`, `research-from-vault`, `seed-vault-from-repo`, `write-from-vault`, `project-notes`, `vault-context-canvas`, `vault-sync` as subfolders | These skills depend on each other (all read `.agent/context/knowledge-vault.md`), so they ship together. |
 | `two-axis-review.zip` | `two-axis-review` alone | Self-contained, with a worked example. |
 
 The guides don't say whether one listing may contain several skill folders under a root `SKILL.md`. **Confirm that with Agensi before uploading the pack.** If it isn't allowed, upload the per-skill zips from `--all` instead; the vault skills will then need `setup-knowledge-vault` installed too.

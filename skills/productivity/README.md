@@ -22,4 +22,5 @@ Reachable only when you type them (`disable-model-invocation: true`).
 Model- or user-reachable (rich trigger phrasing so the model can reach for them).
 
 - **[grilling](./grilling/SKILL.md)** — Interview the user relentlessly about a plan or design until every branch of the decision tree is resolved.
+- **[vault-sync](./vault-sync/SKILL.md)** — Bring the vault up to date at session end: diff git since the last sync, update or flag stale notes, capture missed decisions, append a session note.
 - **[research-from-vault](./research-from-vault/SKILL.md)** — Reusable research and synthesis from the configured vault (supports ingested external sources).
