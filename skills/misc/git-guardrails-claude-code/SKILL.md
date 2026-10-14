@@ -21,7 +21,7 @@ When blocked, Claude sees a message telling it that it does not have authority t
 
 ### 1. Ask scope
 
-Ask the user: install for **this project only** (`.claude/settings.json`) or **all projects** (`~/.claude/settings.json`)?
+Ask the user: install for **this project only** (`.claude/settings.json`, the default) or **all projects** (`~/.claude/settings.json`)? Only touch files under `~/.claude/` if the user explicitly picks all projects.
 
 ### 2. Copy the hook script
 

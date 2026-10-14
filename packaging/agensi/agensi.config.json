@@ -2,6 +2,58 @@
   "$comment": "Agensi listings built by scripts/package-agensi.mjs. See docs/AGENSI.md.",
   "packs": [
     {
+      "name": "optimal-brain-full",
+      "root": "packaging/agensi/optimal-brain-full",
+      "skills": [
+        "skills/engineering/agent-loop",
+        "skills/engineering/ask-brain",
+        "skills/engineering/codebase-design",
+        "skills/engineering/diagnosing-bugs",
+        "skills/engineering/domain-modeling",
+        "skills/engineering/grill-with-docs",
+        "skills/engineering/implement",
+        "skills/engineering/improve-codebase-architecture",
+        "skills/engineering/prototype",
+        "skills/engineering/resolving-merge-conflicts",
+        "skills/engineering/setup-agent-loops",
+        "skills/engineering/setup-optimal-brain",
+        "skills/engineering/system-architect",
+        "skills/engineering/tdd",
+        "skills/engineering/to-issues",
+        "skills/engineering/to-prd",
+        "skills/engineering/triage",
+        "skills/engineering/two-axis-review",
+        "skills/engineering/until-done",
+        "skills/misc/git-guardrails-claude-code",
+        "skills/misc/setup-pre-commit",
+        "skills/personal/edit-article",
+        "skills/personal/obsidian-vault",
+        "skills/productivity/decision-mapping",
+        "skills/productivity/grill-me",
+        "skills/productivity/grilling",
+        "skills/productivity/handoff",
+        "skills/productivity/project-notes",
+        "skills/productivity/research-from-vault",
+        "skills/productivity/seed-vault-from-repo",
+        "skills/productivity/setup-knowledge-vault",
+        "skills/productivity/teach",
+        "skills/productivity/vault-context-canvas",
+        "skills/productivity/write-from-vault",
+        "skills/productivity/writing-great-skills"
+      ],
+      "optIn": [
+        "skills/misc/setup-pre-commit",
+        "skills/misc/git-guardrails-claude-code"
+      ],
+      "allow": {
+        "git-guardrails-claude-code/SKILL.md": [
+          "global config write"
+        ],
+        "$comment": "Opt-in skill. Global ~/.claude/settings.json is only written if the user explicitly picks 'all projects'; project scope is the default."
+      },
+      "readme": "root"
+    },
+    {
       "name": "optimal-brain-vault-pack",
       "root": "packaging/agensi/optimal-brain-vault-pack",
       "skills": [
@@ -13,6 +65,9 @@
         "skills/productivity/vault-context-canvas"
       ]
     },
-    { "name": "two-axis-review", "skill": "skills/engineering/two-axis-review" }
+    {
+      "name": "two-axis-review",
+      "skill": "skills/engineering/two-axis-review"
+    }
   ]
 }

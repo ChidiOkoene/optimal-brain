@@ -13,6 +13,7 @@ The guides it's checked against:
 
 | Zip | Contents | Why |
 |-----|----------|-----|
+| `optimal-brain-full.zip` (upload first) | Root `SKILL.md` router + all 35 skills under `skills/` as subfolders (engineering, productivity, personal, misc). Routes new users to `setup-optimal-brain`. `setup-pre-commit` and `git-guardrails-claude-code` are marked opt-in. | The full optimal-brain experience in one install. Pack-root `README.md` documents every skill (`"readme": "root"` in the config). |
 | `optimal-brain-vault-pack.zip` | Root `SKILL.md` router + `setup-knowledge-vault`, `research-from-vault`, `seed-vault-from-repo`, `write-from-vault`, `project-notes`, `vault-context-canvas` as subfolders | These skills depend on each other (all read `.agent/context/knowledge-vault.md`), so they ship together. |
 | `two-axis-review.zip` | `two-axis-review` alone | Self-contained, with a worked example. |
 
@@ -49,7 +50,7 @@ The packager has no dependencies and writes reproducible zips (fixed timestamps)
 |------------|--------|-------|
 | **Scan 1: prompt injection** (no hidden or overriding instructions) | ✅ No hidden instructions. Loops have explicit stop rules and "forbidden without approval" lists. | `agent-loop/STOP-RULES.md` |
 | **Scan 2: data exfiltration** (no reads outside scope, no secret env vars) | ✅ The vault skills read and write only the repo and the vault path the user types. `setup-knowledge-vault` asks instead of probing the disk. `seed-vault-from-repo` never opens `.env*` or credentials. | skill READMEs, descriptions |
-| **Scan 3: dangerous commands** | ✅ for listed zips. `git-guardrails-claude-code` (global `~/.claude` writes) and `setup-pre-commit` (`npx` installs) are `misc/` and never packaged. | packager exclusions |
+| **Scan 3: dangerous commands** | ✅ for the vault pack and two-axis-review. ⚠️ The full pack includes two opt-in `misc/` skills: `setup-pre-commit` (installs Husky, lint-staged, Prettier as repo dev dependencies) and `git-guardrails-claude-code` (writes a Claude Code hook; `~/.claude/settings.json` only if the user picks "all projects", project scope is the default). The packager allows that one `~/.claude/settings` match via the pack's `allow` list and prints a warning; Agensi's own scanner may still flag it. | `agensi.config.json` `allow`, router "Opt-in tools" |
 | **Scan 4: hardcoded secrets** | ✅ None. The TDD mocking example uses a placeholder `PAYMENT_API_KEY`, marked illustrative. | scan rule "hardcoded secret" |
 | **Scan 5: obfuscated code** | ✅ Readable Markdown and one commented Python script. | scan rule "obfuscated blob" |
 | **Scan 6: suspicious network access** | ✅ No network calls. External web research is an optional third-party pack the user installs themselves, documented as such. | `export.py` header, research-from-vault |
@@ -60,10 +61,22 @@ The packager has no dependencies and writes reproducible zips (fixed timestamps)
 | **Checklist: extra frontmatter fields valid** | ✅ `disable-model-invocation` and `argument-hint` are valid YAML (optional, agent-specific). | |
 | **Checklist: specific instructions and output format** | ✅ for listed skills | |
 | **Checklist: tested in at least two agents** | ✅ Cursor; OpenCode 1.19.0 with `anthropic/claude-sonnet-5.5` via OpenRouter (tested 2026-10-13, headless, 6 scenarios, see below). Claude Code itself is still untested. | see below |
-| **Checklist: self-contained** | ✅ for the two zips. ⚠️ Some `--all` per-skill zips are thin wrappers (e.g. `grill-me` calls `/grilling`) or expect setup skills. Don't list those alone. | |
+| **Checklist: self-contained** | ✅ for the three zips (cross-bucket links such as `../../productivity/setup-knowledge-vault/…` are rewritten to the flattened copy). ⚠️ Some `--all` per-skill zips are thin wrappers (e.g. `grill-me` calls `/grilling`) or expect setup skills. Don't list those alone. | |
 | **Checklist: at least one supporting file or example** | ✅ for listed skills (`examples/` in research-from-vault, setup-knowledge-vault, seed-vault-from-repo, write-from-vault, two-axis-review). ⚠️ project-notes and vault-context-canvas have format references but no examples. | |
 | **Checklist: README.md in skill folder** | ✅ for every listed skill and the pack root, enforced in CI. | |
 | **Checklist: no OS junk files** | ✅ Excluded by the packager. | |
+
+## Full pack smoke test: OpenCode (2026-10-14)
+
+OpenCode 1.19.0, headless, `anthropic/claude-sonnet-5.5` via OpenRouter. `optimal-brain-full.zip` unzipped into a scratch Node repo's `.opencode/skills/`. 2 runs, about $0.12.
+
+| Scenario | Result |
+|----------|--------|
+| Skill discovery: lists all 35 skills plus the router (and OpenCode's built-in skill) | Pass |
+| "I just installed optimal-brain, what first?" routes to `setup-optimal-brain`, mentions optional setups and that the two misc skills are opt-in | Pass |
+| "Set up optimal-brain for this repo": loads `setup-optimal-brain`, explores, reads its templates (including the rewritten link into `setup-knowledge-vault/templates/`), proposes `.agent/context/` files and stops for confirmation with nothing written | Pass |
+
+Not exercised in this smoke test: the engineering flows (`to-prd`, `implement`, …), loops, and the opt-in skills.
 
 ## Second-agent test: OpenCode (2026-10-13)
 
