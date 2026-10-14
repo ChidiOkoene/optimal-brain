@@ -59,3 +59,5 @@ The loop is done when verification passes and a success brief is presented, **or
 For **significant** research or engineering goals (multi-step synthesis, architecture changes, non-obvious fixes), emit a decision trace when configured:
 - Research: vault `Decision Traces/` (see `setup-knowledge-vault/templates/decision-trace-template.md`)
 - Engineering: repo `.agent/context/decision-traces/` (fallback: `docs/agents/decision-traces/`) when that folder exists
+
+**Vault:** when this finishes, update the vault per the `## Vault write-back` block in `AGENTS.md`/`CLAUDE.md`, or run `/vault-sync`.

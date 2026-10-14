@@ -1,11 +1,11 @@
 ---
 name: optimal-brain-full
-description: Router for the full optimal-brain pack (35 agent skills for engineering, planning, review, agent loops, and an Obsidian knowledge vault). Starts new users at setup-optimal-brain, then picks the right skill and order for the task. Use when the user first installs optimal-brain, asks which skill to use, wants to plan, build, review or debug with an agent, run an agent loop until done, or keep research and repo knowledge in a vault across sessions.
+description: Router for the full optimal-brain pack (36 agent skills for engineering, planning, review, agent loops, and an Obsidian knowledge vault). Starts new users at setup-optimal-brain, then picks the right skill and order for the task. Use when the user first installs optimal-brain, asks which skill to use, wants to plan, build, review or debug with an agent, run an agent loop until done, or keep research and repo knowledge in a vault across sessions.
 ---
 
 # optimal-brain (full pack)
 
-All 35 optimal-brain skills in one install. Each skill lives in its own folder next to this file; this file is the entry point and routes between them. Read the chosen skill's `SKILL.md` and follow it.
+All 36 optimal-brain skills in one install. Each skill lives in its own folder next to this file; this file is the entry point and routes between them. Read the chosen skill's `SKILL.md` and follow it.
 
 ## First run
 
@@ -64,6 +64,7 @@ All 35 optimal-brain skills in one install. Each skill lives in its own folder n
 | [write-from-vault](./write-from-vault/SKILL.md) | Turn notes into a sourced article |
 | [project-notes](./project-notes/SKILL.md) | Personal notes the agent won't overwrite |
 | [vault-context-canvas](./vault-context-canvas/SKILL.md) | Obsidian JSON Canvas of how notes connect |
+| [vault-sync](./vault-sync/SKILL.md) | End of session: update stale notes, capture missed decisions |
 | [obsidian-vault](./obsidian-vault/SKILL.md) | Search and manage vault notes with wikilinks |
 | [edit-article](./edit-article/SKILL.md) | Restructure and tighten an article |
 

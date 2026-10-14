@@ -135,3 +135,5 @@ If `.agent/context/knowledge-vault.md` exists (fallback `docs/agents/knowledge-v
 - Not a style preference engine. Unwritten preferences are `nit (non-blocking)` at most.
 
 See [examples/](examples/) for a worked spec, diff, and the expected report. Research behind the design: [REFERENCES.md](REFERENCES.md).
+
+**Vault:** when this finishes, update the vault per the `## Vault write-back` block in `AGENTS.md`/`CLAUDE.md`, or run `/vault-sync`.

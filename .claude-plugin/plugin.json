@@ -31,6 +31,7 @@
     "./skills/productivity/research-from-vault",
     "./skills/productivity/write-from-vault",
     "./skills/productivity/vault-context-canvas",
+    "./skills/productivity/vault-sync",
     "./skills/productivity/writing-great-skills"
   ]
 }

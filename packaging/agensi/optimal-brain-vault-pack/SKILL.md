@@ -22,6 +22,7 @@ This pack turns an Obsidian vault into durable memory for your coding agent. Res
 | Turn research into a sourced article or post, then export it | [write-from-vault](./write-from-vault/SKILL.md) |
 | Jot personal notes the agent won't overwrite | [project-notes](./project-notes/SKILL.md) |
 | See how notes connect, as an Obsidian canvas | [vault-context-canvas](./vault-context-canvas/SKILL.md) |
+| Bring the vault up to date at session end | [vault-sync](./vault-sync/SKILL.md) |
 
 Typical order: setup, then seed (if there's a repo), then research, then write. Read the chosen skill's `SKILL.md` and follow it.
 

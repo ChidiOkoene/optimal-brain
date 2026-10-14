@@ -1,6 +1,6 @@
 # optimal-brain: full pack
 
-All 35 optimal-brain skills in one install, with a router (`SKILL.md`) that starts you at `setup-optimal-brain`.
+All 36 optimal-brain skills in one install, with a router (`SKILL.md`) that starts you at `setup-optimal-brain`.
 
 | Category | Skills |
 |----------|--------|
@@ -8,7 +8,7 @@ All 35 optimal-brain skills in one install, with a router (`SKILL.md`) that star
 | Planning and design | `grilling`, `grill-me`, `grill-with-docs`, `decision-mapping`, `domain-modeling`, `codebase-design`, `system-architect`, `prototype`, `to-prd`, `to-issues`, `triage` |
 | Building, debugging, review | `implement`, `tdd`, `diagnosing-bugs`, `improve-codebase-architecture`, `resolving-merge-conflicts`, `two-axis-review` |
 | Agent loops | `agent-loop`, `until-done` |
-| Knowledge vault and writing | `research-from-vault`, `seed-vault-from-repo`, `write-from-vault`, `project-notes`, `vault-context-canvas`, `obsidian-vault`, `edit-article` |
+| Knowledge vault and writing | `research-from-vault`, `seed-vault-from-repo`, `write-from-vault`, `project-notes`, `vault-context-canvas`, `vault-sync`, `obsidian-vault`, `edit-article` |
 | Learning and handoffs | `teach`, `handoff`, `writing-great-skills` |
 | Opt-in tools | `setup-pre-commit`, `git-guardrails-claude-code` |
 

@@ -47,3 +47,5 @@ When the loop ends, present:
 4. **Next step** — one concrete action for the human, if any
 
 Keep the brief decision-ready — not a raw log dump.
+
+**Vault:** when this finishes, update the vault per the `## Vault write-back` block in `AGENTS.md`/`CLAUDE.md`, or run `/vault-sync`.

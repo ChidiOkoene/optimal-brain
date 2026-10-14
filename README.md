@@ -96,6 +96,7 @@ optimal-brain is an MIT-licensed fork of [mattpocock/skills](https://github.com/
 - **[decision-mapping](./skills/productivity/decision-mapping/SKILL.md)** (user): turn a loose idea into a sequenced map of investigation tickets and drive them to resolution.
 - **[teach](./skills/productivity/teach/SKILL.md)** (user): multi-session teaching workspace, bridged to the vault.
 - **[write-from-vault](./skills/productivity/write-from-vault/SKILL.md)** (user): turn vault research into a sourced article (fragments → shape → beats) with a claim ledger; every claim traced to a note, superseded notes never cited.
+- **[vault-sync](./skills/productivity/vault-sync/SKILL.md)** (model): keep the vault current: diff git since the last sync, update or flag stale notes, capture missed decisions and review findings, append a session note.
 
 ### Loops layer
 
