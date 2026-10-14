@@ -133,7 +133,7 @@ For "other" issue trackers, write `.agent/context/issue-tracker.md` from scratch
 
 If the user agreed to architecture sessions, create `.agent/context/architecture-sessions/` (empty is fine).
 
-**Vault write-back.** If `.agent/context/knowledge-vault.md` exists, write the marker-delimited `## Vault write-back` block from [VAULT-WRITE-BACK.md](./VAULT-WRITE-BACK.md) into `AGENTS.md`, and into `CLAUDE.md` as well if it exists (this is the one block that goes into both, so every agent sees it). If the markers already exist, replace only what's between them. No vault configured yet: skip it and say `/setup-knowledge-vault` will add it.
+**Vault write-back.** If `.agent/context/knowledge-vault.md` exists, write the marker-delimited `## Vault write-back` block from [VAULT-WRITE-BACK.md](../../productivity/setup-knowledge-vault/VAULT-WRITE-BACK.md) into `AGENTS.md`, and into `CLAUDE.md` as well if it exists (this is the one block that goes into both, so every agent sees it). If the markers already exist, replace only what's between them. No vault configured yet: skip it and say `/setup-knowledge-vault` will add it.
 
 ### 5. Done
 

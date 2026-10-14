@@ -157,7 +157,7 @@ Point the user at the starter recipes in this skill folder:
 
 ### Vault write-back
 
-After writing `knowledge-vault.md`, write the marker-delimited `## Vault write-back` block from [VAULT-WRITE-BACK.md](../../engineering/setup-optimal-brain/VAULT-WRITE-BACK.md) into `AGENTS.md` (create it only if neither `AGENTS.md` nor `CLAUDE.md` exists), and into `CLAUDE.md` too if it exists. Idempotent: replace only the text between the markers if they're already there. This is what keeps the vault updated while the user works; `/vault-sync` catches anything missed.
+After writing `knowledge-vault.md`, write the marker-delimited `## Vault write-back` block from [VAULT-WRITE-BACK.md](./VAULT-WRITE-BACK.md) into `AGENTS.md` (create it only if neither `AGENTS.md` nor `CLAUDE.md` exists), and into `CLAUDE.md` too if it exists. Idempotent: replace only the text between the markers if they're already there. This is what keeps the vault updated while the user works; `/vault-sync` catches anything missed.
 
 ### 5. Done
 
