@@ -1,5 +1,19 @@
 # optimal-brain
 
+## 2.3.0
+
+### Minor Changes
+
+- [#29](https://github.com/ChidiOkoene/optimal-brain/pull/29) [`206b29d`](https://github.com/ChidiOkoene/optimal-brain/commit/206b29d4dcfc1466e6bf8bc92e78a3aaca8a2ea4) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - Add `optimal-brain-full`, a third Agensi pack with all 35 skills and a router that starts at `setup-optimal-brain` (misc skills marked opt-in). The packager now rewrites cross-bucket relative links in packs, allows misc/personal skills when they ship in the zip, and supports a per-pack `allow` list. `obsidian-vault` reads the vault path from `.agent/context/knowledge-vault.md` instead of a hardcoded path; `git-guardrails-claude-code` defaults to project scope.
+
+- [#31](https://github.com/ChidiOkoene/optimal-brain/pull/31) [`0a5e920`](https://github.com/ChidiOkoene/optimal-brain/commit/0a5e9202a028f6009cbedb49996a1fa1d1b34065) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - `ask-brain` is now a true router over all 36 skills: a routing table grouped by intent, common chains (feature, PhD research, existing repo, debugging, loops), and a fixed answer shape (route, why, skip, first command) with at most one clarifying question. Model invocation is enabled so the agent can route when you describe a task without naming a skill. External links removed from the skill; attribution kept as one plain line in its README. `npm run validate` now checks the routing table lists every skill folder and no nonexistent ones.
+
+- [#30](https://github.com/ChidiOkoene/optimal-brain/pull/30) [`bbca756`](https://github.com/ChidiOkoene/optimal-brain/commit/bbca756ec937b33177839a7bbb43b20765006fa8) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - Keep the vault updated while you work. `setup-optimal-brain` and `setup-knowledge-vault` now write an idempotent, marker-delimited `## Vault write-back` block into `AGENTS.md` (and `CLAUDE.md` if present). New `vault-sync` skill diffs git since the last-synced commit, updates or flags stale notes via `source_commit`/`source_paths`, captures missed decisions, and appends a session note; ships a dependency-free `vault-stale.mjs` helper. `two-axis-review`, `agent-loop`, `until-done` and `handoff` point to it when they finish.
+
+### Patch Changes
+
+- [#27](https://github.com/ChidiOkoene/optimal-brain/pull/27) [`45bf240`](https://github.com/ChidiOkoene/optimal-brain/commit/45bf2400413628f480d5b1608159ca429a7439e1) Thanks [@ChidiOkoene](https://github.com/ChidiOkoene)! - Fix `npm run package:agensi` and `npm run validate` on Windows checkouts with CRLF line endings ("SKILL.md has no frontmatter"). Both scripts now normalize CRLF to LF on every read, and the zips always contain LF. A new `.gitattributes` keeps checkouts LF. `npm run test:crlf` runs validate and packaging on a CRLF copy of the repo in CI.
+
 ## 2.2.1
 
 ### Patch Changes
